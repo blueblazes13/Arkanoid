@@ -1,6 +1,8 @@
 package com.lawajo.arkanoid;
 
+import com.lawajo.arkanoid.view.Ball;
 import com.lawajo.arkanoid.view.Block;
+import com.lawajo.arkanoid.view.Slider;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -18,6 +20,11 @@ public class ArkanoidFXMLController {
     @FXML
     private AnchorPane apPlayField;
 
+     //data members
+    private Slider balk;
+    private Ball bal;
+    private Block blok;
+    
     @FXML
     void initialize() {
         /**
@@ -38,5 +45,12 @@ public class ArkanoidFXMLController {
         redBlock.setColor(Color.RED);
         
         apPlayField.getChildren().addAll(greenBlock, redBlock);
+    }
+    
+    
+    public void setDataMembers(Slider balk, Ball bal, Block blok){
+        this.balk = balk;
+        this.bal = bal;
+        this.blok = blok;
     }
 }
