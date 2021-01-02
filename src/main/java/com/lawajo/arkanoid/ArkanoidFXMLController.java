@@ -48,7 +48,7 @@ public class ArkanoidFXMLController {
     }
     
     
-    public void setDataMembers(Slider balk, Ball bal, Block blok){
+    public void setDataMembers(Slider balk, Ball bal, Block blok){ // Kunnen we alsjeblieft in het engels typen??????? Dat is toch gwn de meest logische taal om in te programmeren?
         this.balk = balk;
         this.bal = bal;
         this.blok = blok;
