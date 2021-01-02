@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App   DikkeBoktor
+ * JavaFX App   JeMoeder
  */
 public class App extends Application {
 
