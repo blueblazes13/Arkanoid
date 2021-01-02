@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App   Effe Testen °-°
+ * JavaFX App   JeMoeder
  */
 public class App extends Application {
 
@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("MainMenu"), 600, 300);
+        scene = new Scene(loadFXML("ArkanoidFXML"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
