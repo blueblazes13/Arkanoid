@@ -13,17 +13,20 @@ Model:
 View:
 - Bal
   - Nieuwe locatie bal berekenen
+  - Bal object maken
 
 
 - Blokje
-
+  - Blok object maken
 
 
 - Schuiver
-
+  - Schuif object maken
+  - Verplaats functie voor de schuiver
 
 
 - Boost
+  - Boost object maken
 
 
 
