@@ -64,7 +64,7 @@ public class Block extends Region {
     
     
     /**
-     * Sets the x coordinate of the current block.
+     * Sets the x coordinate of the upperleft corner of the current block.
      * 
      * @param x The new x coordinate of the block.
      */
@@ -75,9 +75,9 @@ public class Block extends Region {
     
     
     /**
-     * Sets the x coordinate of the current block.
+     * Sets the y coordinate of the upperleft corner of the current block.
      * 
-     * @param x The new x coordinate of the block.
+     * @param y The new y coordinate of the block.
      */
     public void setY(int y) {
         this.y = y;
@@ -127,7 +127,7 @@ public class Block extends Region {
     // Getters
 
     /**
-     * Gets the x coordinate of the current block.
+     * Gets the x coordinate of the upperleft corner of the current block.
      * 
      * @return The x coordinate of the block.
      */
@@ -137,7 +137,7 @@ public class Block extends Region {
     
     
     /**
-     * Gets the y coordinate of the current block.
+     * Gets the y coordinate of the upperleft corner of the current block.
      * 
      * @return The y coordinate of the block.
      */
