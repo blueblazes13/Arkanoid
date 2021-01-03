@@ -76,6 +76,10 @@ public class Ball extends Region {
     }
     
     
+    /**
+     * Hits a vertical object. The ball moves and bounces back.
+     * This is automaticly done by the move function.
+     */
     public void hitVertical() {
         int tempX = this.x;
         this.x = this.prevX;
@@ -85,6 +89,10 @@ public class Ball extends Region {
     }
     
     
+    /**
+     * Hits a horizontal object. The ball moves and bounces back.
+     * This is automaticly done by the move function.
+     */
     public void hitHorizontal() {
         int tempY = this.y;
         this.y = this.prevY;
