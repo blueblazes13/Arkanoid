@@ -17,7 +17,7 @@ public class Block extends Region {
     private int lifes;
     private int x;
     private int y;
-    
+   
     
     /**
      * Initializes a new block.
