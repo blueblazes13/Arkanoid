@@ -73,6 +73,12 @@ public class BallModel {
         this.y = y;
     }
     
+    
+    public void tick(){
+        x = x + dx;
+        x = x + dy;   
+    }
+    
     // Getters
     
     

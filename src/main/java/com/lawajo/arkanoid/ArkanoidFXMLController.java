@@ -53,4 +53,9 @@ public class ArkanoidFXMLController {
         this.bal = bal;
         this.blok = blok;
     }
+
+    void update() {
+        
+    }
+
 }
