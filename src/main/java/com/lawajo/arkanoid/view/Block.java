@@ -1,5 +1,6 @@
 package com.lawajo.arkanoid.view;
 
+import com.lawajo.arkanoid.model.BlockModel;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -13,32 +14,22 @@ public class Block extends Region {
     public final static int WIDTH = 45;
     public final static int HEIGHT = 15;
     
-    private Rectangle rect;
     private int lifes;
-    private int x;
-    private int y;
+    
+    private Rectangle rect;
+    private BlockModel model;
    
     
     /**
      * Initializes a new block.
      * 
-     * @param x The x coordinate of the block.
-     * @param y The y coordinate of the block.
+
      */
-    public Block(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.lifes = 1;
+    public Block(BlockModel model) {
         
         this.rect = new Rectangle();
-        this.rect.setWidth(Block.WIDTH);
-        this.rect.setHeight(Block.HEIGHT);
-        this.rect.setFill(Color.GREEN);
-        this.rect.setStroke(Color.BLACK);
-        this.rect.setStrokeWidth(1);
         
         update();
-        this.getChildren().add(this.rect);
     }
     
     
@@ -47,9 +38,9 @@ public class Block extends Region {
     /**
      * Updates the current block to the newest coordinates.
      */
-    private void update() {
-        this.rect.setLayoutX(x);
-        this.rect.setLayoutY(y);
+    public void update() {
+        this.rect.setLayoutX(model.getX());
+        this.rect.setLayoutY(model.getY());
     }
     
     
@@ -62,40 +53,9 @@ public class Block extends Region {
         this.rect.setFill(color);
     }
     
-    
-    /**
-     * Sets the x coordinate of the upperleft corner of the current block.
-     * 
-     * @param x The new x coordinate of the block.
-     */
-    public void setX(int x) {
-        this.x = x;
-        update();
-    }
-    
-    
-    /**
-     * Sets the y coordinate of the upperleft corner of the current block.
-     * 
-     * @param y The new y coordinate of the block.
-     */
-    public void setY(int y) {
-        this.y = y;
-        update();
-    }
-    
-    
-    /**
-     * Sets the current position of the current block.
-     * 
-     * @param x The x coordinate of the block.
-     * @param y The y coordinate of the block.
-     */
-    public void setPos(int x, int y) {
-        this.x = x;
-        this.y = y;
-        update();
-    }
+
+
+
     
     
     /**
@@ -125,25 +85,6 @@ public class Block extends Region {
     
     
     // Getters
-
-    /**
-     * Gets the x coordinate of the upperleft corner of the current block.
-     * 
-     * @return The x coordinate of the block.
-     */
-    public int getX() {
-        return this.x;
-    }
-    
-    
-    /**
-     * Gets the y coordinate of the upperleft corner of the current block.
-     * 
-     * @return The y coordinate of the block.
-     */
-    public int getY() {
-        return this.y;
-    }
     
     
     /**

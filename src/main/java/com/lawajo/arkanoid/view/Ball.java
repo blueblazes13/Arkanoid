@@ -5,6 +5,7 @@
  */
 package com.lawajo.arkanoid.view;
 
+import com.lawajo.arkanoid.model.BlockModel;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -112,7 +113,7 @@ public class Ball extends Region {
      * @param block The block the ball hits.
      */
     @Deprecated
-    public void move(Block block) {
+    public void move(BlockModel block) {
         if (block == null) {
             if (this.x == Ball.RADIUS || this.x == 500 - Ball.RADIUS) {
                 hitVertical();
