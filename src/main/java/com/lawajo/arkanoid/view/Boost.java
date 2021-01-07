@@ -5,10 +5,27 @@
  */
 package com.lawajo.arkanoid.view;
 
+import com.lawajo.arkanoid.model.BoostModel;
+
 /**
  *
  * @author joeyk
  */
-public class Boost {
+public class Boost extends ViewObject {
+
+    BoostModel model;
+    
+    public Boost(BoostModel model) {
+        this.model = model;
+    }
+    
+    
+    /**
+     * Updates the current boost object with the newest parameters.
+     */
+    @Override
+    public void update() {
+        
+    }
     
 }

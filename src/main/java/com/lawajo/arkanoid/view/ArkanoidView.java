@@ -6,6 +6,7 @@
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
+import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BlockModel;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Region;
@@ -14,35 +15,75 @@ import javafx.scene.layout.Region;
  *
  * @author joeykoster
  */
-public class ArkanoidView extends Region {
+public class ArkanoidView extends ViewObject {
     
     
     
     private ArkanoidModel model;
     
+    /**
+     * Initializes a new ArkanoidView object to control the game views.
+     * 
+     * @param model The model to control the view.
+     */
     public ArkanoidView(ArkanoidModel model) {
         this.model = model;
-        
         
         for (int i = 0; i < model.WIDTH; i++) {
             for (int j = 0; j < model.HEIGHT; j++) {
                 Block blockView = new Block(model.getBlock(i, j));
-                model.getBlock(i, j).setX(30 + Block.WIDTH * i);
-                model.getBlock(i, j).setY(30 + Block.HEIGHT * j);
                 this.getChildren().add(blockView);
             }
         }
     }
     
     
+    /**
+     * Updates all the ViewObjects with their newest parameters.
+     */
+    @Override
     public void update() {
         for (Object obj: this.getChildren()) {
-            if (obj instanceof Block) {
-                Block block = (Block) obj;
-                block.update();
+            ViewObject vObject = (ViewObject) obj;
+            vObject.update();
+        }
+    }
+    
+    
+    /**
+     * Adds an extra ball object to the playfield.
+     * 
+     * @param ball The controller of the ball.
+     */
+    public void addBall(BallModel ball) {
+        this.getChildren().add(new Ball(ball));
+    }
+    
+    
+    /**
+     * Removes a random ball from the playfield.
+     */
+    public void removeBall() {
+        for (Object obj: this.getChildren()) {
+            if (obj instanceof Ball) {
+                Ball ball = (Ball) obj;
+                this.getChildren().remove(ball);
             }
         }
     }
     
+    
+    /**
+     * Removes the specified block from the playfield.
+     * 
+     * @param x The x coordinate of the block.
+     * @param y The y coordinate of the block.
+     * 
+     * @deprecated Functie is nog niet geschreven!
+     */
+    @Deprecated
+    public void removeBlock(int x, int y) {
+        
+    }
     
 }

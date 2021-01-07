@@ -5,14 +5,13 @@
  */
 package com.lawajo.arkanoid.view;
 
-import com.lawajo.arkanoid.model.BlockModel;
 import com.lawajo.arkanoid.model.SliderModel;
 
 /**
  *
  * @author joeyk
  */
-public class Slider {
+public class Slider extends ViewObject {
     
     private SliderModel model;
     
@@ -21,12 +20,17 @@ public class Slider {
     /**
      * Initializes a new slider.
      * 
+     * @param model The model wich controls the slider.
      */
     public Slider(SliderModel model) {
         this.model = model;
     }
     
     
+    /**
+     * Updates the current slider object with the newest parameters.
+     */
+    @Override
     public void update() {
         
     }
