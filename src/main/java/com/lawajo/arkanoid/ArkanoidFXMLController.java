@@ -43,6 +43,14 @@ public class ArkanoidFXMLController {
          * Gr. Joey
          */
         
+        model = new ArkanoidModel();
+        ball = new BallModel();
+        view = new ArkanoidView(model);
+        ballView = new Ball(ball);
+
+        apPlayField.getChildren().addAll(view, ball);
+        apPlayField.setOnKeyPressed(this::keyPressed);
+        update();
         /*Block greenBlock = new Block(300, 50);
         Block redBlock = new Block(300 + Block.WIDTH, 20);
         redBlock.setY(50);
@@ -51,7 +59,7 @@ public class ArkanoidFXMLController {
         apPlayField.getChildren().addAll(greenBlock, redBlock);
         */
     }
-
+    
     private void keyPressed(KeyEvent k) {
         switch(k.getCode()){
             case LEFT:
