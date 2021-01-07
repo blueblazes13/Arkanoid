@@ -1,11 +1,14 @@
 package com.lawajo.arkanoid;
 
+import com.lawajo.arkanoid.model.ArkanoidModel;
+import com.lawajo.arkanoid.model.BallModel;
+import com.lawajo.arkanoid.model.SliderModel;
+import com.lawajo.arkanoid.view.ArkanoidView;
 import com.lawajo.arkanoid.view.Ball;
-import com.lawajo.arkanoid.view.Block;
-import com.lawajo.arkanoid.view.Slider;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -21,9 +24,11 @@ public class ArkanoidFXMLController {
     private AnchorPane apPlayField;
 
      //data members
-    private Slider balk;
-    private Ball bal;
-    private Block blok;
+    private ArkanoidModel model;
+    private SliderModel slider;
+    private BallModel ball;
+    private ArkanoidView view;
+    private Ball ballView;
     
     @FXML
     void initialize() {
@@ -38,24 +43,35 @@ public class ArkanoidFXMLController {
          * Gr. Joey
          */
         
-        Block greenBlock = new Block(300, 50);
+        model = new ArkanoidModel();
+        ball = new BallModel();
+        view = new ArkanoidView(model);
+        ballView = new Ball(ball);
         
+        apPlayField.getChildren().addAll(view, ball);
+        apPlayField.setOnKeyPressed(this::keyPressed);
+        update();
+        /*Block greenBlock = new Block(300, 50);
         Block redBlock = new Block(300 + Block.WIDTH, 20);
         redBlock.setY(50);
         redBlock.setColor(Color.RED);
         
         apPlayField.getChildren().addAll(greenBlock, redBlock);
-    }
-    
-    
-    public void setDataMembers(Slider balk, Ball bal, Block blok){ // Kunnen we alsjeblieft in het engels typen??????? Dat is toch gwn de meest logische taal om in te programmeren?
-        this.balk = balk;
-        this.bal = bal;
-        this.blok = blok;
+        */
     }
 
-    void update() {
-        
+    private void keyPressed(KeyEvent k) {
+        switch(k.getCode()){
+            case LEFT:
+                slider.moveLeft();
+                break;
+            case RIGHT:
+                slider.moveRight();
+                break;
+        }
     }
-
+    
+    public void update() {
+        view.update();
+    }
 }
