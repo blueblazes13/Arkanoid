@@ -13,14 +13,21 @@ import com.lawajo.arkanoid.view.Block;
  */
 public class ArkanoidModel {
     
-    public static final int WIDTH = 5;
-    public static final int HEIGHT = 30;
+    public static final int WIDTH = 10;
+    public static final int HEIGHT = 10;
     
     private BlockModel[][] blockField;
     
     
     public ArkanoidModel() {
-        this.blockField = new BlockModel[10][30];
+        this.blockField = new BlockModel[WIDTH][HEIGHT];
+        
+           
+        for(int i = 0; i <= HEIGHT ; i++ ) {
+            for(int j = 0; j <= WIDTH ; j++) {
+                this.blockField[i][j] = new BlockModel(30 + BlockModel.WIDTH*i, 30 + BlockModel.HEIGHT*j);    
+            }    
+        }    
     }
     
     

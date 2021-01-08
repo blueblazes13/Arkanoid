@@ -23,8 +23,25 @@ public class BallModel {
     private int dy;  
     
     
+    /**
+     * Initializes a new ball.
+     * 
+     * @param x The x coordinate of the ball.
+     * @param y The y coordinate of the ball.
+     */
     
+    public BallModel(int x, int y) {
+        this.x = x;
+        this.y = y;
+        
+        this.prevX = x;
+        this.prevY = y;
+        
+        this.dx = -1;
+        this.dy = -1;    
+    }
     
+   
     private void addY() {
         this.prevY = this.y;
         this.y += this.dy;
@@ -73,12 +90,53 @@ public class BallModel {
         this.y = y;
     }
     
-    
-    public void tick(){
-        x = x + dx;
-        x = x + dy;   
+     /**
+     * Moves the ball to the next location.
+     * 
+     * @deprecated Ik denk dat het berekenen van welke kant de bal op moet als hij een blok raakt beter in de controller gebeurt.
+     *             De code werkt wel 100% dus in principe kan je dit zo overnemen. Dit werkt ook direct voor de slider aangezien
+     *             die block extend. Gebruik het voor nu misschien even zo en als we nog eens bellen hebben we het er wel over.
+     * 
+     * @param block The block the ball hits.
+     */
+    @Deprecated
+    public void move(BlockModel block) {
+        if (block == null) {
+            if (this.x == BallModel.RADIUS || this.x == 500 - BallModel.RADIUS) {
+                hitVertical();
+            } else if (this.y == BallModel.RADIUS) {
+                hitHorizontal();
+            } else {
+                addX();
+                addY();
+            }
+        } else {
+            int blockX = block.getX();
+            int blockY = block.getY();
+            
+            if (this.x + BallModel.RADIUS == blockX) {
+                hitVertical();
+            } else if (this.x - BallModel.RADIUS == blockX + BlockModel.WIDTH) {
+                hitVertical();
+            } else {
+                if (y + BallModel.RADIUS == blockY) {
+                    hitHorizontal();
+                } else if (y - BallModel.RADIUS == blockY + BlockModel.HEIGHT) {
+                    hitHorizontal();
+                } else {
+                    move();
+                }
+            }
+        }
     }
     
+     /**
+     * Moves the ball to the next location.
+     */
+    public void move() {
+        move(null);
+    }
+        
     // Getters
     
     

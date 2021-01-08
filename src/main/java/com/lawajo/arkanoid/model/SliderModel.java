@@ -12,7 +12,8 @@ package com.lawajo.arkanoid.model;
 public class SliderModel extends BlockModel {
    
     private int speed;
-    
+    public final static int WIDTH = 60;
+    public final static int HEIGHT = 5;
     
     
     /**
