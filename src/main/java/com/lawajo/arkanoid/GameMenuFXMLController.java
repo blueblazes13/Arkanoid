@@ -5,13 +5,21 @@ import static com.lawajo.arkanoid.model.Difficulty.EASY;
 import static com.lawajo.arkanoid.model.Difficulty.EXPERT;
 import static com.lawajo.arkanoid.model.Difficulty.HARD;
 import static com.lawajo.arkanoid.model.Difficulty.NORMAL;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
+/**
+ * FXML Controller class
+ *
+ * @author Ward
+ */
 public class GameMenuFXMLController {
 
     @FXML
@@ -47,23 +55,38 @@ public class GameMenuFXMLController {
     //data Members
     private Difficulty diff;
     
+    /**
+     * Initializes the Game Menu controller class.
+     */
     @FXML
     void initialize() {
-        miEasy.setOnAction((t) -> {
+        miEasy.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Easy");
             diff = EASY;
         });
-        miNormal.setOnAction((t) -> {
+        miNormal.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Normal");
             diff = NORMAL;
         });
-        miHard.setOnAction((t) -> {
+        miHard.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Hard");
             diff = HARD;
         });
-        miExpert.setOnAction((t) -> {
+        miExpert.setOnAction((m) -> {
             lblCurrentDifficulty.setText("EXPERT");
             diff = EXPERT;
         });
+        btnStartGame.setOnAction(this::start);
+    }
+
+    private void start(ActionEvent s) {
+        
+        try{
+        App.setRoot("ArkanoidFXML");
+        }
+        catch (IOException exception) {
+            System.out.println("Error loading");
+            System.exit(0);
+        }
     }
 }
