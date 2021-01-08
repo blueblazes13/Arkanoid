@@ -6,6 +6,8 @@
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.SliderModel;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -14,7 +16,7 @@ import com.lawajo.arkanoid.model.SliderModel;
 public class Slider extends ViewObject {
     
     private SliderModel model;
-    
+    private Rectangle rect;
     
     
     /**
@@ -24,6 +26,14 @@ public class Slider extends ViewObject {
      */
     public Slider(SliderModel model) {
         this.model = model;
+        
+        this.rect = new Rectangle(this.model.WIDTH, this.model.HEIGHT);
+        this.rect.setFill(Color.CHOCOLATE);
+        this.rect.setStroke(Color.BLACK);
+        this.rect.setStrokeWidth(0.4);
+        
+        this.getChildren().add(this.rect);
+        update();
     }
     
     
@@ -32,7 +42,9 @@ public class Slider extends ViewObject {
      */
     @Override
     public void update() {
-        
+        this.rect.setLayoutX(this.model.getX());
+        this.rect.setLayoutY(this.model.getY());
+        this.rect.setFill(Color.CHOCOLATE);
     }
     
 }
