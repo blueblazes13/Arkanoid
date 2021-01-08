@@ -1,5 +1,10 @@
 package com.lawajo.arkanoid;
 
+import com.lawajo.arkanoid.model.Difficulty;
+import static com.lawajo.arkanoid.model.Difficulty.EASY;
+import static com.lawajo.arkanoid.model.Difficulty.EXPERT;
+import static com.lawajo.arkanoid.model.Difficulty.HARD;
+import static com.lawajo.arkanoid.model.Difficulty.NORMAL;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -38,9 +43,27 @@ public class GameMenuFXMLController {
 
     @FXML
     private Label lblCurrentDifficulty;
-
+    
+    //data Members
+    private Difficulty diff;
+    
     @FXML
     void initialize() {
-        
+        miEasy.setOnAction((t) -> {
+            lblCurrentDifficulty.setText("Easy");
+            diff = EASY;
+        });
+        miNormal.setOnAction((t) -> {
+            lblCurrentDifficulty.setText("Normal");
+            diff = NORMAL;
+        });
+        miHard.setOnAction((t) -> {
+            lblCurrentDifficulty.setText("Hard");
+            diff = HARD;
+        });
+        miExpert.setOnAction((t) -> {
+            lblCurrentDifficulty.setText("EXPERT");
+            diff = EXPERT;
+        });
     }
 }
