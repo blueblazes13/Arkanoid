@@ -1,7 +1,6 @@
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.BlockModel;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -26,8 +25,8 @@ public class Block extends ViewObject {
      * @param model
      */
     public Block(BlockModel model) {
-        
         this.model = model;
+        
         this.rect = new Rectangle(model.WIDTH, model.HEIGHT);
         this.rect.setFill(Color.BLUE);
         this.rect.setStroke(Color.BLACK);
@@ -47,7 +46,6 @@ public class Block extends ViewObject {
     public void update() {
         this.rect.setLayoutX(this.model.getX());
         this.rect.setLayoutY(this.model.getY());
-        this.rect.setFill(Color.BLUE);
     }
     
     

@@ -7,9 +7,7 @@ package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
-import com.lawajo.arkanoid.model.BlockModel;
-import javafx.collections.ObservableList;
-import javafx.scene.layout.Region;
+import com.lawajo.arkanoid.model.SliderModel;
 
 /**
  *
@@ -70,6 +68,11 @@ public class ArkanoidView extends ViewObject {
                 this.getChildren().remove(ball);
             }
         }
+    }
+    
+    
+    public void addSlider(SliderModel slider) {
+        this.getChildren().add(new Slider(slider));
     }
     
     
