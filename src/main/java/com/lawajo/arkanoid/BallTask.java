@@ -27,7 +27,7 @@ public class BallTask extends TimerTask {
     @Override
     public void run() {
     
-        model.tick();
+        model.move();
         Platform.runLater(controller :: update);
         
     }

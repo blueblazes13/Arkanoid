@@ -5,6 +5,10 @@
  */
 package com.lawajo.arkanoid.model;
 
+import com.lawajo.arkanoid.ArkanoidFXMLController;
+import com.lawajo.arkanoid.BallTask;
+import java.util.Timer;
+
 /**
  *
  * @author lande
@@ -136,7 +140,14 @@ public class BallModel {
     public void move() {
         move(null);
     }
-        
+      
+    public void startMoving(ArkanoidFXMLController controller){
+        BallTask balltask = new BallTask(this, controller);
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(balltask, 0, 50);
+    
+    }
+    
     // Getters
     
     

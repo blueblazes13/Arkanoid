@@ -23,8 +23,8 @@ public class ArkanoidModel {
         this.blockField = new BlockModel[WIDTH][HEIGHT];
         
            
-        for(int i = 0; i <= HEIGHT ; i++ ) {
-            for(int j = 0; j <= WIDTH ; j++) {
+        for(int i = 0; i < HEIGHT ; i++ ) {
+            for(int j = 0; j < WIDTH ; j++) {
                 this.blockField[i][j] = new BlockModel(30 + BlockModel.WIDTH*i, 30 + BlockModel.HEIGHT*j);    
             }    
         }    
@@ -41,8 +41,7 @@ public class ArkanoidModel {
     public BlockModel getBlock(int x, int y) {
         
         // Lander dit moet jij nog ff fixen, maar ik had de functie ff nodig in ik wou jouw werk niet afpakken.
-        
-        return null;
+        return this.blockField[x][y];
     }
-    
+         
 }
