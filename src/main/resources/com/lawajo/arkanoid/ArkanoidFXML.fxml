@@ -1,22 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.lawajo.arkanoid.ArkanoidFXMLController">
+<AnchorPane id="AnchorPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lawajo.arkanoid.ArkanoidFXMLController">
    <children>
-      <Label layoutX="20.0" layoutY="5.0" prefHeight="25.0" prefWidth="71.0" text="Score: ">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e5e5" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="2.0" width="600.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="352.0" layoutX="19.0" layoutY="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="563.0" />
+      <AnchorPane fx:id="apPlayField" focusTraversable="true" layoutX="19.0" layoutY="29.0" prefHeight="352.0" prefWidth="560.0" />
+      <Label layoutX="57.0" layoutY="2.0" prefHeight="25.0" prefWidth="71.0" text="Score: ">
          <font>
             <Font name="Simplex" size="16.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="apPlayField" prefHeight="400.0" prefWidth="600.0" />
-      <Label layoutX="80.0" layoutY="5.0" prefHeight="25.0" prefWidth="216.0" text="0">
+      <Label fx:id="lblScore" layoutX="117.0" layoutY="2.0" prefHeight="25.0" prefWidth="92.0" text="0">
          <font>
             <Font name="Simplex" size="16.0" />
          </font>
       </Label>
+      <Button fx:id="btnMenu" focusTraversable="false" layoutX="244.0" layoutY="6.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="65.0" text="Menu">
+         <font>
+            <Font name="Simplex" size="10.0" />
+         </font>
+      </Button>
+      <Label layoutX="437.0" layoutY="4.0" prefHeight="25.0" prefWidth="114.0" text="Best score:">
+         <font>
+            <Font name="Simplex" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBestScore" layoutX="545.0" layoutY="4.0" prefHeight="25.0" prefWidth="71.0" text="0">
+         <font>
+            <Font name="Simplex" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnReset" focusTraversable="false" layoutX="313.0" layoutY="6.0" maxHeight="20.0" minHeight="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="65.0" text="Reset">
+         <font>
+            <Font name="Simplex" size="10.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="40.0" layoutX="20.0" layoutY="340.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="561.0">
+         <fill>
+            <LinearGradient endX="0.5" endY="1.0" startX="0.49999999999999994" startY="0.38571428571428573">
+               <stops>
+                  <Stop color="#8afdff00" />
+                  <Stop color="#f7003b3d" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
    </children>
 </AnchorPane>
