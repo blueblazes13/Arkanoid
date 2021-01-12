@@ -141,9 +141,9 @@ public class BallModel {
         move(null);
     }
       
-    public void startMoving(ArkanoidFXMLController controller){
-        BallTask balltask = new BallTask(this, controller);
-        Timer t = new Timer();
+    public void startMoving(ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel){
+        BallTask balltask = new BallTask(this, controller, arkanoidModel, sliderModel);
+        Timer t = new Timer(true);
         t.scheduleAtFixedRate(balltask, 0, 50);
     
     }

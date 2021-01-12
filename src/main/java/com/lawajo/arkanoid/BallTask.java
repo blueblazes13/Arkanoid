@@ -5,7 +5,9 @@
  */
 package com.lawajo.arkanoid;
 
+import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
+import com.lawajo.arkanoid.model.SliderModel;
 import java.util.TimerTask;
 import javafx.application.Platform;
 
@@ -14,20 +16,23 @@ import javafx.application.Platform;
  * @author lande
  */
 public class BallTask extends TimerTask {
-    private BallModel model;
+    private BallModel ballModel;
     private ArkanoidFXMLController controller;
-
-    public BallTask(BallModel model, ArkanoidFXMLController controller) {
-        this.model = model;
+    private ArkanoidModel arkanoidModel;
+    private SliderModel sliderModel;
+    
+    public BallTask(BallModel ballModel, ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel) {
+        this.ballModel = ballModel;
         this.controller = controller;
+        this.arkanoidModel = arkanoidModel;
+        this.sliderModel = sliderModel;
     }
 
     
     
     @Override
     public void run() {
-    
-        model.move();
+        this.ballModel.move(this.arkanoidModel.checkCollision(ballModel, sliderModel));
         Platform.runLater(controller :: update);
         
     }
