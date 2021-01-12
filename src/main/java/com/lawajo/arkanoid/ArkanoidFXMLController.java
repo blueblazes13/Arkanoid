@@ -7,9 +7,11 @@ import com.lawajo.arkanoid.model.SliderModel;
 import com.lawajo.arkanoid.view.ArkanoidView;
 import com.lawajo.arkanoid.view.Ball;
 import com.lawajo.arkanoid.view.Slider;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -77,8 +79,47 @@ public class ArkanoidFXMLController {
     public void update() {
         view.update();
     }
-
+    /*
+    public void move(BlockModel block) {
+        if (block == null) {
+            if (this.x == BallModel.RADIUS || this.x == 500 - BallModel.RADIUS) {
+                hitVertical();
+            } else if (this.y == BallModel.RADIUS) {
+                hitHorizontal();
+            } else {
+                addX();
+                addY();
+            }
+        } else {
+            int blockX = block.getX();
+            int blockY = block.getY();
+            
+            if (this.x + BallModel.RADIUS == blockX) {
+                hitVertical();
+            } else if (this.x - BallModel.RADIUS == blockX + BlockModel.WIDTH) {
+                hitVertical();
+            } else {
+                if (y + BallModel.RADIUS == blockY) {
+                    hitHorizontal();
+                } else if (y - BallModel.RADIUS == blockY + BlockModel.HEIGHT) {
+                    hitHorizontal();
+                } else {
+                    move();
+                }
+            }
+        }
+    }*/
     //public Direction setDirection() {
     //   return Direction.LEFT; 
     //}
+    /*
+    public void dead() {
+        try{
+        App.setRoot("GameMenuFXML");
+        }
+        catch (IOException exception) {
+            System.out.println("Error while loading");
+            System.exit(0);
+        }
+    }*/
 }

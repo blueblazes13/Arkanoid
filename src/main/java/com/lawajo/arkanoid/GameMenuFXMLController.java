@@ -51,10 +51,11 @@ public class GameMenuFXMLController {
 
     @FXML
     private Label lblCurrentDifficulty;
-    
+
     //data Members
-    private Difficulty diff;
-    
+    private Difficulty diff = Difficulty.EASY;
+    private  int bestScore;
+
     /**
      * Initializes the Game Menu controller class.
      */
@@ -62,31 +63,64 @@ public class GameMenuFXMLController {
     void initialize() {
         miEasy.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Easy");
-            diff = EASY;
+            diff = Difficulty.EASY;
         });
         miNormal.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Normal");
-            diff = NORMAL;
+            diff = Difficulty.NORMAL;
         });
         miHard.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Hard");
-            diff = HARD;
+            diff = Difficulty.HARD;
         });
         miExpert.setOnAction((m) -> {
             lblCurrentDifficulty.setText("EXPERT");
-            diff = EXPERT;
+            diff = Difficulty.EXPERT;
         });
         btnStartGame.setOnAction(this::start);
+        setDifficulty(diff);
     }
 
-    private void start(ActionEvent s) {
-        
+    public void start(ActionEvent s) {
         try{
         App.setRoot("ArkanoidFXML");
         }
         catch (IOException exception) {
-            System.out.println("Error loading");
+            System.out.println("Error while loading");
             System.exit(0);
         }
     }
+    
+    /**
+     * Sets the difficulty for the game.
+     * @param diff
+     */
+    public void setDifficulty(Difficulty diff){
+        if(diff == Difficulty.EASY){
+            System.out.println("Dikke Boktor");
+        }
+        else if(diff == Difficulty.NORMAL){
+            
+        }
+        else if(diff == Difficulty.HARD){
+            
+        }
+        else if(diff == Difficulty.EXPERT){
+            
+        }
+    }
+    
+    /**
+     * Eventueel model aanmaken die de scores bijhoud om deze aan de controller door te voeren.
+     * Of deze bij het ArkanoidModel aanmaken
+     * Sets the text labels for the latest and best score
+     * @param score The score of the last game
+     */
+    //public void setLabels(score){
+        //
+        //if dead and score > latestscore
+        //lblBestScore.set(score);
+        //else
+        //lblLatestScore.set(score)
+    //}
 }
