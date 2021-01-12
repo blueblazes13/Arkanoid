@@ -46,13 +46,13 @@ public class BallModel {
     }
     
    
-    private void addY() {
+    public void addY() {
         this.prevY = this.y;
         this.y += this.dy;
     }
     
     
-    private void addX() {
+    public void addX() {
         this.prevX = this.x;
         this.x += this.dx;
     }
