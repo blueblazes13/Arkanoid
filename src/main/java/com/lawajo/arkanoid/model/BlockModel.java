@@ -1,33 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid.model;
 
 /**
  *
- * @author lande
+ * @author Lander
  */
 public class BlockModel {
-
+    
     public final static int WIDTH = 45;
     public final static int HEIGHT = 15;
     
     private int lifes;
     private int x;
     private int y;
-
+    
+    
+    /**
+     * Initializes a new BlockModel.
+     * 
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     public BlockModel(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
+    
+    
+    /**
+     * Initializes a new BlockModel.
+     * 
+     * @param lifes Total lifes of the block.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     public BlockModel(int lifes, int x, int y) {
         this.lifes = lifes;
         this.x = x;
         this.y = y;
     }
+    
+    
     
     // Setters
     
@@ -50,6 +63,7 @@ public class BlockModel {
         this.y = y;
     }
     
+    
      /**
      * Sets the current position of the current block.
      * 
@@ -60,6 +74,7 @@ public class BlockModel {
         this.x = x;
         this.y = y;
     }
+    
     
     /**
      * Hits the block with a certain damagelevel and checks if the
@@ -87,8 +102,9 @@ public class BlockModel {
     }
     
     
+    
     // Getters
-
+    
     /**
      * Gets the x coordinate of the upperleft corner of the current block.
      * 
