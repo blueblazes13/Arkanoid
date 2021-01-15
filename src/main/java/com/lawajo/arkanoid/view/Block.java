@@ -28,7 +28,7 @@ public class Block extends ViewObject {
         this.model = model;
         
         this.rect = new Rectangle(model.WIDTH, model.HEIGHT);
-        this.rect.setFill(Color.BLUE);
+        this.rect.setFill(Color.rgb(18, 255, 151));
         this.rect.setStroke(Color.BLACK);
         this.rect.setStrokeWidth(0.4);
         
@@ -44,6 +44,11 @@ public class Block extends ViewObject {
      */
     @Override
     public void update() {
+        if (this.model.isDeleted()) {
+            this.getChildren().clear();
+            return;
+        }
+        
         this.rect.setLayoutX(this.model.getX());
         this.rect.setLayoutY(this.model.getY());
     }

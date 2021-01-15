@@ -5,8 +5,6 @@
  */
 package com.lawajo.arkanoid.model;
 
-import com.lawajo.arkanoid.view.Ball;
-import com.lawajo.arkanoid.view.Block;
 
 /**
  *
@@ -26,7 +24,7 @@ public class ArkanoidModel {
            
         for(int i = 0; i < HEIGHT ; i++ ) {
             for(int j = 0; j < WIDTH ; j++) {
-                this.blockField[i][j] = new BlockModel(30 + BlockModel.WIDTH*i, 30 + BlockModel.HEIGHT*j);    
+                this.blockField[i][j] = new BlockModel(30 + BlockModel.WIDTH*i + 1*i, 30 + BlockModel.HEIGHT*j + 1*j);    
             }    
         }    
     }
@@ -79,6 +77,7 @@ public class ArkanoidModel {
                 if(block == null) continue;
                 if(check(ball, block)){
                     if (block.hit(ball.getDamage())){
+                        block.setDeleted(true);
                         blockField[i][j] = null;
                     } 
                 return block;
