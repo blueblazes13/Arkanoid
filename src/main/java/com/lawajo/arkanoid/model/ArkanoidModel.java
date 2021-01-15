@@ -41,27 +41,26 @@ public class ArkanoidModel {
      */
     public BlockModel getBlock(int x, int y) {
         
-        // Lander dit moet jij nog ff fixen, maar ik had de functie ff nodig in ik wou jouw werk niet afpakken.
         return this.blockField[x][y];
     }
     
     
     private Boolean check(BallModel ball, BlockModel block) {
-        if (block.getX() <= ball.getX() &&
-                        ball.getX() <= block.getX() + BlockModel.WIDTH) {
-                    if (block.getY() == ball.getY() + BallModel.RADIUS
-                            || block.getY() + BlockModel.HEIGHT == ball.getY() - BallModel.RADIUS) {
-                        // Als je hier komt weet je dat je botst tegen de boven of onderkant (Horizontaal)
-                        return true;
-                    }
-                } else if (block.getX() == ball.getX() + BallModel.RADIUS
-                        || block.getX() + BlockModel.WIDTH == ball.getX() - BallModel.RADIUS) {
-                    if (block.getY() <= ball.getY() &&
-                            block.getY() + BlockModel.HEIGHT >= ball.getY()) {
-                        // Als je hier komt weet je dat je botst tegen de linker of rechterkant (verticaal)
-                        return true;
-                    }
-                }
+        int blockX = block.getX();
+        int blockY = block.getY();
+        
+        double ballX = ball.getX();
+        double ballY = ball.getY();
+        
+        
+        if (blockX <= ballX + BallModel.RADIUS &&
+                blockX + BlockModel.WIDTH >= ballX - BallModel.RADIUS) {
+            if (blockY <= ballY + BallModel.RADIUS &&
+                    blockY + BlockModel.HEIGHT >= ballY - BallModel.RADIUS) {
+                return true;
+            }
+        }
+        
         return false;
     }
     
@@ -69,14 +68,21 @@ public class ArkanoidModel {
     public BlockModel checkCollision(BallModel ball, SliderModel slider) {
         
         BlockModel block = slider;
-        if (check(ball, block)) return slider;
-        
+        if(block != null){
+            if (check(ball, block)) return slider;
+        }
+            
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 
                 block = getBlock(i, j);
-                if (check(ball, block)) return block;
-                
+                if(block == null) continue;
+                if(check(ball, block)){
+                    if (block.hit(ball.getDamage())){
+                        blockField[i][j] = null;
+                    } 
+                return block;
+                }     
             }
         }
         

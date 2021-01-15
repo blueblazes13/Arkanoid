@@ -133,5 +133,5 @@ public class BlockModel {
     public int getLifes() {
         return this.lifes;
     }
-    
+
 }

@@ -33,7 +33,10 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the left.
      */
     public void moveLeft() {
-        super.setX(super.getX() - speed);
+        if(super.getX() == 0) return;
+        else{
+            super.setX(super.getX() - speed);
+        }
     }
     
     
@@ -41,7 +44,10 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the right.
      */
     public void moveRight() {
-        super.setX(super.getX() + speed);
+        if(super.getX() == 560 - WIDTH) return;
+        else{
+            super.setX(super.getX() + speed);
+        }
     }
     
     

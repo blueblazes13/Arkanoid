@@ -7,6 +7,7 @@ package com.lawajo.arkanoid.model;
 
 import com.lawajo.arkanoid.ArkanoidFXMLController;
 import com.lawajo.arkanoid.BallTask;
+import java.util.Random;
 import java.util.Timer;
 
 /**
@@ -16,17 +17,19 @@ import java.util.Timer;
 public class BallModel {
  
     public final static int RADIUS = 10;
+    private final Random random = new Random();
     
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     
-    private int prevX;
-    private int prevY;
+    private double  prevX;
+    private double  prevY;
     
-    private int dx;
-    private int dy;  
+    private double  dx;
+    private double  dy;  
     
-    private int damage;
+    private int  damage;
+    
     
     
     /**
@@ -85,7 +88,7 @@ public class BallModel {
      * This is automaticly done by the move function.
      */
     private void hitVertical() {
-        int tempX = this.x;
+        double tempX = this.x;
         this.x = this.prevX;
         this.prevX = tempX;
         this.dx *= -1;
@@ -98,13 +101,51 @@ public class BallModel {
      * This is automaticly done by the move function.
      */
     private void hitHorizontal() {
-        int tempY = this.y;
+        double tempY = this.y;
         this.y = this.prevY;
         this.prevY = tempY;
         this.dy *= -1;
         addX();
     }
     
+    /**
+     * Hits a horizontal object. The ball moves and bounces back.
+     * This is automaticly done by the move function.
+     */
+    private void hitHorizontal(BlockModel block) {
+        if (block instanceof SliderModel) {
+            double tempY = this.y;
+            this.y = this.prevY;
+            this.prevY = tempY;
+            Double randomDouble = ((Math.PI/6.0) + (this.random.nextDouble() * (Math.PI*(4.0/6.0))));
+            System.out.println(randomDouble);
+            setAngle(randomDouble, this.dy < 0);
+            addX();
+        } else {
+            double tempY = this.y;
+            this.y = this.prevY;
+            this.prevY = tempY;
+            this.dy *= -1;
+            addX();
+        }
+    }
+    
+    
+    /**
+     * Sets the ball in a certain angle with the same speed
+     * 
+     * @param angle
+     * @param up 
+     */
+    private void setAngle(double angle, Boolean up) {
+        if (up) {
+            this.dx = Math.signum(this.dx) * Math.cos(angle);
+            this.dy = Math.sin(angle);
+        } else {
+            this.dx = Math.signum(this.dx) * Math.cos(angle);
+            this.dy = -Math.sin(angle);
+        }
+    }
     
     /**
      * Sets the position of the ball.
@@ -131,8 +172,8 @@ public class BallModel {
     @Deprecated
     public void move(BlockModel block) {
         if (block == null) {
-            if (this.x == BallModel.RADIUS || this.x == 500 - BallModel.RADIUS) {
-                if (this.y == BallModel.RADIUS) {
+            if (this.x <= BallModel.RADIUS ||  this.x >= 500 - BallModel.RADIUS) {
+                if (this.y <= BallModel.RADIUS) {
                     this.dx *= -1;
                     this.dy *= -1;
                     addX();
@@ -140,7 +181,7 @@ public class BallModel {
                 } else {
                     hitVertical();
                 }
-            } else if (this.y == BallModel.RADIUS) {
+            } else if (this.y <= BallModel.RADIUS) {
                 hitHorizontal();
             } else {
                 addX();
@@ -150,15 +191,17 @@ public class BallModel {
             int blockX = block.getX();
             int blockY = block.getY();
             
-            if (this.x + BallModel.RADIUS == blockX) {
-                hitVertical();
-            } else if (this.x - BallModel.RADIUS == blockX + BlockModel.WIDTH) {
-                hitVertical();
+            if (this.y + BallModel.RADIUS <= blockY + (BlockModel.HEIGHT/2)) {
+                hitHorizontal(block);
+            } else if (this.y - BallModel.RADIUS >= blockY + BlockModel.HEIGHT/2) {
+                hitHorizontal(block);
             } else {
-                if (y + BallModel.RADIUS == blockY) {
-                    hitHorizontal();
-                } else if (y - BallModel.RADIUS == blockY + BlockModel.HEIGHT) {
-                    hitHorizontal();
+                if (this.x + BallModel.RADIUS >= blockX &&
+                        this.x + BallModel.RADIUS <= blockX + (BlockModel.WIDTH/4)) {
+                    hitVertical();
+                } else if (this.x- BallModel.RADIUS >= blockX + (BlockModel.WIDTH*(3/4)) &&
+                        this.x - BallModel.RADIUS <= blockX + BlockModel.WIDTH){
+                    hitVertical();
                 } else {
                     move();
                 }
@@ -200,7 +243,7 @@ public class BallModel {
      * 
      * @return The x coordinate.
      */
-    public int getX() {
+    public double  getX() {
         return this.x;
     }
     
@@ -210,7 +253,7 @@ public class BallModel {
      * 
      * @return The y coordinate.
      */
-    public int getY() {
+    public double  getY() {
         return this.y;
     }
     
