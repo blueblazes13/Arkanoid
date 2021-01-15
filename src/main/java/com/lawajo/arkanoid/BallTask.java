@@ -21,6 +21,7 @@ public class BallTask extends TimerTask {
     private ArkanoidModel arkanoidModel;
     private SliderModel sliderModel;
     
+    
     public BallTask(BallModel ballModel, ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel) {
         this.ballModel = ballModel;
         this.controller = controller;

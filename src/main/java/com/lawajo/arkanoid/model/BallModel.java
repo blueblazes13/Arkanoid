@@ -172,7 +172,7 @@ public class BallModel {
     @Deprecated
     public void move(BlockModel block) {
         if (block == null) {
-            if (this.x <= BallModel.RADIUS ||  this.x >= 500 - BallModel.RADIUS) {
+            if (this.x <= BallModel.RADIUS ||  this.x >= 560 - BallModel.RADIUS) {
                 if (this.y <= BallModel.RADIUS) {
                     this.dx *= -1;
                     this.dy *= -1;
@@ -230,7 +230,7 @@ public class BallModel {
     public void startMoving(ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel){
         BallTask balltask = new BallTask(this, controller, arkanoidModel, sliderModel);
         Timer t = new Timer(true);
-        t.scheduleAtFixedRate(balltask, 0, 50);
+        t.scheduleAtFixedRate(balltask, 0, 20);
     
     }
     
