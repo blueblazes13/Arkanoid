@@ -18,6 +18,7 @@ public class BallModel {
  
     public final static int RADIUS = 10;
     private final Random random = new Random();
+    private Timer t;
     
     private double x;
     private double y;
@@ -191,16 +192,16 @@ public class BallModel {
             int blockX = block.getX();
             int blockY = block.getY();
             
-            if (this.y + BallModel.RADIUS <= blockY + (BlockModel.HEIGHT/2)) {
+            if (this.y + BallModel.RADIUS <= blockY + (block.HEIGHT/2)) {
                 hitHorizontal(block);
-            } else if (this.y - BallModel.RADIUS >= blockY + BlockModel.HEIGHT/2) {
+            } else if (this.y - BallModel.RADIUS >= blockY + block.HEIGHT/2) {
                 hitHorizontal(block);
             } else {
                 if (this.x + BallModel.RADIUS >= blockX &&
-                        this.x + BallModel.RADIUS <= blockX + (BlockModel.WIDTH/4)) {
+                        this.x + BallModel.RADIUS <= blockX + (block.WIDTH/4)) {
                     hitVertical();
-                } else if (this.x- BallModel.RADIUS >= blockX + (BlockModel.WIDTH*(3/4)) &&
-                        this.x - BallModel.RADIUS <= blockX + BlockModel.WIDTH){
+                } else if (this.x- BallModel.RADIUS >= blockX + (block.WIDTH*(3/4)) &&
+                        this.x - BallModel.RADIUS <= blockX + block.WIDTH){
                     hitVertical();
                 } else {
                     move();
@@ -219,6 +220,11 @@ public class BallModel {
         move(null);
     }
     
+    public void checkDeath(){
+        if(this.y + BallModel.RADIUS >= 352){
+            stopMoving();
+        }
+    }
     
     /**
      * Starts moving the ball.
@@ -229,11 +235,15 @@ public class BallModel {
      */
     public void startMoving(ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel){
         BallTask balltask = new BallTask(this, controller, arkanoidModel, sliderModel);
-        Timer t = new Timer(true);
-        t.scheduleAtFixedRate(balltask, 0, 20);
+        this.t = new Timer(true);
+        this.t.scheduleAtFixedRate(balltask, 0, 20);
     
     }
     
+    public void stopMoving(){
+        this.t.cancel();
+        this.t = null;
+    }
     
     
     // Getters

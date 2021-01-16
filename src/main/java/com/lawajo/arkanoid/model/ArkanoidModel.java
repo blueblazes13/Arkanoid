@@ -24,7 +24,10 @@ public class ArkanoidModel {
            
         for(int i = 0; i < HEIGHT ; i++ ) {
             for(int j = 0; j < WIDTH ; j++) {
-                this.blockField[i][j] = new BlockModel(30 + BlockModel.WIDTH*i + 1*i, 30 + BlockModel.HEIGHT*j + 1*j);    
+                BlockModel block = new BlockModel(0, 0);
+                block.setX(30 + block.WIDTH*i + 1*i);
+                block.setY(30 + block.HEIGHT*j + 1*j);
+                this.blockField[i][j] = block;    
             }    
         }    
     }
@@ -52,9 +55,9 @@ public class ArkanoidModel {
         
         
         if (blockX <= ballX + BallModel.RADIUS &&
-                blockX + BlockModel.WIDTH >= ballX - BallModel.RADIUS) {
+                blockX + block.WIDTH >= ballX - BallModel.RADIUS) {
             if (blockY <= ballY + BallModel.RADIUS &&
-                    blockY + BlockModel.HEIGHT >= ballY - BallModel.RADIUS) {
+                    blockY + block.HEIGHT >= ballY - BallModel.RADIUS) {
                 return true;
             }
         }

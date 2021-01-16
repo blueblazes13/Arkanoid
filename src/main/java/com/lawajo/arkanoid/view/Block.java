@@ -68,41 +68,4 @@ public class Block extends ViewObject {
 
     
     
-//    /**
-//     * Hits the block with a certain damagelevel and checks if the
-//     * block is broken or not.
-//     * 
-//     * @param damage The damage to deal to the block.
-//     * @return True if broken, false if not broken.
-//     */
-//    public boolean hit(int damage) {
-//        if (this.lifes - damage <= 0) return true;
-//        
-//        this.lifes -= damage;
-//        return false;
-//    }
-//    
-//    
-//    /**
-//     * Sets the number of lifes of the block. By setting this property higher
-//     * than default (1), the block could last longer than one hit of the ball.
-//     * 
-//     * @param lifes Number of lifes of the block.
-//     */
-//    public void setlifes(int lifes) {
-//        this.lifes = lifes;
-//    }
-//    
-//    
-//    // Getters
-//    
-//    
-//    /**
-//     * Gets the total damage the ball must deal to the block before it breaks.
-//     * 
-//     * @return Number of lifes.
-//     */
-//    public int getLifes() {
-//        return this.lifes;
-//    }
-}
+}   

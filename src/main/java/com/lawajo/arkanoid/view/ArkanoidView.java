@@ -71,6 +71,10 @@ public class ArkanoidView extends ViewObject {
     }
     
     
+    /**
+     * adds a slider to the field
+     * @param slider is a new slider 
+     */
     public void addSlider(SliderModel slider) {
         this.getChildren().add(new Slider(slider));
     }
@@ -86,7 +90,7 @@ public class ArkanoidView extends ViewObject {
      */
     @Deprecated
     public void removeBlock(int x, int y) {
-        
+       
     }
     
 }

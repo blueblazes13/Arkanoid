@@ -7,8 +7,8 @@ package com.lawajo.arkanoid.model;
  */
 public class BlockModel {
     
-    public final static int WIDTH = 45;
-    public final static int HEIGHT = 15;
+    public final int WIDTH;
+    public final int HEIGHT;
     
     private Boolean isDeleted;
     private int lifes;
@@ -25,6 +25,28 @@ public class BlockModel {
     public BlockModel(int x, int y) {
         this.x = x;
         this.y = y;
+        
+        this.WIDTH = 45;
+        this.HEIGHT = 15;
+        
+        this.isDeleted = false;
+        this.lifes = 2;
+    }
+    
+    
+    /**
+     * Initializes a new BlockModel.
+     * 
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
+    public BlockModel(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        
+        this.WIDTH = width;
+        this.HEIGHT = height;
+        
         this.isDeleted = false;
         this.lifes = 2;
     }
@@ -38,9 +60,13 @@ public class BlockModel {
      * @param y The y coordinate.
      */
     public BlockModel(int lifes, int x, int y) {
-        this.lifes = lifes;
         this.x = x;
         this.y = y;
+        
+        this.WIDTH = 45;
+        this.HEIGHT = 15;
+        
+        this.lifes = lifes;
         this.isDeleted = false;
     }
     

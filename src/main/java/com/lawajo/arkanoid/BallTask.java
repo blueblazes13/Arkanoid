@@ -35,6 +35,7 @@ public class BallTask extends TimerTask {
     public void run() {
         this.ballModel.move(this.arkanoidModel.checkCollision(ballModel, sliderModel));
         Platform.runLater(controller :: update);
+        ballModel.checkDeath();
         
     }
 
