@@ -12,13 +12,14 @@ public class BlockModel {
     public final int WIDTH;
     public final int HEIGHT;
     
-    private final Color green = new  Color(18/255, 255/255, 151/255, 1);
-    private final Color red = new Color(255/255, 63/255, 0/255, 1);
+    private final Color green = new Color(18.0/255, 255.0/255, 151.0/255, 1.0);
+    private final Color red = new Color(255.0/255, 63.0/255, 0.0/255, 1.0);
     
-    private final int MAX_LIFES;
-    
+    private int maxLifes;
     private Boolean isDeleted;
     private int lifes;
+    private int score;
+    private int bonusScore;
     
     private int x;
     private int y;
@@ -39,7 +40,9 @@ public class BlockModel {
         
         this.isDeleted = false;
         this.lifes = 2;
-        this.MAX_LIFES = this.lifes;
+        this.maxLifes = this.lifes;
+        this.score = 5;
+        this.bonusScore = 15;
     }
     
     
@@ -58,7 +61,9 @@ public class BlockModel {
         
         this.isDeleted = false;
         this.lifes = 2;
-        this.MAX_LIFES = this.lifes;
+        this.maxLifes = this.lifes;
+        this.score = 5;
+        this.bonusScore = 15;
     }
     
     
@@ -78,7 +83,9 @@ public class BlockModel {
         
         this.lifes = lifes;
         this.isDeleted = false;
-        this.MAX_LIFES = this.lifes;
+        this.maxLifes = this.lifes;
+        this.score = 5;
+        this.bonusScore = 15;
     }
     
     
@@ -86,9 +93,21 @@ public class BlockModel {
     // Setters
     
     public Color calcColor() {
-        double newRed = this.red.getRed() + (this.lifes/this.MAX_LIFES) * (this.green.getRed() - this.red.getRed());
-        double newGreen = this.red.getGreen() + (this.lifes/this.MAX_LIFES) * (this.green.getGreen() - this.red.getGreen());
-        double newBlue = this.red.getBlue() + (this.lifes/this.MAX_LIFES) * (this.green.getBlue() - this.red.getBlue());
+         Double lifes;
+         Double maxLifes;
+        
+        if (this.lifes != 1 && this.maxLifes != 1) {
+            lifes = -1.0 + this.lifes;
+            maxLifes = -1.0 + this.maxLifes;
+        } else {
+            lifes = 0.0 + this.lifes;
+            maxLifes = 0.0 + this.maxLifes;
+        }
+        
+        
+        double newRed = this.red.getRed() + ((lifes/maxLifes) * (this.green.getRed() - this.red.getRed()));
+        double newGreen = this.red.getGreen() + ((lifes/maxLifes) * (this.green.getGreen() - this.red.getGreen()));
+        double newBlue = this.red.getBlue() + ((lifes/maxLifes) * (this.green.getBlue() - this.red.getBlue()));
         
         Color newColor = new Color(newRed, newGreen, newBlue, 1);
         
@@ -141,9 +160,14 @@ public class BlockModel {
      * @return True if broken, false if not broken.
      */
     public boolean hit(int damage) {
-        if (this.lifes - damage <= 0) return true;
+        if (this.lifes - damage <= 0) {
+            ArkanoidModel.addScore(this.bonusScore);
+            return true;
+        }
         
+        ArkanoidModel.addScore(this.score);
         this.lifes -= damage;
+        
         return false;
     }
     
@@ -156,6 +180,7 @@ public class BlockModel {
      */
     public void setlifes(int lifes) {
         this.lifes = lifes;
+        this.maxLifes = lifes;
     }
     
     

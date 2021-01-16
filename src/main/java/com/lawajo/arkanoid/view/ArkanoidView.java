@@ -7,6 +7,7 @@ package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
+import com.lawajo.arkanoid.model.BlockModel;
 import com.lawajo.arkanoid.model.SliderModel;
 
 /**
@@ -29,7 +30,11 @@ public class ArkanoidView extends ViewObject {
         
         for (int i = 0; i < model.WIDTH; i++) {
             for (int j = 0; j < model.HEIGHT; j++) {
-                Block blockView = new Block(model.getBlock(i, j));
+                BlockModel blockModel = model.getBlock(i, j);
+                
+                if (blockModel == null) continue;
+                
+                Block blockView = new Block(blockModel);
                 this.getChildren().add(blockView);
             }
         }

@@ -26,9 +26,7 @@ public class Block extends ViewObject {
      */
     public Block(BlockModel model) {
         this.model = model;
-        
         this.rect = new Rectangle(model.WIDTH, model.HEIGHT);
-        this.rect.setFill(Color.rgb(18, 255, 151));
         this.rect.setStroke(Color.BLACK);
         this.rect.setStrokeWidth(0.4);
         

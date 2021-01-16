@@ -83,10 +83,10 @@ public class GameMenuFXMLController {
 
     public void start(ActionEvent s) {
         try{
-        App.setRoot("ArkanoidFXML");
+            App.setRoot("ArkanoidFXML");
         }
         catch (IOException exception) {
-            System.out.println("Error while loading");
+            System.out.println("Error while loading:" + exception.getMessage());
             System.exit(0);
         }
     }

@@ -32,8 +32,10 @@ public class MoveSliderTask extends TimerTask {
         switch (this.dir) {
             case LEFT:
                 slider.moveLeft();
+                break;
             case RIGHT:
                 slider.moveRight();
+                break;
         }
     }
     

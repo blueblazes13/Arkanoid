@@ -236,7 +236,7 @@ public class BallModel {
     public void startMoving(ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel){
         BallTask balltask = new BallTask(this, controller, arkanoidModel, sliderModel);
         this.t = new Timer(true);
-        this.t.scheduleAtFixedRate(balltask, 0, 20);
+        this.t.scheduleAtFixedRate(balltask, 0, 15);
     
     }
     

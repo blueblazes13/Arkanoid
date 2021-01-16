@@ -5,6 +5,8 @@
  */
 package com.lawajo.arkanoid.model;
 
+import com.lawajo.arkanoid.ArkanoidLevels;
+
 
 /**
  *
@@ -12,24 +14,22 @@ package com.lawajo.arkanoid.model;
  */
 public class ArkanoidModel {
     
-    public static final int WIDTH = 10;
+    public static final int WIDTH = 11;
     public static final int HEIGHT = 10;
     
+    private static int score;
+    private static int maxScore;
+    
     private BlockModel[][] blockField;
+    private ArkanoidLevels levels;
     
     
     public ArkanoidModel() {
-        this.blockField = new BlockModel[WIDTH][HEIGHT];
+        this.levels = new ArkanoidLevels();
+        this.blockField = this.levels.getEasy1();
         
-           
-        for(int i = 0; i < HEIGHT ; i++ ) {
-            for(int j = 0; j < WIDTH ; j++) {
-                BlockModel block = new BlockModel(0, 0);
-                block.setX(30 + block.WIDTH*i + 1*i);
-                block.setY(30 + block.HEIGHT*j + 1*j);
-                this.blockField[i][j] = block;    
-            }    
-        }    
+        this.score = 0;
+        this.maxScore = 0;
     }
     
     
@@ -41,7 +41,6 @@ public class ArkanoidModel {
      * @return 
      */
     public BlockModel getBlock(int x, int y) {
-        
         return this.blockField[x][y];
     }
     
@@ -90,4 +89,23 @@ public class ArkanoidModel {
         
         return null;
     }
+    
+    
+    public static void addScore(int score) {
+        ArkanoidModel.score += score;
+    }
+    
+    public static int getScore() {
+        return ArkanoidModel.score;
+    }
+    
+    public static int getMaxScore() {
+        return ArkanoidModel.maxScore;
+    }
+    
+    public static void setMaxScore(int score) {
+        ArkanoidModel.maxScore = score;
+    }
+    
+    
 }

@@ -19,6 +19,7 @@ public class SliderModel extends BlockModel {
     public final static int WIDTH = 60;
     public final static int HEIGHT = 5;
     private Timer t;
+    private Boolean isMoving;
     
     
     /**
@@ -30,6 +31,7 @@ public class SliderModel extends BlockModel {
     public SliderModel(int x, int y) {
         super(x, y, WIDTH, HEIGHT);
         this.speed = 1;
+        this.isMoving = false;
     }
     
     
@@ -39,7 +41,7 @@ public class SliderModel extends BlockModel {
      */
     @Deprecated
     public void moveLeft() {
-        if(super.getX() == 0) return;
+        if(super.getX() <= 0) return;
         else{
             super.setX(super.getX() - speed);
         }
@@ -52,7 +54,7 @@ public class SliderModel extends BlockModel {
      */
     @Deprecated
     public void moveRight() {
-        if(super.getX() == 560 - WIDTH) return;
+        if(super.getX() >= 560 - WIDTH) return;
         else{
             super.setX(super.getX() + speed);
         }
@@ -73,11 +75,12 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the left.
      */
     public void toLeft(ArkanoidFXMLController controller){
-        if(super.getX() == 0) return;
+        if(super.getX() <= 0 || this.isMoving) return;
         MoveSliderTask slidertask = new MoveSliderTask(Direction.LEFT,this, controller);
         
         this.t = new Timer(true);
         this.t.scheduleAtFixedRate(slidertask, 0, 20);
+        this.isMoving = true;
     }
     
     
@@ -85,11 +88,12 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the right.
      */
     public void toRight(ArkanoidFXMLController controller){
-        if(super.getX() == 560 - WIDTH) return;
+        if(super.getX() >= 560 - WIDTH || this.isMoving) return;
         MoveSliderTask slidertask = new MoveSliderTask(Direction.RIGHT,this, controller);
         
         this.t = new Timer(true);
         this.t.scheduleAtFixedRate(slidertask, 0, 20);
+        this.isMoving = true;
     }
     
     
@@ -97,7 +101,10 @@ public class SliderModel extends BlockModel {
      * Stops the slider.
      */
     public void stopMoving(){
+        if (!isMoving) return;
+        
         this.t.cancel();
         this.t = null;
+        this.isMoving = false;
     }
 }
