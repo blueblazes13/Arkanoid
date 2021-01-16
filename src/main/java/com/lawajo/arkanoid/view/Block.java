@@ -51,6 +51,7 @@ public class Block extends ViewObject {
         
         this.rect.setLayoutX(this.model.getX());
         this.rect.setLayoutY(this.model.getY());
+        this.rect.setFill(this.model.calcColor());
     }
     
     

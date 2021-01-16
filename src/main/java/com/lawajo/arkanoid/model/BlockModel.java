@@ -1,6 +1,8 @@
 
 package com.lawajo.arkanoid.model;
 
+import javafx.scene.paint.Color;
+
 /**
  *
  * @author Lander
@@ -10,8 +12,14 @@ public class BlockModel {
     public final int WIDTH;
     public final int HEIGHT;
     
+    private final Color green = new  Color(18/255, 255/255, 151/255, 1);
+    private final Color red = new Color(255/255, 63/255, 0/255, 1);
+    
+    private final int MAX_LIFES;
+    
     private Boolean isDeleted;
     private int lifes;
+    
     private int x;
     private int y;
     
@@ -31,6 +39,7 @@ public class BlockModel {
         
         this.isDeleted = false;
         this.lifes = 2;
+        this.MAX_LIFES = this.lifes;
     }
     
     
@@ -49,6 +58,7 @@ public class BlockModel {
         
         this.isDeleted = false;
         this.lifes = 2;
+        this.MAX_LIFES = this.lifes;
     }
     
     
@@ -68,11 +78,23 @@ public class BlockModel {
         
         this.lifes = lifes;
         this.isDeleted = false;
+        this.MAX_LIFES = this.lifes;
     }
     
     
     
     // Setters
+    
+    public Color calcColor() {
+        double newRed = this.red.getRed() + (this.lifes/this.MAX_LIFES) * (this.green.getRed() - this.red.getRed());
+        double newGreen = this.red.getGreen() + (this.lifes/this.MAX_LIFES) * (this.green.getGreen() - this.red.getGreen());
+        double newBlue = this.red.getBlue() + (this.lifes/this.MAX_LIFES) * (this.green.getBlue() - this.red.getBlue());
+        
+        Color newColor = new Color(newRed, newGreen, newBlue, 1);
+        
+        return newColor;
+    }
+    
     
     public void setDeleted(Boolean value) {
         this.isDeleted = value;
