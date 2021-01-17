@@ -9,6 +9,7 @@ import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BlockModel;
 import com.lawajo.arkanoid.model.SliderModel;
+import javafx.scene.Node;
 
 /**
  *
@@ -34,7 +35,7 @@ public class ArkanoidView extends ViewObject {
                 
                 if (blockModel == null) continue;
                 
-                Block blockView = new Block(blockModel);
+                BlockView blockView = new BlockView(blockModel);
                 this.getChildren().add(blockView);
             }
         }
@@ -59,18 +60,19 @@ public class ArkanoidView extends ViewObject {
      * @param ball The controller of the ball.
      */
     public void addBall(BallModel ball) {
-        this.getChildren().add(new Ball(ball));
+        BallView ballView = new BallView(ball);
+        this.getChildren().add(ballView);
     }
     
     
     /**
      * Removes a random ball from the playfield.
      */
-    public void removeBall() {
-        for (Object obj: this.getChildren()) {
-            if (obj instanceof Ball) {
-                Ball ball = (Ball) obj;
-                this.getChildren().remove(ball);
+    public void removeBall(BallModel ball) {
+        for (Node obj: this.getChildren()) {
+            ViewObject viewObj = (ViewObject) obj;
+            if (viewObj.getModel() == ball) {
+                this.getChildren().remove(obj);
             }
         }
     }
@@ -81,21 +83,14 @@ public class ArkanoidView extends ViewObject {
      * @param slider is a new slider 
      */
     public void addSlider(SliderModel slider) {
-        this.getChildren().add(new Slider(slider));
+        SliderView sliderView = new SliderView(slider);
+        this.getChildren().add(sliderView);
     }
+ 
     
-    
-    /**
-     * Removes the specified block from the playfield.
-     * 
-     * @param x The x coordinate of the block.
-     * @param y The y coordinate of the block.
-     * 
-     * @deprecated Functie is nog niet geschreven!
-     */
-    @Deprecated
-    public void removeBlock(int x, int y) {
-       
+    @Override
+    public ArkanoidModel getModel() {
+        return this.model;
     }
     
 }
