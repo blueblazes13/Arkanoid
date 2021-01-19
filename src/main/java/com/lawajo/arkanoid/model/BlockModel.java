@@ -20,6 +20,7 @@ public class BlockModel {
     private int lifes;
     private int score;
     private int bonusScore;
+    private BoostModel boost;
     
     private int x;
     private int y;
@@ -43,6 +44,7 @@ public class BlockModel {
         this.maxLifes = this.lifes;
         this.score = 5;
         this.bonusScore = 15;
+        this.boost = null;
     }
     
     
@@ -66,6 +68,7 @@ public class BlockModel {
         this.maxLifes = this.lifes;
         this.score = 5;
         this.bonusScore = 15;
+        this.boost = null;
     }
     
     
@@ -88,6 +91,7 @@ public class BlockModel {
         this.maxLifes = this.lifes;
         this.score = 5;
         this.bonusScore = 15;
+        this.boost = null;
     }
     
     
@@ -111,7 +115,6 @@ public class BlockModel {
             maxLifes = 0.0 + this.maxLifes;
         }
         
-        
         double newRed = this.red.getRed() + ((lifes/maxLifes) * (this.green.getRed() - this.red.getRed()));
         double newGreen = this.red.getGreen() + ((lifes/maxLifes) * (this.green.getGreen() - this.red.getGreen()));
         double newBlue = this.red.getBlue() + ((lifes/maxLifes) * (this.green.getBlue() - this.red.getBlue()));
@@ -119,6 +122,16 @@ public class BlockModel {
         Color newColor = new Color(newRed, newGreen, newBlue, 1);
         
         return newColor;
+    }
+    
+    
+    /**
+     * Puts a boost in the block.
+     * 
+     * @param boost The controller of the boost that has to drop out of the block.
+     */
+    public void setBoost(BoostModel boost) {
+        this.boost = boost;
     }
     
     
@@ -251,6 +264,26 @@ public class BlockModel {
      */
     public Boolean isDeleted() {
         return this.isDeleted;
+    }
+    
+    
+    /**
+     * Checks if the block has a boost inside.
+     * 
+     * @return true if there is a boost, false if not.
+     */
+    public Boolean hasBoost() {
+        return this.boost != null;
+    }
+    
+    
+    /**
+     * Gives the boost thats currently inside the block.
+     * 
+     * @return BoostModel if there is one, else null
+     */
+    public BoostModel getBoost() {
+        return this.boost;
     }
     
 }
