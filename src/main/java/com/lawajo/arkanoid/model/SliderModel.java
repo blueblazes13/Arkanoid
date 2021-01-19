@@ -18,8 +18,10 @@ public class SliderModel extends BlockModel {
     private int speed;
     public final static int WIDTH = 60;
     public final static int HEIGHT = 5;
-    private Timer t;
-    private Boolean isMoving;
+    private Timer rightTimer;
+    private Timer leftTimer;
+    private Boolean isMovingLeft;
+    private Boolean isMovingRight;
     
     
     /**
@@ -31,7 +33,8 @@ public class SliderModel extends BlockModel {
     public SliderModel(int x, int y) {
         super(x, y, WIDTH, HEIGHT);
         this.speed = 1;
-        this.isMoving = false;
+        this.isMovingLeft = false;
+        this.isMovingRight = false;
     }
     
     
@@ -75,12 +78,12 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the left.
      */
     public void toLeft(ArkanoidFXMLController controller){
-        if(super.getX() <= 0 || this.isMoving) return;
+        if(super.getX() <= 0 || this.isMovingLeft) return;
         MoveSliderTask slidertask = new MoveSliderTask(Direction.LEFT,this, controller);
         
-        this.t = new Timer(true);
-        this.t.scheduleAtFixedRate(slidertask, 0, 20);
-        this.isMoving = true;
+        this.leftTimer = new Timer(true);
+        this.leftTimer.scheduleAtFixedRate(slidertask, 0, 20);
+        this.isMovingLeft = true;
     }
     
     
@@ -88,23 +91,33 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the right.
      */
     public void toRight(ArkanoidFXMLController controller){
-        if(super.getX() >= 560 - WIDTH || this.isMoving) return;
+        if(super.getX() >= 560 - WIDTH || this.isMovingRight) return;
         MoveSliderTask slidertask = new MoveSliderTask(Direction.RIGHT,this, controller);
         
-        this.t = new Timer(true);
-        this.t.scheduleAtFixedRate(slidertask, 0, 20);
-        this.isMoving = true;
+        this.rightTimer = new Timer(true);
+        this.rightTimer.scheduleAtFixedRate(slidertask, 0, 20);
+        this.isMovingRight = true;
     }
     
     
     /**
      * Stops the slider.
      */
-    public void stopMoving(){
-        if (!isMoving) return;
+    public void stopLeft(){
+        if (!isMovingLeft) return;
         
-        this.t.cancel();
-        this.t = null;
-        this.isMoving = false;
+        this.leftTimer.cancel();
+        this.isMovingLeft = false;
+    }
+    
+    
+    /**
+     * Stops the slider.
+     */
+    public void stopRight(){
+        if (!isMovingRight) return;
+        
+        this.rightTimer.cancel();
+        this.isMovingRight = false;
     }
 }
