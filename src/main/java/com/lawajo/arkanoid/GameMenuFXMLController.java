@@ -18,7 +18,7 @@ import javafx.scene.control.MenuItem;
 /**
  * FXML Controller class
  *
- * @author Ward
+ * @author Vanmuysen Ward
  */
 public class GameMenuFXMLController {
 
@@ -53,7 +53,7 @@ public class GameMenuFXMLController {
     private Label lblCurrentDifficulty;
 
     //data Members
-    private Difficulty diff = Difficulty.EASY;
+    private Difficulty diff = EASY;
     private  int bestScore;
 
     /**
@@ -63,19 +63,19 @@ public class GameMenuFXMLController {
     void initialize() {
         miEasy.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Easy");
-            diff = Difficulty.EASY;
+            diff = EASY;
         });
         miNormal.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Normal");
-            diff = Difficulty.NORMAL;
+            diff = NORMAL;
         });
         miHard.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Hard");
-            diff = Difficulty.HARD;
+            diff = HARD;
         });
         miExpert.setOnAction((m) -> {
             lblCurrentDifficulty.setText("EXPERT");
-            diff = Difficulty.EXPERT;
+            diff = EXPERT;
         });
         btnStartGame.setOnAction(this::start);
         setDifficulty(diff);
@@ -87,7 +87,6 @@ public class GameMenuFXMLController {
         }
         catch (IOException exception) {
             System.out.println("Error while loading:" + exception.getMessage());
-            System.exit(0);
         }
     }
     
@@ -97,7 +96,7 @@ public class GameMenuFXMLController {
      */
     public void setDifficulty(Difficulty diff){
         if(diff == Difficulty.EASY){
-            System.out.println("Dikke Boktor");
+            
         }
         else if(diff == Difficulty.NORMAL){
             

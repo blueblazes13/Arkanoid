@@ -2,6 +2,7 @@
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
+import com.lawajo.arkanoid.model.BoostModel;
 import com.lawajo.arkanoid.model.Direction;
 import com.lawajo.arkanoid.model.SliderModel;
 import com.lawajo.arkanoid.view.ArkanoidView;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 //import javafx.scene.paint.Color;
@@ -39,10 +41,14 @@ public class ArkanoidFXMLController {
     @FXML
     private Button btnReset;
     
+    @FXML
+    private ProgressBar pbLifes;
+    
     //data members
     private ArkanoidModel model;
     private SliderModel slider;
     private BallModel ball;
+    private BoostModel boost;
     private ArkanoidView view;
     
     /**
@@ -51,24 +57,40 @@ public class ArkanoidFXMLController {
     @FXML
     void initialize() {
         model = new ArkanoidModel();
-        ball = new BallModel(350,290);
-        slider = new SliderModel(350,270);
+        ball = new BallModel(300,250);
+        slider = new SliderModel(300,270);
+        boost = new BoostModel(300,200);
         view = new ArkanoidView(model);
         view.addSlider(slider);
         view.addBall(ball);
+        view.addBoost(boost);
         view.setFocusTraversable(true);
         
         apPlayField.getChildren().add(view);
-        btnMenu.setOnAction(this::toMenu);
+        btnMenu.setOnAction(this::toMenu);  
         btnReset.setOnAction(this::reset);
+        apPlayField.setOnKeyReleased(this::stopMoving);
         apPlayField.setOnKeyPressed(this::keyPressed);
-        ball.startMoving(this);
-        slider.setSpeed(10);
-        
-        //MoveSliderTask task = new MoveSliderTask(, slider, this);
-        //task.run();
-        //Timer t = new Timer(true);
-        //t.scheduleAtFixedRate(task, 0, 25);
+        ball.startMoving(this, model, slider);
+        boost.startMoving(this, model, slider);
+        slider.setSpeed(5);
+    }  
+    
+    /**
+     * Stops the slider from moving upon key release
+     * @param e KeyEvent e
+     */
+    private void stopMoving(KeyEvent e){
+        switch(e.getCode()){
+            case LEFT:
+                slider.stopLeft();
+                update();
+                break;
+            case RIGHT:
+                slider.stopRight();
+                update();
+                break;
+        }
     }
     
     /**
@@ -78,13 +100,11 @@ public class ArkanoidFXMLController {
     private void keyPressed(KeyEvent k) {
         switch(k.getCode()){
             case LEFT:
-                slider.moveLeft();
-                //dir = Direction.LEFT;
+                slider.toLeft(this);
                 update();
                 break;
             case RIGHT:
-                slider.moveRight();
-                //dir = Direction.RIGHT;
+                slider.toRight(this);
                 update();
                 break;
         }
@@ -102,63 +122,46 @@ public class ArkanoidFXMLController {
         App.setRoot("GameMenuFXML");
         }
         catch (IOException exception) {
-            System.out.println("Error while loading");
-            System.exit(0);
+            System.out.println("Error while loading" + exception.getMessage());
         }
     }
     
     public void reset(ActionEvent t) {
-        //view.reset();
-        lblScore.setText("10");
+        try{
+        App.setRoot("ArkanoidFXML");
+        }
+        catch (IOException exception) {
+            System.out.println("Error while loading" + exception.getMessage());
+        }
+        lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
     }
     
     /**
-     * Check if the ball has passed the slider.
+     * Sets the score on the label
      */
-    public void dead() {
-        if(ball.getY()>slider.getY()){
-            System.out.println("ok");
-            try{
-            App.setRoot("GameMenuFXML");
-            }
-            catch (IOException exception) {
-                System.out.println("Error while loading");
-                System.exit(0);
-            }
+    public void setScore(){
+        lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
+    }
+    
+    /**
+     * Sets the new value of the life bar
+     */
+    public void setLifeBar(){
+        if (ArkanoidModel.lifes == 3){
+            pbLifes.setProgress(100.00);
+        }
+        if (ArkanoidModel.lifes == 2){
+            pbLifes.setProgress(66.66);
+        }
+        if (ArkanoidModel.lifes == 1){
+            pbLifes.setProgress(33.33);
         }
     }
     
-    public void move() {
-        if (slider == null) {
-            if (ball.getX()== BallModel.RADIUS || ball.getX() == 500 - BallModel.RADIUS) {
-                ball.hitVertical();
-            } else if (ball.getY() == BallModel.RADIUS) {
-                ball.hitHorizontal();
-            } else {
-                ball.addX();
-                ball.addY();
-            }            
-        } else {
-            int blockX = slider.getX();
-            int blockY = slider.getY();
-            
-            if (ball.getX() + BallModel.RADIUS == blockX) {
-                ball.hitVertical();
-            } else if (ball.getX() - BallModel.RADIUS == blockX + slider.WIDTH) {
-                ball.hitVertical();
-            } else {
-                if (ball.getY() + BallModel.RADIUS == blockY) {
-                    ball.hitHorizontal();
-                } else if (ball.getY() - BallModel.RADIUS == blockY + slider.HEIGHT) {
-                    ball.hitHorizontal();
-                } else {
-                    move();
-                }
-            }
-        }
-        update();
+    /**
+     * 
+     */
+    public void setBestScore(){
+        lblBestScore.setText("Effe testen");
     }
-    //public Direction setDirection() {
-    //   return Direction.LEFT; 
-    //}
 }
