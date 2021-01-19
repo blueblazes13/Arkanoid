@@ -36,7 +36,7 @@ public class ArkanoidModel {
     
     public ArkanoidModel() {
         //this.levels = new ArkanoidLevels();
-        this.blockField = ArkanoidLevels.getHard1();
+        this.blockField = getLevel();
         
         this.score = 0;
         this.maxScore = 0;
@@ -54,6 +54,23 @@ public class ArkanoidModel {
     public BlockModel getBlock(int x, int y) {
         return this.blockField[x][y];
     }
+    
+    
+    private BlockModel[][] getLevel() {
+        switch (ArkanoidModel.difficulty) {
+            case EASY:
+                return ArkanoidLevels.getEasy1();
+            case NORMAL:
+                return ArkanoidLevels.getNormal1();
+            case HARD:
+                return ArkanoidLevels.getHard1();
+            case EXPERT:
+                return ArkanoidLevels.getExpert1();
+            default:
+                return null;
+        }
+    }
+    
     
     /**
      * checks if the ball touches the block 
