@@ -12,8 +12,7 @@ public class BlockModel {
     public final int WIDTH;
     public final int HEIGHT;
     
-    private final Color green = new Color(18.0/255, 255.0/255, 151.0/255, 1.0);
-    private final Color red = new Color(255.0/255, 63.0/255, 0.0/255, 1.0);
+    
     
     private int maxLifes;
     private Boolean isDeleted;
@@ -94,8 +93,6 @@ public class BlockModel {
         this.boost = null;
     }
     
-    
-    
     // Setters
     
     
@@ -107,21 +104,33 @@ public class BlockModel {
         Double lifes;
         Double maxLifes;
         
-        if (this.lifes != 1 && this.maxLifes != 1) {
-            lifes = -1.0 + this.lifes;
-            maxLifes = -1.0 + this.maxLifes;
-        } else {
-            lifes = 0.0 + this.lifes;
-            maxLifes = 0.0 + this.maxLifes;
+        lifes = 0.0 + this.lifes;
+        maxLifes = 0.0 + this.maxLifes;
+
+        System.out.println(maxLifes);
+        
+        if(maxLifes == 1.0){
+            Color c = Color.DARKMAGENTA;
+            return c;
         }
-        
-        double newRed = this.red.getRed() + ((lifes/maxLifes) * (this.green.getRed() - this.red.getRed()));
-        double newGreen = this.red.getGreen() + ((lifes/maxLifes) * (this.green.getGreen() - this.red.getGreen()));
-        double newBlue = this.red.getBlue() + ((lifes/maxLifes) * (this.green.getBlue() - this.red.getBlue()));
-        
-        Color newColor = new Color(newRed, newGreen, newBlue, 1);
-        
-        return newColor;
+        else if(maxLifes == 3.0){
+            Color c = Color.AQUA;
+            return c;
+        }
+        else if(maxLifes == 5.0){
+            Color c = Color.BURLYWOOD;
+            return c;
+        }
+        return Color.PINK;
+//        
+//        
+//        double newRed = red.getRed() + ((lifes/maxLifes) * (green.getRed() - red.getRed()));
+//        double newGreen = red.getGreen() + ((lifes/maxLifes) * (green.getGreen() - red.getGreen()));
+//        double newBlue = red.getBlue() + ((lifes/maxLifes) * (green.getBlue() - red.getBlue()));
+//        
+//        Color newColor = new Color(newRed, newGreen, newBlue, 1);
+//        
+//        return newColor;
     }
     
     

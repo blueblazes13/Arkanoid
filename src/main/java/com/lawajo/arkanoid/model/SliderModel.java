@@ -18,8 +18,8 @@ public class SliderModel extends BlockModel {
     private int speed;
     public final static int WIDTH = 60;
     public final static int HEIGHT = 5;
-    private Timer rightTimer;
-    private Timer leftTimer;
+    private transient Timer rightTimer;
+    private transient Timer leftTimer;
     private Boolean isMovingLeft;
     private Boolean isMovingRight;
     

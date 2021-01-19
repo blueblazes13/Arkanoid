@@ -18,8 +18,8 @@ public class BallModel {
  
     public final static int RADIUS = 10;
     
-    private final Random random = new Random();
-    private Timer t;
+    private transient final Random random = new Random();
+    private transient Timer t;
     
     private double x;
     private double y;
@@ -122,6 +122,10 @@ public class BallModel {
             Double randomDouble = ((Math.PI/6.0) + (this.random.nextDouble() * (Math.PI*(4.0/6.0))));
             setAngle(randomDouble, this.dy < 0);
             addX();
+            
+            if (this instanceof BoostModel) {
+                stopMoving();
+            }
         } else {
             double tempY = this.y;
             this.y = this.prevY;

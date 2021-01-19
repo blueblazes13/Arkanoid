@@ -22,20 +22,25 @@ public class ArkanoidModel {
     public static final int WIDTH = 11;
     public static final int HEIGHT = 11;
     
-    public static int lifes = 3;
+    private int savedLifes;
+    private int savedScore;
+    private int savedMaxScore;
+    
+    public static int lifes;
     private static int score;
     private static int maxScore;
     
     private BlockModel[][] blockField;
-    private ArkanoidLevels levels;
+    //private ArkanoidLevels levels;
     private static Difficulty difficulty = Difficulty.EASY;
     
     public ArkanoidModel() {
-        this.levels = new ArkanoidLevels();
-        this.blockField = this.levels.getEasy1();
+        //this.levels = new ArkanoidLevels();
+        this.blockField = ArkanoidLevels.getEasy1();
         
         this.score = 0;
         this.maxScore = 0;
+        this.lifes = 3;
     }
     
     
@@ -153,9 +158,9 @@ public class ArkanoidModel {
         return lifes;
     }
     
-    public void setLevels(ArkanoidLevels levels){
-        this.levels = levels;
-    }
+//    public void setLevels(ArkanoidLevels levels){
+//        this.levels = levels;
+//    }
     
     /**
      * sets the max score to the new max score
@@ -176,13 +181,19 @@ public class ArkanoidModel {
     
 
     /**
-     * Saves the arkanoid game.
+     * Saves the ArkanoidModel with all the data of the game.
+     * 
      * @param model The ArkanoidModel wich controls the game.
+     * 
      * @throws IOException 
      */
     public static void save(ArkanoidModel model) throws IOException {
         FileWriter dataWriter = new FileWriter("data.txt");
         Gson gsonConverter = new Gson();
+        
+        model.savedLifes = ArkanoidModel.lifes;
+        model.savedScore = ArkanoidModel.score;
+        model.savedMaxScore = ArkanoidModel.maxScore;
         
         String jsonArkanoidModel = gsonConverter.toJson(model);
         dataWriter.write(jsonArkanoidModel);
@@ -192,15 +203,21 @@ public class ArkanoidModel {
     
     
     /**
-     * Loads the arkanoid game.
-     * @param model The ArkanoidModel wich controls the game.
-     * @throws IOException 
+     * Loads the currently saved ArkanoidModel with all game data.
+     * 
+     * @return The ArkanoidModel.
+     * 
+     * @throws java.io.FileNotFoundException----------------------------------------- mss onze eigen exception throwen
      */
     public static ArkanoidModel load() throws FileNotFoundException {
         FileReader dataReader = new FileReader("data.txt");
         Gson gsonConverter = new Gson();
         
         ArkanoidModel model = gsonConverter.fromJson(dataReader, ArkanoidModel.class);
+        
+        ArkanoidModel.lifes = model.savedLifes;
+        ArkanoidModel.score = model.savedScore;
+        ArkanoidModel.maxScore = model.savedMaxScore;
         
         return model;
     }
