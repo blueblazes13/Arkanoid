@@ -17,6 +17,7 @@ import java.util.Timer;
 public class BallModel {
  
     public final static int RADIUS = 10;
+    
     private final Random random = new Random();
     private Timer t;
     
@@ -220,10 +221,12 @@ public class BallModel {
         move(null);
     }
     
-    public void checkDeath(){
+    public boolean checkDeath(){
         if(this.y + BallModel.RADIUS >= 352){
             stopMoving();
+            return true;
         }
+        return false;
     }
     
     /**
@@ -240,9 +243,13 @@ public class BallModel {
     
     }
     
+    
+    /**
+     * the balls stops with moving
+     */
     public void stopMoving(){
         this.t.cancel();
-        this.t = null;
+        //this.t = null;
     }
     
     
