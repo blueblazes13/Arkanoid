@@ -120,7 +120,6 @@ public class BallModel {
             this.y = this.prevY;
             this.prevY = tempY;
             Double randomDouble = ((Math.PI/6.0) + (this.random.nextDouble() * (Math.PI*(4.0/6.0))));
-            System.out.println(randomDouble);
             setAngle(randomDouble, this.dy < 0);
             addX();
         } else {
@@ -136,10 +135,10 @@ public class BallModel {
     /**
      * Sets the ball in a certain angle with the same speed
      * 
-     * @param angle
-     * @param up 
+     * @param angle The angle of the traject of the ball.
+     * @param up Will the ball bounce up or not. (This means that the ball is currently moving down)
      */
-    private void setAngle(double angle, Boolean up) {
+    public void setAngle(double angle, Boolean up) {
         if (up) {
             this.dx = Math.signum(this.dx) * Math.cos(angle);
             this.dy = Math.sin(angle);
