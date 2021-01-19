@@ -36,7 +36,7 @@ public class ArkanoidModel {
     
     public ArkanoidModel() {
         //this.levels = new ArkanoidLevels();
-        this.blockField = ArkanoidLevels.getEasy1();
+        this.blockField = ArkanoidLevels.getHard1();
         
         this.score = 0;
         this.maxScore = 0;
@@ -68,6 +68,8 @@ public class ArkanoidModel {
         double ballX = ball.getX();
         double ballY = ball.getY();
         
+        if (ball instanceof BoostModel && !(block instanceof SliderModel)) return false;
+        
         
         if (blockX <= ballX + BallModel.RADIUS &&
                 blockX + block.WIDTH >= ballX - BallModel.RADIUS) {
@@ -98,11 +100,11 @@ public class ArkanoidModel {
             for (int j = 0; j < HEIGHT; j++) {
                 
                 block = getBlock(i, j);
-                if(block == null) continue;
+                if(block == null || block.isDeleted()) continue;
                 if(check(ball, block)){
                     if (block.hit(ball.getDamage())){
                         block.setDeleted(true);
-                        blockField[i][j] = null;
+//                        blockField[i][j] = null;
                     } 
                 return block;
                 }     
@@ -116,7 +118,7 @@ public class ArkanoidModel {
     
     /**
      * adds score to total score
-     * @param score when the ball the block hits 
+     * @param score when the ball hits the block
      */
     public static void addScore(int score) {
         ArkanoidModel.score += score;

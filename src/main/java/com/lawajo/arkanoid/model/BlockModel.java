@@ -20,6 +20,7 @@ public class BlockModel {
     private int score;
     private int bonusScore;
     private BoostModel boost;
+    private Boolean usedBoost;
     
     private int x;
     private int y;
@@ -44,6 +45,7 @@ public class BlockModel {
         this.score = 5;
         this.bonusScore = 15;
         this.boost = null;
+        this.usedBoost = false;
     }
     
     

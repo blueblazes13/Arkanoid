@@ -6,6 +6,7 @@
 package com.lawajo.arkanoid;
 
 import com.lawajo.arkanoid.model.BlockModel;
+import com.lawajo.arkanoid.model.BoostModel;
 
 /**
  *
@@ -253,6 +254,7 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(2);
+                block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
                 playField[i][j] = block;    
             }    
         } 
