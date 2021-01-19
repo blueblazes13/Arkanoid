@@ -8,6 +8,7 @@ package com.lawajo.arkanoid.view;
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BlockModel;
+import com.lawajo.arkanoid.model.BoostModel;
 import com.lawajo.arkanoid.model.SliderModel;
 import javafx.scene.Node;
 
@@ -86,8 +87,18 @@ public class ArkanoidView extends ViewObject {
         SliderView sliderView = new SliderView(slider);
         this.getChildren().add(sliderView);
     }
- 
     
+    
+    /**
+     * adds a boost to the field
+     * @param boost is new boost
+     */
+    public void addBoost(BoostModel boost){
+        BoostView boostView = new BoostView(boost);
+        this.getChildren().add(boostView);   
+    }
+    
+
     @Override
     public ArkanoidModel getModel() {
         return this.model;
