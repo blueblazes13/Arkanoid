@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -53,5 +54,6 @@
             </LinearGradient>
          </fill>
       </Rectangle>
+      <ProgressBar fx:id="pbLifes" layoutX="-141.0" layoutY="210.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.61" prefHeight="12.0" prefWidth="300.0" progress="0.66" rotate="90.0" />
    </children>
 </AnchorPane>
