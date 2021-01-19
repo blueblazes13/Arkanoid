@@ -104,35 +104,37 @@ public class BlockModel {
         Double lifes;
         Double maxLifes;
         
+        Color startColor = Color.WHITE;
+        Color endColor = new Color(255.0/255, 81.0/255, 20.0/255, 1);
+        
+//        Color red = new Color(255.0/255, 81.0/255, 20.0/255, 1);
+//        Color green = new Color(18.0/255, 255.0/255, 151.0/255, 1);
+        
         lifes = 0.0 + this.lifes;
         maxLifes = 0.0 + this.maxLifes;
 
-        System.out.println(maxLifes);
         
-        if(maxLifes == 1.0){
-            Color c = Color.DARKMAGENTA;
-            return c;
-        }
-        else if(maxLifes == 3.0){
-            Color c = Color.AQUA;
-            return c;
-        }
-        else if(maxLifes == 5.0){
-            Color c = Color.BURLYWOOD;
-            return c;
-        }
-        return Color.PINK;
-//        
-//        
-//        double newRed = red.getRed() + ((lifes/maxLifes) * (green.getRed() - red.getRed()));
-//        double newGreen = red.getGreen() + ((lifes/maxLifes) * (green.getGreen() - red.getGreen()));
-//        double newBlue = red.getBlue() + ((lifes/maxLifes) * (green.getBlue() - red.getBlue()));
-//        
-//        Color newColor = new Color(newRed, newGreen, newBlue, 1);
-//        
-//        return newColor;
+        if(maxLifes == 1.0)startColor = Color.LIGHTGREEN;
+        if(maxLifes == 3.0)startColor =  Color.GREENYELLOW;
+        if(maxLifes == 5.0)startColor =  Color.GREEN;
+        if(maxLifes == 7.0)startColor =  Color.DARKGREEN;
+        if(maxLifes == 15.0)startColor =  Color.RED;
+        
+        if(maxLifes == 2.0)startColor =  Color.LIGHTSKYBLUE;
+        if(maxLifes == 4.0)startColor =  Color.LIGHTBLUE;
+        if(maxLifes == 6.0)startColor =  Color.LIGHTSTEELBLUE;
+        if(maxLifes == 8.0)startColor =  Color.STEELBLUE;
+        if(maxLifes == 10.0)startColor =  Color.BLUE;
+        if(maxLifes == 12.0)startColor =  Color.DARKBLUE;
+        
+        double newRed = endColor.getRed() + ((lifes/maxLifes) * (startColor.getRed() - endColor.getRed()));
+        double newGreen = endColor.getGreen() + ((lifes/maxLifes) * (startColor.getGreen() - endColor.getGreen()));
+        double newBlue = endColor.getBlue() + ((lifes/maxLifes) * (startColor.getBlue() - endColor.getBlue()));
+        
+        Color newColor = new Color(newRed, newGreen, newBlue, 1);
+        
+        return newColor;
     }
-    
     
     /**
      * Puts a boost in the block.
