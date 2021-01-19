@@ -115,7 +115,7 @@
          </children>
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5e5e5b5" height="405.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="2.0" width="606.0" />
-      <Rectangle fx:id="btnLoad" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="363.0" layoutX="19.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="563.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="363.0" layoutX="19.0" layoutY="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="563.0" />
       <Label layoutX="182.0" layoutY="14.0" prefHeight="51.0" prefWidth="236.0" text="Arkanoid reïnvented" textAlignment="CENTER">
          <font>
             <Font name="Simplex" size="21.0" />
@@ -142,6 +142,6 @@
             <Font name="Simplex" size="8.0" />
          </font>
       </Label>
-      <Button fx:id="btnStartGame1" cache="true" focusTraversable="false" layoutX="314.0" layoutY="334.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="73.0" text="Load" />
+      <Button fx:id="btnLoad" cache="true" focusTraversable="false" layoutX="314.0" layoutY="334.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="73.0" text="Load" />
    </children>
 </AnchorPane>
