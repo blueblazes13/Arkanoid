@@ -20,7 +20,7 @@ import java.io.IOException;
 public class ArkanoidModel {
     
     public static final int WIDTH = 11;
-    public static final int HEIGHT = 10;
+    public static final int HEIGHT = 11;
     
     public static int lifes = 3;
     private static int score;
@@ -146,6 +146,18 @@ public class ArkanoidModel {
     
     
     /**
+     * gets the lives
+     * @return the lives
+     */
+    public static int getLifes(){
+        return lifes;
+    }
+    
+    public void setLevels(ArkanoidLevels levels){
+        this.levels = levels;
+    }
+    
+    /**
      * sets the max score to the new max score
      * @param score 
      */
@@ -162,16 +174,12 @@ public class ArkanoidModel {
         ArkanoidModel.difficulty = dif;
     }
     
-    
-    /**
-     * gets the lives
-     * @return the lives
-     */
-    public static int getLifes(){
-        return lifes;
-    }
 
-    
+    /**
+     * Saves the arkanoid game.
+     * @param model The ArkanoidModel wich controls the game.
+     * @throws IOException 
+     */
     public static void save(ArkanoidModel model) throws IOException {
         FileWriter dataWriter = new FileWriter("data.txt");
         Gson gsonConverter = new Gson();
@@ -183,6 +191,11 @@ public class ArkanoidModel {
     }
     
     
+    /**
+     * Loads the arkanoid game.
+     * @param model The ArkanoidModel wich controls the game.
+     * @throws IOException 
+     */
     public static ArkanoidModel load() throws FileNotFoundException {
         FileReader dataReader = new FileReader("data.txt");
         Gson gsonConverter = new Gson();

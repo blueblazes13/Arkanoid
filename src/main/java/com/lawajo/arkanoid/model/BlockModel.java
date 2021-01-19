@@ -51,6 +51,8 @@ public class BlockModel {
      * 
      * @param x The x coordinate.
      * @param y The y coordinate.
+     * @param width The witdh of the block.
+     * @param height The heigth of the block.
      */
     public BlockModel(int x, int y, int width, int height) {
         this.x = x;
@@ -92,9 +94,14 @@ public class BlockModel {
     
     // Setters
     
+    
+    /**
+     * calculates the color based on the number of lives
+     * @return a new color  
+     */
     public Color calcColor() {
-         Double lifes;
-         Double maxLifes;
+        Double lifes;
+        Double maxLifes;
         
         if (this.lifes != 1 && this.maxLifes != 1) {
             lifes = -1.0 + this.lifes;
@@ -115,6 +122,10 @@ public class BlockModel {
     }
     
     
+    /**
+     * sets the value of the block
+     * @param value is true when the blocks is deleted
+     */
     public void setDeleted(Boolean value) {
         this.isDeleted = value;
     }
@@ -184,6 +195,23 @@ public class BlockModel {
     }
     
     
+    /**
+     * Sets the score when the ball hits the block.
+     * @param score the new score. 
+     */
+    public void setScore(int score){
+        this.score = score;
+    }
+    
+    
+    /**
+     * Sets the bonusscore when the ball hits the block.
+     * @param bonusScore the new bonusscore. 
+     */
+    public void setBonusScore(int bonusScore){
+        this.bonusScore = bonusScore;
+    }
+    
     
     // Getters
     
@@ -217,6 +245,10 @@ public class BlockModel {
     }
 
     
+    /**
+     * Gets the value of the block this can be true or false
+     * @return true when the blocks is deleted
+     */
     public Boolean isDeleted() {
         return this.isDeleted;
     }

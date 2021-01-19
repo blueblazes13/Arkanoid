@@ -12,7 +12,7 @@ import java.util.Timer;
 
 /**
  *
- * @author lande
+ * @author Lander
  */
 public class BallModel {
  
@@ -166,12 +166,9 @@ public class BallModel {
      * Also checks if the ball collides with a block if that block is given as
      * a parameter. If not, the ball only checks if it collides with a wall.
      * 
-     * @deprecated Toen ik dit schreef, had ik nog niet door dat we ook een ballModel gingen maken.
-     *              Ik denk nu dus dat het beter is dat we dit bij het Model houden zoals het nu is.
-     * 
      * @param block The block the ball hits.
      */
-    @Deprecated
+    
     public void move(BlockModel block) {
         if (block == null) {
             if (this.x <= BallModel.RADIUS ||  this.x >= 560 - BallModel.RADIUS) {
