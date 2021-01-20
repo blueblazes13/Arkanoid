@@ -20,6 +20,7 @@ public class BallModel {
     
     private transient final Random random = new Random();
     private transient Timer t;
+    private Boolean stoppedMoving;
     
     private double x;
     private double y;
@@ -41,6 +42,7 @@ public class BallModel {
      * @param y The y coordinate of the ball.
      */
     public BallModel(int x, int y) {
+        this.stoppedMoving = false;
         this.x = x;
         this.y = y;
         
@@ -196,11 +198,7 @@ public class BallModel {
             if (this.y + BallModel.RADIUS <= blockY + (block.HEIGHT/2)) {
                 hitHorizontal(block);
             } else if (this.y - BallModel.RADIUS >= blockY + block.HEIGHT/2) {
-                if (block instanceof SliderModel) {
-                    move();
-                } else {
-                    hitHorizontal(block);
-                }
+                hitHorizontal(block);
             } else {
                 if (this.x + BallModel.RADIUS >= blockX &&
                         this.x + BallModel.RADIUS <= blockX + (block.WIDTH/4)) {
@@ -253,6 +251,7 @@ public class BallModel {
      */
     public void stopMoving(){
         this.t.cancel();
+        this.stoppedMoving=true;
         //this.t = null;
     }
     
@@ -288,4 +287,11 @@ public class BallModel {
         return this.damage;
     }
     
+    /**
+     * Is the ball moving.
+     * @return moving Boolean moving
+     */
+    public Boolean isMoving() {
+        return stoppedMoving;
+    }
 }

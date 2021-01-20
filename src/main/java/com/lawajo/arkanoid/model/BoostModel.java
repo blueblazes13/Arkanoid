@@ -12,7 +12,7 @@ package com.lawajo.arkanoid.model;
 public class BoostModel extends BallModel {
 
     public final static int RADIUS = 5;
-    private double dy;
+    
 /**
      * Initializes a new boost
      * 
@@ -21,7 +21,6 @@ public class BoostModel extends BallModel {
      */
     public BoostModel(int x, int y) {
         super(x, y);
-        super.setdX(0);
-        super.setdY(1);
+        super.setAngle(Math.PI/2,true);
     }
 }

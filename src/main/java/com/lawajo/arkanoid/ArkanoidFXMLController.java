@@ -1,15 +1,12 @@
-	package com.lawajo.arkanoid;
+package com.lawajo.arkanoid;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BoostModel;
-import com.lawajo.arkanoid.model.Direction;
 import com.lawajo.arkanoid.model.SliderModel;
 import com.lawajo.arkanoid.view.ArkanoidView;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Timer;
+import java.util.concurrent.ThreadLocalRandom;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,12 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-//import javafx.scene.paint.Color;
         
 /**
  * FXML Controller class
  *
- * @author Ward
+ * @author Vanmuysen Ward
  */
 public class ArkanoidFXMLController {
 
@@ -56,10 +52,18 @@ public class ArkanoidFXMLController {
      */
     @FXML
     void initialize() {
-        model = new ArkanoidModel();
-        ball = new BallModel(300,250);
-        slider = new SliderModel(300,270);
-        boost = new BoostModel(300,200);
+        
+        if (ArkanoidModel.controllingModel == null){
+            model = new ArkanoidModel();
+        }
+        else {
+            model = ArkanoidModel.controllingModel;
+            ArkanoidModel.controllingModel = null;
+        }
+        
+        ball = new BallModel(280,250);
+        slider = new SliderModel(280,270);
+        boost = new BoostModel(280,200);
         view = new ArkanoidView(model);
         view.addSlider(slider);
         view.addBall(ball);
@@ -74,10 +78,12 @@ public class ArkanoidFXMLController {
         ball.startMoving(this, model, slider);
         boost.startMoving(this, model, slider);
         slider.setSpeed(5);
+        setLifeBar();
+        System.out.println(ArkanoidModel.lifes);
     }  
     
     /**
-     * Stops the slider from moving upon key release
+     * Stops the slider from moving upon key release.
      * @param e KeyEvent e
      */
     private void stopMoving(KeyEvent e){
@@ -109,59 +115,137 @@ public class ArkanoidFXMLController {
                 break;
         }
     }
-    
+        
     /**
      * Updates the view.
      */
     public void update() {
+        if(ball.checkDeath()) { 
+            newBall();
+        }
+        if(boost.isMoving()) {
+            view.removeBoost(boost);
+            //activateBoost();
+        }
+        setScore();
+        setLifeBar();
         view.update();
     }
     
+    /**
+     * Go back to the Game menu.
+     * @param t Action Event t
+     */
     private void toMenu(ActionEvent t) {
-        try{
-        App.setRoot("GameMenuFXML");
+        try {
+            ArkanoidModel.save(model);
+        } catch (IOException ex){
+            ex.printStackTrace();
         }
-        catch (IOException exception) {
-            System.out.println("Error while loading" + exception.getMessage());
+        try {
+            App.setRoot("GameMenuFXML");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-    }
-    
-    public void reset(ActionEvent t) {
-        try{
-        App.setRoot("ArkanoidFXML");
-        }
-        catch (IOException exception) {
-            System.out.println("Error while loading" + exception.getMessage());
-        }
-        lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
     }
     
     /**
-     * Sets the score on the label
+     * Resets the current Arkanoid Game.
+     * @param t 
+     */
+    public void reset(ActionEvent t) {
+        //#TODO
+        model = new ArkanoidModel();
+        //newBall();
+        update();
+        
+        /*try {
+            ArkanoidModel.save(model);
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }*/
+    }
+    
+    /**
+     * Spawns new ball when last ball got past the slider.
+     */
+    public void newBall(){
+        if(ArkanoidModel.lifes>=0){
+            view.removeBall(ball);
+            this.ball = new BallModel(300,250);
+            view.addBall(ball);
+            ball.startMoving(this, model, slider);
+            update();
+            
+            System.out.println(ArkanoidModel.getLifes());
+            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
+            System.out.println(ArkanoidModel.getLifes());
+        }   
+        else {
+            view.removeBall(ball);
+            update();
+        }
+    }
+    
+    /**
+     * Activates a random boost.
+     */
+    public void activateBoost(){    
+        int Num = ThreadLocalRandom.current().nextInt(1,4);
+        switch(Num){
+            case 1:
+                ball.setDamage(3);
+                update();
+                break;
+            case 2:
+                //slider.setWidth(dqdq);
+                update();
+                break;
+            case 3:
+                slider.setSpeed(5);
+                update();
+                break;
+        }
+    }
+    
+    
+    /**
+     * Sets the new value of the life bar.
+     */
+    public void setLifeBar(){
+        switch (ArkanoidModel.lifes) {
+            case 3:
+                pbLifes.setProgress(1);
+                break;
+            case 2:
+                pbLifes.setProgress(0.66);
+                break;
+            case 1:
+                pbLifes.setProgress(0.33);
+                break;
+            case 0:
+                pbLifes.setProgress(0);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    /**
+     * Sets the score on the label.
      */
     public void setScore(){
         lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
     }
     
     /**
-     * Sets the new value of the life bar
-     */
-    public void setLifeBar(){
-        if (ArkanoidModel.lifes == 3){
-            pbLifes.setProgress(100.00);
-        }
-        if (ArkanoidModel.lifes == 2){
-            pbLifes.setProgress(66.66);
-        }
-        if (ArkanoidModel.lifes == 1){
-            pbLifes.setProgress(33.33);
-        }
-    }
-    
-    /**
-     * 
+     * Sets the best score the player has achieved so far.
      */
     public void setBestScore(){
-        lblBestScore.setText("Effe testen");
+        String score = lblScore.getText();
+        if(Integer.parseInt(lblScore.getText())>Integer.parseInt(lblBestScore.getText())){
+            lblBestScore.setText(score);
+        }
+        else;
     }
 }

@@ -1,16 +1,14 @@
 package com.lawajo.arkanoid;
 
+import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.Difficulty;
 import static com.lawajo.arkanoid.model.Difficulty.EASY;
 import static com.lawajo.arkanoid.model.Difficulty.EXPERT;
 import static com.lawajo.arkanoid.model.Difficulty.HARD;
 import static com.lawajo.arkanoid.model.Difficulty.NORMAL;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -21,13 +19,7 @@ import javafx.scene.control.MenuItem;
  * @author Vanmuysen Ward
  */
 public class GameMenuFXMLController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
+    
     @FXML
     private Button btnStartGame;
 
@@ -51,6 +43,9 @@ public class GameMenuFXMLController {
 
     @FXML
     private Label lblCurrentDifficulty;
+    
+    @FXML
+    private Button btnLoad;
 
     //data Members
     private Difficulty diff = EASY;
@@ -64,62 +59,48 @@ public class GameMenuFXMLController {
         miEasy.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Easy");
             diff = EASY;
+            ArkanoidModel.setDifficulty(diff);
         });
         miNormal.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Normal");
             diff = NORMAL;
+            ArkanoidModel.setDifficulty(diff);
         });
         miHard.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Hard");
             diff = HARD;
+            ArkanoidModel.setDifficulty(diff);
         });
         miExpert.setOnAction((m) -> {
             lblCurrentDifficulty.setText("EXPERT");
             diff = EXPERT;
+            ArkanoidModel.setDifficulty(diff);
         });
         btnStartGame.setOnAction(this::start);
-        setDifficulty(diff);
+        btnLoad.setOnAction(this::load);
     }
+    
+    
 
     public void start(ActionEvent s) {
         try{
             App.setRoot("ArkanoidFXML");
         }
-        catch (IOException exception) {
-            System.out.println("Error while loading:" + exception.getMessage());
+        catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
+    
+    public void load(ActionEvent l) {
+        try {
+            ArkanoidModel.controllingModel = ArkanoidModel.load(); 
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }    
+    }   
     
     /**
      * Sets the difficulty for the game.
      * @param diff
      */
-    public void setDifficulty(Difficulty diff){
-        if(diff == Difficulty.EASY){
-            
-        }
-        else if(diff == Difficulty.NORMAL){
-            
-        }
-        else if(diff == Difficulty.HARD){
-            
-        }
-        else if(diff == Difficulty.EXPERT){
-            
-        }
-    }
-    
-    /**
-     * Eventueel model aanmaken die de scores bijhoud om deze aan de controller door te voeren.
-     * Of deze bij het ArkanoidModel aanmaken
-     * Sets the text labels for the latest and best score
-     * @param score The score of the last game
-     */
-    //public void setLabels(score){
-        //
-        //if dead and score > latestscore
-        //lblBestScore.set(score);
-        //else
-        //lblLatestScore.set(score)
-    //}
 }

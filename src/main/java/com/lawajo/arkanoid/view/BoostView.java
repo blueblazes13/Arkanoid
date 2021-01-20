@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 
 /**
  *
- * @author FrietStoofvlees
+ * @author Vanmuysen Ward
  */
 public class BoostView extends ViewObject {
 

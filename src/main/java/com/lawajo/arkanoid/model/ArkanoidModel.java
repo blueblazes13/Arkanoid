@@ -21,6 +21,8 @@ public class ArkanoidModel {
     
     public static final int WIDTH = 11;
     public static final int HEIGHT = 11;
+   
+    public static ArkanoidModel controllingModel;
     
     private int savedLifes;
     private int savedScore;
@@ -46,7 +48,7 @@ public class ArkanoidModel {
     
     /**
      * Gives the BlockModel of the specified location.
-     * 
+     *  
      * @param x the x coordinate 
      * @param y the y coordinate
      * @return a blockfield
@@ -54,23 +56,6 @@ public class ArkanoidModel {
     public BlockModel getBlock(int x, int y) {
         return this.blockField[x][y];
     }
-    
-    
-    private BlockModel[][] getLevel() {
-        switch (ArkanoidModel.difficulty) {
-            case EASY:
-                return ArkanoidLevels.getEasy1();
-            case NORMAL:
-                return ArkanoidLevels.getNormal1();
-            case HARD:
-                return ArkanoidLevels.getHard1();
-            case EXPERT:
-                return ArkanoidLevels.getExpert1();
-            default:
-                return null;
-        }
-    }
-    
     
     /**
      * checks if the ball touches the block 
@@ -84,8 +69,6 @@ public class ArkanoidModel {
         
         double ballX = ball.getX();
         double ballY = ball.getY();
-        
-        if (ball instanceof BoostModel && !(block instanceof SliderModel)) return false;
         
         
         if (blockX <= ballX + BallModel.RADIUS &&
@@ -117,11 +100,11 @@ public class ArkanoidModel {
             for (int j = 0; j < HEIGHT; j++) {
                 
                 block = getBlock(i, j);
-                if(block == null || block.isDeleted()) continue;
+                if(block == null) continue;
                 if(check(ball, block)){
                     if (block.hit(ball.getDamage())){
                         block.setDeleted(true);
-//                        blockField[i][j] = null;
+                        blockField[i][j] = null;
                     } 
                 return block;
                 }     
@@ -135,10 +118,26 @@ public class ArkanoidModel {
     
     /**
      * adds score to total score
-     * @param score when the ball hits the block
+     * @param score when the ball the block hits 
      */
     public static void addScore(int score) {
         ArkanoidModel.score += score;
+    }
+    
+    private BlockModel[][] getLevel() {
+
+        switch (ArkanoidModel.difficulty) {
+            case EASY:
+                return ArkanoidLevels.getEasy1();
+            case NORMAL:
+                return ArkanoidLevels.getNormal1();
+            case HARD:
+                return ArkanoidLevels.getHard1();
+            case EXPERT:
+                return ArkanoidLevels.getExpert1();
+            default:
+                return null;
+        }
     }
     
     
@@ -198,7 +197,16 @@ public class ArkanoidModel {
         ArkanoidModel.difficulty = dif;
     }
     
-
+    /**
+     * set the number of lifes 
+     * @param lifes 
+     */
+    public static void setLifes(int lifes){
+        ArkanoidModel.lifes = lifes;
+        System.out.println(lifes);
+        System.out.println(ArkanoidModel.lifes);
+    }
+    
     /**
      * Saves the ArkanoidModel with all the data of the game.
      * 
@@ -217,7 +225,6 @@ public class ArkanoidModel {
         String jsonArkanoidModel = gsonConverter.toJson(model);
         dataWriter.write(jsonArkanoidModel);
         dataWriter.close();
-        
     }
     
     

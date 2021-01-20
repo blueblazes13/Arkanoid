@@ -50,14 +50,6 @@ public class ArkanoidView extends ViewObject {
     public void update() {
         for (Object obj: this.getChildren()) {
             ViewObject vObject = (ViewObject) obj;
-            
-            if (vObject instanceof BlockView) {
-                BlockModel block = (BlockModel) vObject.getModel();
-                if (block.isDeleted()) {
-                    removeBlock((BlockView) vObject);
-                }
-            }
-            
             vObject.update();
         }
     }
@@ -75,20 +67,8 @@ public class ArkanoidView extends ViewObject {
     
     
     /**
-     * Removes a block from the playfield.
-     */
-    public void removeBlock(BlockView block) {
-        BlockModel blockModel = block.getModel();
-        if (blockModel.hasBoost()) {
-            addBoost(blockModel.getBoost());
-        }
-        
-        this.getChildren().remove(block);
-    }
-    
-    
-    /**
      * Removes a random ball from the playfield.
+     * @param ball BallModel ball
      */
     public void removeBall(BallModel ball) {
         for (Node obj: this.getChildren()) {
@@ -117,6 +97,20 @@ public class ArkanoidView extends ViewObject {
     public void addBoost(BoostModel boost){
         BoostView boostView = new BoostView(boost);
         this.getChildren().add(boostView);   
+    }
+    
+    
+    /**
+     * removes a boost from the field
+     * @param boost BoostModel boost
+     */
+    public void removeBoost(BoostModel boost){
+        for (Node obj: this.getChildren()) {
+            ViewObject viewObj = (ViewObject) obj;
+            if (viewObj.getModel() == boost) {
+                this.getChildren().remove(obj);
+            }
+        }
     }
     
 
