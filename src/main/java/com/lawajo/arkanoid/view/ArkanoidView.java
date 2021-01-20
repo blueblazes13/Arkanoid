@@ -49,7 +49,7 @@ public class ArkanoidView extends ViewObject {
      */
     @Override
     public void update() {
-        ArrayList<BlockView> toRemove = new ArrayList<>();
+        ArrayList<ViewObject> toRemove = new ArrayList<>();
         
         this.getChildren().forEach(obj -> {
             ViewObject vObject = (ViewObject) obj;
@@ -58,12 +58,27 @@ public class ArkanoidView extends ViewObject {
             if (vObject instanceof BlockView) {
                 BlockModel block = (BlockModel) vObject.getModel();
                 if (block.isDeleted()) {
-                    toRemove.add((BlockView) vObject);
+                    toRemove.add(vObject);
+                }
+            } else if (vObject instanceof BoostView) {
+                BoostModel boostModel = (BoostModel) vObject.getModel();
+                if (!boostModel.isMoving()) {
+                    toRemove.add(vObject);
                 }
             }
         });
         
-        toRemove.forEach(this::removeBlock);
+        toRemove.forEach(this::removeViewObjects);
+    }
+    
+    public void removeViewObjects(ViewObject obj) {
+        if (obj instanceof BlockView) {
+            removeBlock((BlockView) obj);
+        } else {
+            BoostModel boost = (BoostModel) obj.getModel();
+            boost = null;
+            this.getChildren().remove(obj);
+        }
     }
     
     
@@ -72,11 +87,14 @@ public class ArkanoidView extends ViewObject {
      */
     public void removeBlock(BlockView block) {
         BlockModel blockModel = block.getModel();
+        this.getChildren().remove(block);
+        
         if (blockModel.hasBoost()) {
+            System.out.println("Spawned new one!");
             addBoost(blockModel.getBoost());
         }
 
-        this.getChildren().remove(block);
+        
     }
     
     
@@ -126,18 +144,18 @@ public class ArkanoidView extends ViewObject {
     }
     
     
-    /**
-     * removes a boost from the field
-     * @param boost BoostModel boost
-     */
-    public void removeBoost(BoostModel boost){
-        for (Node obj: this.getChildren()) {
-            ViewObject viewObj = (ViewObject) obj;
-            if (viewObj.getModel() == boost) {
-                this.getChildren().remove(obj);
-            }
-        }
-    }
+//    /**
+//     * removes a boost from the field
+//     * @param boost BoostModel boost
+//     */
+//    public void removeBoost(BoostModel boost){
+//        for (Node obj: this.getChildren()) {
+//            ViewObject viewObj = (ViewObject) obj;
+//            if (viewObj.getModel() == boost) {
+//                this.getChildren().remove(obj);
+//            }
+//        }
+//    }
     
 
     @Override

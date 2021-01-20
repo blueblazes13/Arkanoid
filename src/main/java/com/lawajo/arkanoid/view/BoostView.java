@@ -41,6 +41,7 @@ public class BoostView extends ViewObject {
         this.circle.setFill(Color.RED);
     }
     
+    
     @Override
     public BoostModel getModel() {
         return this.model;

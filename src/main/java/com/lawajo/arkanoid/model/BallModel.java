@@ -21,7 +21,7 @@ public class BallModel {
     private transient final Random random = new Random();
     private transient Timer t;
     private int speed;
-    private Boolean stoppedMoving;
+    private Boolean moves;
     
     private double x;
     private double y;
@@ -43,7 +43,7 @@ public class BallModel {
      * @param y The y coordinate of the ball.
      */
     public BallModel(int x, int y) {
-        this.stoppedMoving = true;
+        this.moves = false;
         this.speed = 1;
         this.x = x;
         this.y = y;
@@ -125,6 +125,12 @@ public class BallModel {
      */
     private void hitHorizontal(BlockModel block) {
         if (block instanceof SliderModel) {
+            if (this instanceof BoostModel) {
+                System.out.println("Stopped boost from moving!");
+                stopMoving();
+                return;
+            }
+            
             double tempY = this.y;
             this.y = this.prevY;
             this.prevY = tempY;
@@ -132,9 +138,7 @@ public class BallModel {
             setAngle(randomDouble, this.dy < 0);
             addX();
             
-            if (this instanceof BoostModel) {
-                stopMoving();
-            }
+            
         } else {
             double tempY = this.y;
             this.y = this.prevY;
@@ -237,6 +241,7 @@ public class BallModel {
     public boolean checkDeath(){
         if(this.y + BallModel.RADIUS >= 352){
             stopMoving();
+            System.out.println("Stopped boost from moving!");
             return true;
         }
         return false;
@@ -245,15 +250,13 @@ public class BallModel {
     /**
      * Starts moving the ball.
      * 
-     * @param controller The ArkanoidFXMLController wich controls the view of the ball.
      * @param arkanoidModel The ArkanoidModel wich controls the game.
      */
     public void startMoving(ArkanoidModel arkanoidModel){
         BallTask balltask = new BallTask(this, arkanoidModel);
         this.t = new Timer(true);
         this.t.scheduleAtFixedRate(balltask, 0, 15);
-        this.stoppedMoving = false;
-    
+        this.moves = true;
     }
     
     
@@ -262,7 +265,7 @@ public class BallModel {
      */
     public void stopMoving(){
         this.t.cancel();
-        this.stoppedMoving = true;
+        this.moves = false;
         //this.t = null;
     }
     
@@ -303,6 +306,6 @@ public class BallModel {
      * @return moving Boolean moving
      */
     public Boolean isMoving() {
-        return stoppedMoving;
+        return this.moves;
     }
 }

@@ -29,7 +29,7 @@ public class BallTask extends TimerTask {
     
     @Override
     public void run() {
-        this.ballModel.move(this.arkanoidModel.checkCollision());
+        this.ballModel.move(this.arkanoidModel.checkCollision(this.ballModel));
         ballModel.checkDeath();
     }
 

@@ -46,7 +46,7 @@ public class SliderModel extends BlockModel {
      * Moves the slider to the left.
      */
     public void moveLeft() {
-        if(super.getX() <= 0) return;
+        if(super.getX() <= 5) return;
         
         super.setX(super.getX() - speed);
         

@@ -106,14 +106,16 @@ public class ArkanoidModel {
      * @param block is the slider
      * @return a block or returns nothing
      */
-    private Boolean check(BlockModel block) {
+    private Boolean check(BlockModel block, BallModel ball) {
         int blockX = block.getX();
         int blockY = block.getY();
         
-        double ballX = this.ball.getX();
-        double ballY = this.ball.getY();
+        double ballX = ball.getX();
+        double ballY = ball.getY();
         
-        if (this.ball instanceof BoostModel && !(block instanceof SliderModel)) return false;
+        if (ball instanceof BoostModel && !(block instanceof SliderModel)) {
+            return false;
+        }
         
         if (blockX <= ballX + BallModel.RADIUS &&
                 blockX + block.WIDTH >= ballX - BallModel.RADIUS) {
@@ -131,12 +133,11 @@ public class ArkanoidModel {
      * checks if the ball touches with the block
      * @return a block or returns nothing
      */
-    public BlockModel checkCollision() {
+    public BlockModel checkCollision(BallModel ballModel) {
         
         BlockModel block = this.slider;
         if(block != null){
-            if (check(block)) {
-                System.out.println("collided!!!!!!");
+            if (check(block, ballModel)) {
                 return this.slider;
             }
         }
@@ -145,8 +146,10 @@ public class ArkanoidModel {
             for (int j = 0; j < HEIGHT; j++) {
                 
                 block = getBlock(i, j);
-                if(block == null || block.isDeleted()) continue;
-                if(check(block)){
+                if(block == null || block.isDeleted()) {
+                    continue;
+                }
+                if(check(block, ballModel)){
                     if (block.hit(this.ball.getDamage())){
                         block.setDeleted(true);
                         //blockField[i][j] = null;
