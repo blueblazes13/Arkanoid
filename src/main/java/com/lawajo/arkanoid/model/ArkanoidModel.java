@@ -6,11 +6,14 @@
 package com.lawajo.arkanoid.model;
 
 import com.google.gson.Gson;
+import com.lawajo.arkanoid.ArkanoidFXMLController;
 import com.lawajo.arkanoid.ArkanoidLevels;
+import com.lawajo.arkanoid.gameTickTask;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Timer;
 
 
 /**
@@ -33,12 +36,16 @@ public class ArkanoidModel {
     private static int maxScore;
     
     private BlockModel[][] blockField;
-    //private ArkanoidLevels levels;
+    private transient BallModel ball;
+    private transient SliderModel slider;
     private static Difficulty difficulty = Difficulty.EASY;
     
     public ArkanoidModel() {
-        //this.levels = new ArkanoidLevels();
         this.blockField = getLevel();
+        
+        newSlider(255, 270);
+        newBall(280, 250);
+        setSliderSpeed(5);
         
         this.score = 0;
         this.maxScore = 0;
@@ -56,6 +63,22 @@ public class ArkanoidModel {
     public BlockModel getBlock(int x, int y) {
         return this.blockField[x][y];
     }
+    
+    
+    public SliderModel getSlider() {
+        return this.slider;
+    }
+    
+    
+    public BallModel getBall() {
+        return this.ball;
+    }
+    
+    
+    public Boolean isDeath() {
+        return this.ball.checkDeath();
+    }
+    
     
     /**
      * Gets the difficulty to be used for the level.
@@ -83,14 +106,14 @@ public class ArkanoidModel {
      * @param block is the slider
      * @return a block or returns nothing
      */
-    private Boolean check(BallModel ball, BlockModel block) {
+    private Boolean check(BlockModel block) {
         int blockX = block.getX();
         int blockY = block.getY();
         
-        double ballX = ball.getX();
-        double ballY = ball.getY();
+        double ballX = this.ball.getX();
+        double ballY = this.ball.getY();
         
-        if (ball instanceof BoostModel && !(block instanceof SliderModel)) return false;
+        if (this.ball instanceof BoostModel && !(block instanceof SliderModel)) return false;
         
         if (blockX <= ballX + BallModel.RADIUS &&
                 blockX + block.WIDTH >= ballX - BallModel.RADIUS) {
@@ -106,15 +129,16 @@ public class ArkanoidModel {
     
     /**
      * checks if the ball touches with the block
-     * @param ball is the ball
-     * @param slider is the slider
      * @return a block or returns nothing
      */
-    public BlockModel checkCollision(BallModel ball, SliderModel slider) {
+    public BlockModel checkCollision() {
         
-        BlockModel block = slider;
+        BlockModel block = this.slider;
         if(block != null){
-            if (check(ball, block)) return slider;
+            if (check(block)) {
+                System.out.println("collided!!!!!!");
+                return this.slider;
+            }
         }
             
         for (int i = 0; i < WIDTH; i++) {
@@ -122,8 +146,8 @@ public class ArkanoidModel {
                 
                 block = getBlock(i, j);
                 if(block == null || block.isDeleted()) continue;
-                if(check(ball, block)){
-                    if (block.hit(ball.getDamage())){
+                if(check(block)){
+                    if (block.hit(this.ball.getDamage())){
                         block.setDeleted(true);
                         //blockField[i][j] = null;
                     } 
@@ -135,6 +159,68 @@ public class ArkanoidModel {
         return null;
     }
     
+    
+    public void newGameTick(ArkanoidFXMLController controller) {
+        Timer t = new Timer(true);
+        gameTickTask gameTick = new gameTickTask(controller);
+        t.scheduleAtFixedRate(gameTick, 0, 10);
+    }
+    
+    
+    public void newBall(int x, int y) {
+        System.out.println("new ball spawned!");
+        this.ball = new BallModel(x, y);
+        this.ball.startMoving(this);
+    }
+    
+    
+    public void newSlider(int x, int y) {
+        this.slider = new SliderModel(x, y);
+    }
+    
+    
+    public void moveSlider(Direction dir) {
+        switch (dir) {
+            case LEFT:
+                this.slider.toLeft();
+                break;
+            case RIGHT:
+                this.slider.toRight();
+                break;
+        }
+    }
+    
+    
+    public void stopSlider(Direction dir) {
+        switch (dir) {
+            case LEFT:
+                this.slider.stopLeft();
+                break;
+            case RIGHT:
+                this.slider.stopRight();
+                break;
+        }
+    }
+    
+    
+    public void setBallSpeed(int speed) {
+        this.ball.setSpeed(speed);
+    }
+    
+    
+    public void setSliderSpeed(int speed) {
+        this.slider.setSpeed(speed);
+    }
+    
+    
+    public void setSliderWidth(int width) {
+        this.slider.setWidth(width);
+    }
+    
+    
+    public void setBallDamage(int damage) {
+        this.ball.setDamage(damage);
+    }
     
     
     /**

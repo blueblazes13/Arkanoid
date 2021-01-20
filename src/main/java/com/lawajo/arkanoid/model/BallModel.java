@@ -20,6 +20,7 @@ public class BallModel {
     
     private transient final Random random = new Random();
     private transient Timer t;
+    private int speed;
     private Boolean stoppedMoving;
     
     private double x;
@@ -42,14 +43,15 @@ public class BallModel {
      * @param y The y coordinate of the ball.
      */
     public BallModel(int x, int y) {
-        this.stoppedMoving = false;
+        this.stoppedMoving = true;
+        this.speed = 1;
         this.x = x;
         this.y = y;
         
         this.prevX = x;
         this.prevY = y;
         
-        this.dx = -1;
+        this.dx = 0.01;
         this.dy = -1;
         
         this.damage = 1;
@@ -58,6 +60,11 @@ public class BallModel {
     
     
     // Setters
+    
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
     
     /**
      * sets the total damage the ball can deal.
@@ -146,11 +153,11 @@ public class BallModel {
      */
     public void setAngle(double angle, Boolean up) {
         if (up) {
-            this.dx = Math.signum(this.dx) * Math.cos(angle);
-            this.dy = Math.sin(angle);
+            this.dx = Math.signum(this.dx) * Math.cos(angle) * this.speed;
+            this.dy = Math.sin(angle) * this.speed;
         } else {
-            this.dx = Math.signum(this.dx) * Math.cos(angle);
-            this.dy = -Math.sin(angle);
+            this.dx = Math.signum(this.dx) * Math.cos(angle) * this.speed;
+            this.dy = -Math.sin(angle) * this.speed;
         }
     }
     
@@ -240,12 +247,12 @@ public class BallModel {
      * 
      * @param controller The ArkanoidFXMLController wich controls the view of the ball.
      * @param arkanoidModel The ArkanoidModel wich controls the game.
-     * @param sliderModel The SliderModel wich controls the slider in the same view as the ball.
      */
-    public void startMoving(ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel){
-        BallTask balltask = new BallTask(this, controller, arkanoidModel, sliderModel);
+    public void startMoving(ArkanoidModel arkanoidModel){
+        BallTask balltask = new BallTask(this, arkanoidModel);
         this.t = new Timer(true);
         this.t.scheduleAtFixedRate(balltask, 0, 15);
+        this.stoppedMoving = false;
     
     }
     
@@ -255,7 +262,7 @@ public class BallModel {
      */
     public void stopMoving(){
         this.t.cancel();
-        this.stoppedMoving=true;
+        this.stoppedMoving = true;
         //this.t = null;
     }
     

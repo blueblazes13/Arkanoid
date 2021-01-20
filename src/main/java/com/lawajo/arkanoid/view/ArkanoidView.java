@@ -10,6 +10,7 @@ import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BlockModel;
 import com.lawajo.arkanoid.model.BoostModel;
 import com.lawajo.arkanoid.model.SliderModel;
+import java.util.ArrayList;
 import javafx.scene.Node;
 
 /**
@@ -30,8 +31,8 @@ public class ArkanoidView extends ViewObject {
     public ArkanoidView(ArkanoidModel model) {
         this.model = model;
         
-        for (int i = 0; i < model.WIDTH; i++) {
-            for (int j = 0; j < model.HEIGHT; j++) {
+        for (int i = 0; i < ArkanoidModel.WIDTH; i++) {
+            for (int j = 0; j < ArkanoidModel.HEIGHT; j++) {
                 BlockModel blockModel = model.getBlock(i, j);
                 
                 if (blockModel == null) continue;
@@ -48,18 +49,21 @@ public class ArkanoidView extends ViewObject {
      */
     @Override
     public void update() {
-        for (Object obj: this.getChildren()) {
+        ArrayList<BlockView> toRemove = new ArrayList<>();
+        
+        this.getChildren().forEach(obj -> {
             ViewObject vObject = (ViewObject) obj;
+            vObject.update();
             
             if (vObject instanceof BlockView) {
                 BlockModel block = (BlockModel) vObject.getModel();
                 if (block.isDeleted()) {
-                    removeBlock((BlockView) vObject);
+                    toRemove.add((BlockView) vObject);
                 }
             }
-            
-            vObject.update();
-        }
+        });
+        
+        toRemove.forEach(this::removeBlock);
     }
     
     

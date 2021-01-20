@@ -17,26 +17,20 @@ import javafx.application.Platform;
  */
 public class BallTask extends TimerTask {
     private BallModel ballModel;
-    private ArkanoidFXMLController controller;
     private ArkanoidModel arkanoidModel;
-    private SliderModel sliderModel;
     
     
-    public BallTask(BallModel ballModel, ArkanoidFXMLController controller, ArkanoidModel arkanoidModel, SliderModel sliderModel) {
+    public BallTask(BallModel ballModel, ArkanoidModel arkanoidModel) {
         this.ballModel = ballModel;
-        this.controller = controller;
         this.arkanoidModel = arkanoidModel;
-        this.sliderModel = sliderModel;
     }
 
     
     
     @Override
     public void run() {
-        this.ballModel.move(this.arkanoidModel.checkCollision(ballModel, sliderModel));
-        Platform.runLater(controller :: update);
+        this.ballModel.move(this.arkanoidModel.checkCollision());
         ballModel.checkDeath();
-        
     }
 
     

@@ -3,6 +3,7 @@ package com.lawajo.arkanoid;
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BoostModel;
+import com.lawajo.arkanoid.model.Direction;
 import com.lawajo.arkanoid.model.SliderModel;
 import com.lawajo.arkanoid.view.ArkanoidView;
 import java.io.IOException;
@@ -60,24 +61,19 @@ public class ArkanoidFXMLController {
             model = ArkanoidModel.controllingModel;
             ArkanoidModel.controllingModel = null;
         }
-        
-        ball = new BallModel(280,250);
-        slider = new SliderModel(280,270);
-        boost = new BoostModel(280,200);
+        model.newGameTick(this);
+//        boost = new BoostModel(280,200);///// 5.1-5.3
         view = new ArkanoidView(model);
-        view.addSlider(slider);
-        view.addBall(ball);
-        view.addBoost(boost);
-        view.setFocusTraversable(true);
         
+        view.addSlider(model.getSlider());
+        view.addBall(model.getBall());;
+        
+        view.setFocusTraversable(true);
         apPlayField.getChildren().add(view);
         btnMenu.setOnAction(this::toMenu);  
         btnReset.setOnAction(this::reset);
         apPlayField.setOnKeyReleased(this::stopMoving);
         apPlayField.setOnKeyPressed(this::keyPressed);
-        ball.startMoving(this, model, slider);
-        boost.startMoving(this, model, slider);
-        slider.setSpeed(5);
         setLifeBar();
         System.out.println(ArkanoidModel.lifes);
     }  
@@ -89,11 +85,11 @@ public class ArkanoidFXMLController {
     private void stopMoving(KeyEvent e){
         switch(e.getCode()){
             case LEFT:
-                slider.stopLeft();
+                model.stopSlider(Direction.LEFT);
                 update();
                 break;
             case RIGHT:
-                slider.stopRight();
+                model.stopSlider(Direction.RIGHT);
                 update();
                 break;
         }
@@ -106,11 +102,11 @@ public class ArkanoidFXMLController {
     private void keyPressed(KeyEvent k) {
         switch(k.getCode()){
             case LEFT:
-                slider.toLeft(this);
+                model.moveSlider(Direction.LEFT);
                 update();
                 break;
             case RIGHT:
-                slider.toRight(this);
+                model.moveSlider(Direction.RIGHT);
                 update();
                 break;
         }
@@ -120,13 +116,13 @@ public class ArkanoidFXMLController {
      * Updates the view.
      */
     public void update() {
-        if(ball.checkDeath()) { 
-            newBall();
+        if(model.isDeath()) { 
+            model.newBall(280, 250);
         }
-        if(boost.isMoving()) {
-            view.removeBoost(boost);
-            //activateBoost();
-        }
+//        if(boost.isMoving()) {
+//            view.removeBoost(boost);
+//            //activateBoost();
+//        }
         setScore();
         setLifeBar();
         view.update();
@@ -155,7 +151,16 @@ public class ArkanoidFXMLController {
      */
     public void reset(ActionEvent t) {
         //#TODO
-        model = new ArkanoidModel();
+        this.model = new ArkanoidModel();
+        this.view = new ArkanoidView(this.model);
+        this.apPlayField.getChildren().clear();
+        this.apPlayField.getChildren().add(this.view);
+        
+        view.addSlider(model.getSlider());
+        view.addBall(model.getBall());;
+        
+        view.setFocusTraversable(true);
+        
         //newBall();
         update();
         
@@ -169,23 +174,23 @@ public class ArkanoidFXMLController {
     /**
      * Spawns new ball when last ball got past the slider.
      */
-    public void newBall(){
-        if(ArkanoidModel.lifes>=0){
-            view.removeBall(ball);
-            this.ball = new BallModel(300,250);
-            view.addBall(ball);
-            ball.startMoving(this, model, slider);
-            update();
-            
-            System.out.println(ArkanoidModel.getLifes());
-            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
-            System.out.println(ArkanoidModel.getLifes());
-        }   
-        else {
-            view.removeBall(ball);
-            update();
-        }
-    }
+//    public void newBall(){
+//        if(ArkanoidModel.lifes>=0){
+//            view.removeBall(ball);
+//            this.ball = new BallModel(300,250);
+//            view.addBall(ball);
+//            ball.startMoving(this, model, slider);
+//            update();
+//            
+//            System.out.println(ArkanoidModel.getLifes());
+//            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
+//            System.out.println(ArkanoidModel.getLifes());
+//        }   
+//        else {
+//            view.removeBall(ball);
+//            update();
+//        }
+//    }
     
     /**
      * Activates a random boost.
@@ -194,15 +199,16 @@ public class ArkanoidFXMLController {
         int Num = ThreadLocalRandom.current().nextInt(1,4);
         switch(Num){
             case 1:
-                ball.setDamage(3);
+                model.setBallDamage(3);
                 update();
                 break;
             case 2:
-                //slider.setWidth(dqdq);
+                model.setSliderWidth(80);
                 update();
                 break;
             case 3:
-                slider.setSpeed(5);
+                model.setSliderSpeed(5);
+//                model.setBallSpeed(3);          Dit is ook nog een optie.
                 update();
                 break;
         }

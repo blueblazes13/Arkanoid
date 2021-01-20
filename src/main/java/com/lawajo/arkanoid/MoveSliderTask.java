@@ -16,13 +16,11 @@ import java.util.TimerTask;
 public class MoveSliderTask extends TimerTask {
 
     private SliderModel slider;
-    private ArkanoidFXMLController controller;
     private Direction dir;
     
     
-    public MoveSliderTask(Direction dir, SliderModel slider, ArkanoidFXMLController controller) {
+    public MoveSliderTask(Direction dir, SliderModel slider) {
         this.slider = slider;
-        this.controller = controller;
         this.dir = dir;
     }
     

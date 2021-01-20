@@ -16,8 +16,8 @@ import java.util.Timer;
 public class SliderModel extends BlockModel {
    
     private int speed;
-    public final static int WIDTH = 60;
-    public final static int HEIGHT = 5;
+    public int WIDTH = 60;
+    public int HEIGHT = 5;
     private transient Timer rightTimer;
     private transient Timer leftTimer;
     private Boolean isMovingLeft;
@@ -31,10 +31,15 @@ public class SliderModel extends BlockModel {
      * @param y The y coordinate of the slider.
      */
     public SliderModel(int x, int y) {
-        super(x, y, WIDTH, HEIGHT);
+        super(x, y, 60, 5);
         this.speed = 1;
         this.isMovingLeft = false;
         this.isMovingRight = false;
+    }
+    
+    
+    public void setWidth(int width) {
+        this.WIDTH = width;
     }
     
     
@@ -77,9 +82,9 @@ public class SliderModel extends BlockModel {
     /**
      * Moves the slider to the left.
      */
-    public void toLeft(ArkanoidFXMLController controller){
+    public void toLeft() {
         if(super.getX() <= 0 || this.isMovingLeft) return;
-        MoveSliderTask slidertask = new MoveSliderTask(Direction.LEFT,this, controller);
+        MoveSliderTask slidertask = new MoveSliderTask(Direction.LEFT,this);
         
         this.leftTimer = new Timer(true);
         this.leftTimer.scheduleAtFixedRate(slidertask, 0, 20);
@@ -90,9 +95,9 @@ public class SliderModel extends BlockModel {
     /**
      * Moves the slider to the right.
      */
-    public void toRight(ArkanoidFXMLController controller){
+    public void toRight() {
         if(super.getX() >= 560 - WIDTH || this.isMovingRight) return;
-        MoveSliderTask slidertask = new MoveSliderTask(Direction.RIGHT,this, controller);
+        MoveSliderTask slidertask = new MoveSliderTask(Direction.RIGHT,this);
         
         this.rightTimer = new Timer(true);
         this.rightTimer.scheduleAtFixedRate(slidertask, 0, 20);
