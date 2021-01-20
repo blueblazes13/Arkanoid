@@ -43,9 +43,6 @@ public class ArkanoidFXMLController {
     
     //data members
     private ArkanoidModel model;
-    private SliderModel slider;
-    private BallModel ball;
-    private BoostModel boost;
     private ArkanoidView view;
     
     /**
@@ -66,7 +63,7 @@ public class ArkanoidFXMLController {
         view = new ArkanoidView(model);
         
         view.addSlider(model.getSlider());
-        view.addBall(model.getBall());;
+        view.addBall(model.getBall());
         
         view.setFocusTraversable(true);
         apPlayField.getChildren().add(view);
@@ -117,7 +114,9 @@ public class ArkanoidFXMLController {
      */
     public void update() {
         if(model.isDeath()) { 
+            view.removeBall(model.getBall());
             model.newBall(280, 250);
+            view.addBall(model.getBall());
         }
 //        if(boost.isMoving()) {
 //            view.removeBoost(boost);
@@ -197,7 +196,7 @@ public class ArkanoidFXMLController {
      * Activates a random boost.
      */
     public void activateBoost(){    
-        int Num = ThreadLocalRandom.current().nextInt(1,4);
+        int Num = ThreadLocalRandom.current().nextInt(1,5);
         switch(Num){
             case 1:
                 model.setBallDamage(3);
@@ -209,8 +208,13 @@ public class ArkanoidFXMLController {
                 break;
             case 3:
                 model.setSliderSpeed(5);
-//                model.setBallSpeed(3);          Dit is ook nog een optie.
                 update();
+                break;
+            case 4:
+                model.setBallSpeed(3);
+                update();
+                break;
+            default:
                 break;
         }
     }
