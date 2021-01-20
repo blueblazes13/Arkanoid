@@ -1,10 +1,8 @@
 package com.lawajo.arkanoid;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
-import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BoostModel;
 import com.lawajo.arkanoid.model.Direction;
-import com.lawajo.arkanoid.model.SliderModel;
 import com.lawajo.arkanoid.view.ArkanoidView;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -59,8 +57,8 @@ public class ArkanoidFXMLController {
             ArkanoidModel.controllingModel = null;
         }
         model.newGameTick(this);
-//        boost = new BoostModel(280,200);///// 5.1-5.3
         view = new ArkanoidView(model);
+        ArkanoidModel.setLifes(1);
         
         view.addSlider(model.getSlider());
         view.addBall(model.getBall());
@@ -73,7 +71,8 @@ public class ArkanoidFXMLController {
         apPlayField.setOnKeyPressed(this::keyPressed);
         setLifeBar();
         System.out.println(ArkanoidModel.lifes);
-    }  
+    }
+    
     
     /**
      * Stops the slider from moving upon key release.
@@ -92,6 +91,7 @@ public class ArkanoidFXMLController {
         }
     }
     
+    
     /**
      * Checks for input of the Left and Right arrow keys.
      * @param k Keyevent k
@@ -108,19 +108,22 @@ public class ArkanoidFXMLController {
                 break;
         }
     }
+    
         
     /**
      * Updates the view.
      */
     public void update() {
-        if(model.isDeath()) { 
+        if(model.isDeath()&&ArkanoidModel.getLifes()>0) {
             view.removeBall(model.getBall());
             model.newBall(280, 250);
             view.addBall(model.getBall());
+            activateBoost();
+            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
         }
 //        if(boost.isMoving()) {
 //            view.removeBoost(boost);
-//            //activateBoost();
+//            activateBoost();
 //        }
         setScore();
         setLifeBar();
@@ -132,17 +135,17 @@ public class ArkanoidFXMLController {
      * @param t Action Event t
      */
     private void toMenu(ActionEvent t) {
-        try {
-            ArkanoidModel.save(model);
-        } catch (IOException ex){
-            ex.printStackTrace();
+        if(ArkanoidModel.lifes > 0){
+            try {
+                ArkanoidModel.save(model);
+            } catch (IOException ex){
+                ex.printStackTrace();
+            }
         }
-        try {
-            App.setRoot("GameMenuFXML");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        model.stopBall();
+        switchMenu();
     }
+    
     
     /**
      * Resets the current Arkanoid Game.
@@ -157,11 +160,9 @@ public class ArkanoidFXMLController {
         this.apPlayField.getChildren().add(this.view);
         
         view.addSlider(model.getSlider());
-        view.addBall(model.getBall());;
+        view.addBall(model.getBall());
         
         view.setFocusTraversable(true);
-        
-        //newBall();
         update();
         
         /*try {
@@ -171,47 +172,37 @@ public class ArkanoidFXMLController {
         }*/
     }
     
-    /**
-     * Spawns new ball when last ball got past the slider.
-     */
-//    public void newBall(){
-//        if(ArkanoidModel.lifes>=0){
-//            view.removeBall(ball);
-//            this.ball = new BallModel(300,250);
-//            view.addBall(ball);
-//            ball.startMoving(this, model, slider);
-//            update();
-//            
-//            System.out.println(ArkanoidModel.getLifes());
-//            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
-//            System.out.println(ArkanoidModel.getLifes());
-//        }   
-//        else {
-//            view.removeBall(ball);
-//            update();
-//        }
-//    }
     
     /**
      * Activates a random boost.
+     * Generates random number from 1 to 5.
      */
     public void activateBoost(){    
-        int Num = ThreadLocalRandom.current().nextInt(1,5);
+        int Num = ThreadLocalRandom.current().nextInt(1,6);
         switch(Num){
             case 1:
+                System.out.println("1");
                 model.setBallDamage(3);
                 update();
                 break;
             case 2:
-                model.setSliderWidth(80);
+                System.out.println("2");
+                model.setSliderWidth(50);
                 update();
                 break;
             case 3:
-                model.setSliderSpeed(5);
+                System.out.println("3");
+                model.setSliderSpeed(10);
                 update();
                 break;
             case 4:
+                System.out.println("4");
                 model.setBallSpeed(3);
+                update();
+                break;
+            case 5:
+                System.out.println("5");
+                ArkanoidModel.setLifes(ArkanoidModel.getLifes()+1);
                 update();
                 break;
             default:
@@ -242,12 +233,19 @@ public class ArkanoidFXMLController {
         }
     }
     
+    
     /**
      * Sets the score on the label.
      */
     public void setScore(){
         lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
+        if(model.isDeath()&&ArkanoidModel.getLifes() == 0){
+            if(ArkanoidModel.getMaxScore() < ArkanoidModel.getScore()){
+            setBestScore();
+            }
+        }
     }
+    
     
     /**
      * Sets the best score the player has achieved so far.
@@ -256,7 +254,19 @@ public class ArkanoidFXMLController {
         String score = lblScore.getText();
         if(Integer.parseInt(lblScore.getText())>Integer.parseInt(lblBestScore.getText())){
             lblBestScore.setText(score);
+            ArkanoidModel.setMaxScore(Integer.parseInt(score));
         }
-        else;
+        switchMenu();
+    }
+    
+    /**
+     * Switch back to the GameMenuFXML.
+     */
+    public void switchMenu(){
+        try {
+            App.setRoot("GameMenuFXML");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

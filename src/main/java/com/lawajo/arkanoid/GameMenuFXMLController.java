@@ -78,10 +78,10 @@ public class GameMenuFXMLController {
         });
         btnStartGame.setOnAction(this::start);
         btnLoad.setOnAction(this::load);
+        setScores();
     }
-    
-    
 
+    
     public void start(ActionEvent s) {
         try{
             App.setRoot("ArkanoidFXML");
@@ -93,14 +93,20 @@ public class GameMenuFXMLController {
     
     public void load(ActionEvent l) {
         try {
-            ArkanoidModel.controllingModel = ArkanoidModel.load(); 
+            ArkanoidModel.controllingModel = ArkanoidModel.load();
+            App.setRoot("ArkanoidFXML");
         } catch (IOException ex){
             ex.printStackTrace();
         }    
     }   
-    
     /**
-     * Sets the difficulty for the game.
-     * @param diff
+     * 
+     * 
      */
+    private void setScores() {
+        System.out.println("dikke boktor");
+        lblLatestScore.setText(Integer.toString(ArkanoidModel.getScore()));
+        lblBestScore.setText(Integer.toString(ArkanoidModel.getMaxScore()));
+    }
+    
 }
