@@ -5,7 +5,6 @@
  */
 package com.lawajo.arkanoid.model;
 
-import com.lawajo.arkanoid.ArkanoidFXMLController;
 import com.lawajo.arkanoid.MoveSliderTask;
 import java.util.Timer;
 
@@ -45,27 +44,23 @@ public class SliderModel extends BlockModel {
     
     /**
      * Moves the slider to the left.
-     * @deprecated toLeft(), toRight(), stopMoving()
      */
-    @Deprecated
     public void moveLeft() {
         if(super.getX() <= 0) return;
-        else{
-            super.setX(super.getX() - speed);
-        }
+        
+        super.setX(super.getX() - speed);
+        
     }
     
     
     /**
      * Moves the slider to the right.
-     * @deprecated toLeft(), toRight(), stopMoving()
      */
-    @Deprecated
     public void moveRight() {
         if(super.getX() >= 560 - WIDTH) return;
-        else{
-            super.setX(super.getX() + speed);
-        }
+        
+        super.setX(super.getX() + speed);
+        
     }
     
     

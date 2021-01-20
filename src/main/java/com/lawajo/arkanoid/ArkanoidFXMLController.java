@@ -151,6 +151,7 @@ public class ArkanoidFXMLController {
      */
     public void reset(ActionEvent t) {
         //#TODO
+        model.stopBall();
         this.model = new ArkanoidModel();
         this.view = new ArkanoidView(this.model);
         this.apPlayField.getChildren().clear();

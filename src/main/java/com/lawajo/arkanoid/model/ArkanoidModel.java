@@ -191,6 +191,11 @@ public class ArkanoidModel {
     }
     
     
+    public void stopBall() {
+        this.ball.stopMoving();
+    }
+    
+    
     public void stopSlider(Direction dir) {
         switch (dir) {
             case LEFT:

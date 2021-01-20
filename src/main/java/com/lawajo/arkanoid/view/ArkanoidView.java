@@ -121,7 +121,8 @@ public class ArkanoidView extends ViewObject {
      */
     public void addBoost(BoostModel boost){
         BoostView boostView = new BoostView(boost);
-        this.getChildren().add(boostView);   
+        this.getChildren().add(boostView);
+        boost.startMoving(this.model);
     }
     
     
