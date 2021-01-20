@@ -58,6 +58,26 @@ public class ArkanoidModel {
     }
     
     /**
+     * Gets the difficulty to be used for the level.
+     * @return difficulty
+     */
+    private BlockModel[][] getLevel() {
+
+        switch (ArkanoidModel.difficulty) {
+            case EASY:
+                return ArkanoidLevels.getEasy1();
+            case NORMAL:
+                return ArkanoidLevels.getNormal1();
+            case HARD:
+                return ArkanoidLevels.getHard1();
+            case EXPERT:
+                return ArkanoidLevels.getExpert1();
+            default:
+                return null;
+        }
+    }
+    
+    /**
      * checks if the ball touches the block 
      * @param ball is the ball
      * @param block is the slider
@@ -70,6 +90,7 @@ public class ArkanoidModel {
         double ballX = ball.getX();
         double ballY = ball.getY();
         
+        if (ball instanceof BoostModel && !(block instanceof SliderModel)) return false;
         
         if (blockX <= ballX + BallModel.RADIUS &&
                 blockX + block.WIDTH >= ballX - BallModel.RADIUS) {
@@ -100,11 +121,11 @@ public class ArkanoidModel {
             for (int j = 0; j < HEIGHT; j++) {
                 
                 block = getBlock(i, j);
-                if(block == null) continue;
+                if(block == null || block.isDeleted()) continue;
                 if(check(ball, block)){
                     if (block.hit(ball.getDamage())){
                         block.setDeleted(true);
-                        blockField[i][j] = null;
+                        //blockField[i][j] = null;
                     } 
                 return block;
                 }     
@@ -122,22 +143,6 @@ public class ArkanoidModel {
      */
     public static void addScore(int score) {
         ArkanoidModel.score += score;
-    }
-    
-    private BlockModel[][] getLevel() {
-
-        switch (ArkanoidModel.difficulty) {
-            case EASY:
-                return ArkanoidLevels.getEasy1();
-            case NORMAL:
-                return ArkanoidLevels.getNormal1();
-            case HARD:
-                return ArkanoidLevels.getHard1();
-            case EXPERT:
-                return ArkanoidLevels.getExpert1();
-            default:
-                return null;
-        }
     }
     
     

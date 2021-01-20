@@ -198,7 +198,11 @@ public class BallModel {
             if (this.y + BallModel.RADIUS <= blockY + (block.HEIGHT/2)) {
                 hitHorizontal(block);
             } else if (this.y - BallModel.RADIUS >= blockY + block.HEIGHT/2) {
-                hitHorizontal(block);
+                if (block instanceof SliderModel) {
+                    move();
+                } else {
+                    hitHorizontal(block);
+                }
             } else {
                 if (this.x + BallModel.RADIUS >= blockX &&
                         this.x + BallModel.RADIUS <= blockX + (block.WIDTH/4)) {

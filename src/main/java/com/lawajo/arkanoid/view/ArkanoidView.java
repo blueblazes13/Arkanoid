@@ -50,8 +50,29 @@ public class ArkanoidView extends ViewObject {
     public void update() {
         for (Object obj: this.getChildren()) {
             ViewObject vObject = (ViewObject) obj;
+            
+            if (vObject instanceof BlockView) {
+                BlockModel block = (BlockModel) vObject.getModel();
+                if (block.isDeleted()) {
+                    removeBlock((BlockView) vObject);
+                }
+            }
+            
             vObject.update();
         }
+    }
+    
+    
+    /**
+     * Removes a block from the playfield.
+     */
+    public void removeBlock(BlockView block) {
+        BlockModel blockModel = block.getModel();
+        if (blockModel.hasBoost()) {
+            addBoost(blockModel.getBoost());
+        }
+
+        this.getChildren().remove(block);
     }
     
     
