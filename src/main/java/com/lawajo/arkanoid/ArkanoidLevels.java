@@ -1,19 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid;
 
 import com.lawajo.arkanoid.model.BlockModel;
 import com.lawajo.arkanoid.model.BoostModel;
 
+
 /**
  *
- * @author joeykoster
+ * @author Lander Ketelbuters, JoeyKoster, Ward Vanmuysen
  */
 public class ArkanoidLevels {
     
+    /**
+     * Initializes a arkanoid level. 
+     * This can be easy, normal, hard or expert.
+     */
     public ArkanoidLevels() {
     }
     
@@ -21,10 +22,11 @@ public class ArkanoidLevels {
     /**
      * First easy level
      * 
-     * @return setup of the level in BlockModels
+     * @return setup of the level in BlockModels 
      */
     public static BlockModel[][] getEasy1() {
         BlockModel[][] playField = new BlockModel[11][11];
+        
         
         // First (Highest) two layers
         for(int i = 0; i < 11 ; i++ ) {
@@ -40,6 +42,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 3rd + 4th layer
         for(int i = 0; i < 11 ; i++ ) {
             for(int j = 2; j < 4 ; j++) {
@@ -53,6 +56,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // 5th + 6th layer
         for(int i = 0; i < 11 ; i++ ) {
@@ -71,6 +75,7 @@ public class ArkanoidLevels {
         return playField;
     }
 
+    
     /**
      * First Normal level
      * 
@@ -78,6 +83,7 @@ public class ArkanoidLevels {
      */
     public static BlockModel[][] getNormal1() {
         BlockModel[][] playField = new BlockModel[11][11];
+        
         
         // First (Highest) layer
         for(int i = 0; i < 11 ; i++ ) {
@@ -89,7 +95,8 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }    
-                
+        
+        
         // 2nd layer, 3rd layer and 4th layer
         for(int i = 0; i < 11 ; i = i+2 ) {
             for(int j = 1; j <= 3 ; j++) {
@@ -104,7 +111,6 @@ public class ArkanoidLevels {
             }    
         }
         
-         
         
         // 5th layer, 6st layer and 7nd layer
         for(int i = 1; i < 11 ; i = i+2 ) {
@@ -120,6 +126,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 8th layer
         for(int i = 0; i < 11 ; i++ ) {
             for(int j = 7; j <= 7 ; j++) {
@@ -134,6 +141,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // filling finals
         for(int i = 0; i < 11 ; i++ ) {
             for(int j = 8; j < 10 ; j++) {
@@ -147,6 +155,7 @@ public class ArkanoidLevels {
         return playField;
     }
 
+    
  /**
      * First Hard level
      * 
@@ -154,6 +163,7 @@ public class ArkanoidLevels {
      */
     public static BlockModel[][] getHard1() {
         BlockModel[][] playField = new BlockModel[11][11];
+        
         
         // First layer
         for(int i = 0; i < 11 ; i= i+2) {
@@ -166,6 +176,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 2nd layer
         for(int i = 1; i < 10 ; i = i + 2 ) {
             for(int j = 1; j < 2 ; j++) {
@@ -176,6 +187,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // 3rd layer
         for(int i = 2; i < 9 ; i = i + 2 ) {
@@ -191,6 +203,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 4th layer
         for(int i = 3; i < 8 ; i = i + 2 ) {
             for(int j = 3; j < 4 ; j++) {
@@ -205,6 +218,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 5th layer
         for(int i = 4; i < 7 ; i = i + 2 ) {
             for(int j = 4; j < 5 ; j++) {
@@ -215,6 +229,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // 6th layer
         for(int i = 5; i < 6 ; i++ ) {
@@ -230,6 +245,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 7nd layer
         for(int i = 4; i < 7 ; i++ ) {
             for(int j = 6; j < 7 ; j++) {
@@ -241,6 +257,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 8th layer
         for(int i = 3; i < 8 ; i++ ) {
             for(int j = 7; j < 8 ; j++) {
@@ -251,6 +268,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // 9nd layer
         for(int i = 2; i < 9 ; i++ ) {
@@ -266,6 +284,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 10th layer
         for(int i = 1; i < 10 ; i++ ) {
             for(int j = 9; j < 10 ; j++) {
@@ -277,7 +296,8 @@ public class ArkanoidLevels {
             }    
         }
         
-        // 10th layer
+        
+        // 11th layer
         for(int i = 0; i < 11 ; i++ ) {
             for(int j = 10; j < 11 ; j++) {
                 BlockModel block = new BlockModel(0, 0);
@@ -302,6 +322,7 @@ public class ArkanoidLevels {
     public static BlockModel[][] getExpert1() {
         BlockModel[][] playField = new BlockModel[11][11];
         
+        
         // First layer
         for(int i = 0; i < 11 ; i++ ) {
             for(int j = 0; j < 1 ; j++) {
@@ -312,6 +333,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // 3rd layer
         for(int i = 2; i < 9 ; i++ ) {
@@ -327,6 +349,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 5th layer 
         for(int i = 4; i < 7 ; i++ ) {
             for(int j = 4; j < 5 ; j++) {
@@ -338,6 +361,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 7nd layer
         for(int i = 4; i < 7 ; i++ ) {
             for(int j = 6; j < 7 ; j++) {
@@ -348,6 +372,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // 9th layer
         for(int i = 2; i < 9 ; i++ ) {
@@ -363,6 +388,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // 11th layer 
         for(int i = 0; i < 11 ; i++ ) {
             for(int j = 10; j < 11 ; j++) {
@@ -376,6 +402,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // colum 1 and 11 
         for(int i = 0; i < 11 ; i = i + 10) {
@@ -391,6 +418,7 @@ public class ArkanoidLevels {
             }    
         }
         
+        
         // colum 3 and 9 
         for(int i = 2; i < 9 ; i = i + 6) {
             for(int j = 3; j < 8 ; j++) {
@@ -401,6 +429,7 @@ public class ArkanoidLevels {
                 playField[i][j] = block;    
             }    
         }
+        
         
         // colum 5 and 7 
         for(int i = 4; i < 7 ; i = i + 2) {
