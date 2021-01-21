@@ -33,6 +33,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
+                if(i == 8 && j == 0 || i == 5 && j == 1){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -44,6 +47,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(3);
+                if(i == 7 && j == 2 || i == 2 && j == 3){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -55,6 +61,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(1);
+                if(i == 3 && j == 4){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -88,6 +97,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
+                if(i == 9 && j == 6){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -101,6 +113,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(3);
+                if(i == 3 && j == 5){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -112,6 +127,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(7);
+                if(i == 7){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -166,6 +184,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(6);
+                if(i==5){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -177,6 +198,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(8);
+                if(i==7){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -199,6 +223,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(12);
+                if(i==5){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -232,6 +259,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(6);
+                if(i==4){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -253,8 +283,10 @@ public class ArkanoidLevels {
                 BlockModel block = new BlockModel(0, 0);
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
-                block.setlifes(2);
-                block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                block.setlifes(2);   
+                if(i==8){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         } 
@@ -288,6 +320,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(10);
+                if(i == 7){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -321,6 +356,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(10);
+                if(i == 2){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -332,6 +370,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
+                if(i == 6){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -343,6 +384,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
+                if(i == 10 && j == 3){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
@@ -365,6 +409,9 @@ public class ArkanoidLevels {
                 block.setX(30 + block.WIDTH*i + 1*i);
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(15);
+                if(i == 4 && j == 5){
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                }
                 playField[i][j] = block;    
             }    
         }
