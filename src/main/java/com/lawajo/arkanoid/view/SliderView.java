@@ -1,20 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.SliderModel;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+
 /**
  *
- * @author joeyk
+ * @author Lander Ketelbuters, Joey Koster, Ward Vanmuysen
  */
 public class SliderView extends ViewObject {
     
+    //datamembers
     private SliderModel model;
     private Rectangle rect;
     
@@ -37,6 +35,7 @@ public class SliderView extends ViewObject {
     }
     
     
+    
     /**
      * Updates the current slider object with the newest parameters.
      */
@@ -47,6 +46,11 @@ public class SliderView extends ViewObject {
         this.rect.setFill(Color.CHOCOLATE);
     }
     
+    /**
+     * Gets the model of the boost.
+     * 
+     * @return The slidermodel that controls the sliderview.
+     */
     @Override
     public SliderModel getModel() {
         return this.model;

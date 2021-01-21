@@ -1,28 +1,33 @@
+
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.BlockModel;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+
 /**
  *
- * @author joeyk
+ * @author Lander Ketelbuters, Joey Koster, Ward Vanmuysen
  */
 public class BlockView extends ViewObject {
     
+    //statics
     public final static int WIDTH = 45;
     public final static int HEIGHT = 15;
     
+    //variable
     private int lifes;
     
+    //datamembers
     private Rectangle rect;
     private BlockModel model;
    
     
     /**
      * Initializes a new block.
-     *
-     * @param model
+     * 
+     * @param model Is the blockmodel that controls the view.
      */
     public BlockView(BlockModel model) {
         this.model = model;
@@ -33,6 +38,7 @@ public class BlockView extends ViewObject {
         this.getChildren().add(this.rect);
         update();
     }
+    
     
     
     // Setters
@@ -62,7 +68,12 @@ public class BlockView extends ViewObject {
         this.rect.setFill(color);
     }
     
-
+    
+    /**
+     * Gets the model of the block.
+     * 
+     * @return The blockmodel that controls the blockview.
+     */
     @Override
     public BlockModel getModel() {
         return this.model;

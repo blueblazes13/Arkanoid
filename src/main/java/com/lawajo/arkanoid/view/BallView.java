@@ -1,20 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.BallModel;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+
 /**
  *
- * @author joeyk
+ * @author Joey Koster
  */
 public class BallView extends ViewObject {
     
+    //Datamembers
     private Circle circle;
     private BallModel model;
     
@@ -35,6 +33,7 @@ public class BallView extends ViewObject {
     }
     
     
+    
     // Setters
     
     /**
@@ -49,6 +48,11 @@ public class BallView extends ViewObject {
     }
     
     
+    /**
+     * Gets the model of the ball.
+     *
+     * @return The ballmodel that controls the ballview.
+     */
     @Override
     public BallModel getModel() {
         return this.model;

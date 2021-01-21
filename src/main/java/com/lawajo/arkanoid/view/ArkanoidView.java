@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
@@ -13,15 +9,16 @@ import com.lawajo.arkanoid.model.SliderModel;
 import java.util.ArrayList;
 import javafx.scene.Node;
 
+
 /**
  *
- * @author joeykoster
+ * @authors Lander Ketelbuters, Joey Koster, Ward Vanmuysen
  */
 public class ArkanoidView extends ViewObject {
     
-    
-    
+    //datamembers
     private ArkanoidModel model;
+    
     
     /**
      * Initializes a new ArkanoidView object to control the game views.
@@ -42,6 +39,7 @@ public class ArkanoidView extends ViewObject {
             }
         }
     }
+    
     
     
     /**
@@ -71,6 +69,12 @@ public class ArkanoidView extends ViewObject {
         toRemove.forEach(this::removeViewObjects);
     }
     
+    
+    /**
+     * Removes the view of the block objects and the view of the boost objects. 
+     *
+     * @param obj is an blockview or boostview.
+     */
     public void removeViewObjects(ViewObject obj) {
         if (obj instanceof BlockView) {
             removeBlock((BlockView) obj);
@@ -111,7 +115,8 @@ public class ArkanoidView extends ViewObject {
     
     /**
      * Removes a random ball from the playfield.
-     * @param ball BallModel ball
+     *
+     * @param ball BallModel ball.
      */
     public void removeBall(BallModel ball) {
         for (Node obj: this.getChildren()) {
@@ -124,8 +129,9 @@ public class ArkanoidView extends ViewObject {
     
     
     /**
-     * adds a slider to the field
-     * @param slider is a new slider 
+     * Adds a slider to the field.
+     * 
+     * @param slider is a new slider. 
      */
     public void addSlider(SliderModel slider) {
         SliderView sliderView = new SliderView(slider);
@@ -134,8 +140,9 @@ public class ArkanoidView extends ViewObject {
     
     
     /**
-     * adds a boost to the field
-     * @param boost is new boost
+     * Adds a boost to the field.
+     *
+     * @param boost is a new boost.
      */
     public void addBoost(BoostModel boost){
         BoostView boostView = new BoostView(boost);
@@ -144,20 +151,11 @@ public class ArkanoidView extends ViewObject {
     }
     
     
-//    /**
-//     * removes a boost from the field
-//     * @param boost BoostModel boost
-//     */
-//    public void removeBoost(BoostModel boost){
-//        for (Node obj: this.getChildren()) {
-//            ViewObject viewObj = (ViewObject) obj;
-//            if (viewObj.getModel() == boost) {
-//                this.getChildren().remove(obj);
-//            }
-//        }
-//    }
-    
-
+    /**
+     * Gets the arkanoidmodel that plays the game.
+     *
+     * @return The arkanoidmodel that controls the arkanoidview.
+     */
     @Override
     public ArkanoidModel getModel() {
         return this.model;

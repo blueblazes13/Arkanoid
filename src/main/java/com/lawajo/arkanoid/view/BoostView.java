@@ -1,23 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid.view;
 
 import com.lawajo.arkanoid.model.BoostModel;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+
 /**
  *
- * @author Vanmuysen Ward
+ * @author Lander Lander Ketelbuters, Joey Koster, Ward Vanmuysen
  */
 public class BoostView extends ViewObject {
-
+    
+    //datamenbers
     private Circle circle;
     private BoostModel model;
     
+    /**
+     * Initializes a new boost.
+     * 
+     * @param model The boostmodel that controls the view.
+     */
     public BoostView(BoostModel model) {
         this.model = model;
         
@@ -30,6 +33,8 @@ public class BoostView extends ViewObject {
         update();
     }
     
+    
+    
     /**
      * Updates the current boost object with the newest parameters.
      */
@@ -41,7 +46,11 @@ public class BoostView extends ViewObject {
         this.circle.setFill(Color.RED);
     }
     
-    
+    /**
+     * Gets the model of the boost.
+     * 
+     * @return The boostmodel that controls the boostview.
+     */
     @Override
     public BoostModel getModel() {
         return this.model;
