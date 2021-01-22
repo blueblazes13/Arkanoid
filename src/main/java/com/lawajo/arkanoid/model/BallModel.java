@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.lawajo.arkanoid.model;
 
-import com.lawajo.arkanoid.ArkanoidFXMLController;
 import com.lawajo.arkanoid.BallTask;
 import java.util.Random;
 import java.util.Timer;
@@ -16,7 +11,7 @@ import java.util.Timer;
  */
 public class BallModel {
  
-    public final static int RADIUS = 10;
+    public final int RADIUS;
     
     private transient final Random random = new Random();
     private transient Timer t;
@@ -55,6 +50,30 @@ public class BallModel {
         this.dy = -1;
         
         this.damage = 1;
+        this.RADIUS = 10;
+    }
+    
+    
+    /**
+     * Initializes a new ball.
+     * 
+     * @param x The x coordinate of the ball.
+     * @param y The y coordinate of the ball.
+     */
+    public BallModel(int x, int y, int radius) {
+        this.moves = false;
+        this.speed = 1;
+        this.x = x;
+        this.y = y;
+        
+        this.prevX = x;
+        this.prevY = y;
+        
+        this.dx = 0.01;
+        this.dy = -1;
+        
+        this.damage = 1;
+        this.RADIUS = radius;
     }
     
     
@@ -126,7 +145,6 @@ public class BallModel {
     private void hitHorizontal(BlockModel block) {
         if (block instanceof SliderModel) {
             if (this instanceof BoostModel) {
-                System.out.println("Stopped boost from moving!");
                 stopMoving();
                 return;
             }
@@ -187,8 +205,8 @@ public class BallModel {
     
     public void move(BlockModel block) {
         if (block == null) {
-            if (this.x <= BallModel.RADIUS ||  this.x >= 560 - BallModel.RADIUS) {
-                if (this.y <= BallModel.RADIUS) {
+            if (this.x <= this.RADIUS ||  this.x >= 560 - this.RADIUS) {
+                if (this.y <= this.RADIUS) {
                     this.dx *= -1;
                     this.dy *= -1;
                     addX();
@@ -196,7 +214,7 @@ public class BallModel {
                 } else {
                     hitVertical();
                 }
-            } else if (this.y <= BallModel.RADIUS) {
+            } else if (this.y <= this.RADIUS) {
                 hitHorizontal();
             } else {
                 addX();
@@ -206,20 +224,20 @@ public class BallModel {
             int blockX = block.getX();
             int blockY = block.getY();
             
-            if (this.y + BallModel.RADIUS <= blockY + (block.HEIGHT/2)) {
+            if (this.y + this.RADIUS <= blockY + (block.HEIGHT/2)) {
                 hitHorizontal(block);
-            } else if (this.y - BallModel.RADIUS >= blockY + block.HEIGHT/2) {
+            } else if (this.y - this.RADIUS >= blockY + block.HEIGHT/2) {
                 if (block instanceof SliderModel) {
                     move();
                 } else {
                     hitHorizontal(block);
                 }
             } else {
-                if (this.x + BallModel.RADIUS >= blockX &&
-                        this.x + BallModel.RADIUS <= blockX + (block.WIDTH/4)) {
+                if (this.x + this.RADIUS >= blockX &&
+                        this.x + this.RADIUS <= blockX + (block.WIDTH/4)) {
                     hitVertical();
-                } else if (this.x- BallModel.RADIUS >= blockX + (block.WIDTH*(3/4)) &&
-                        this.x - BallModel.RADIUS <= blockX + block.WIDTH){
+                } else if (this.x- this.RADIUS >= blockX + (block.WIDTH*(3/4)) &&
+                        this.x - this.RADIUS <= blockX + block.WIDTH){
                     hitVertical();
                 } else {
                     move();
@@ -239,9 +257,8 @@ public class BallModel {
     }
     
     public boolean checkDeath(){
-        if(this.y + BallModel.RADIUS >= 352){
+        if(this.y + this.RADIUS >= 352){
             stopMoving();
-            System.out.println("Stopped boost from moving!");
             return true;
         }
         return false;
@@ -266,7 +283,12 @@ public class BallModel {
     public void stopMoving(){
         this.t.cancel();
         this.moves = false;
-        //this.t = null;
+        
+        
+//        // activeerboost if this.boost != 
+//        this.t.schedule(() -> {
+//            // stopboost
+//        }, tijdOmTeStoppen);
     }
     
     
