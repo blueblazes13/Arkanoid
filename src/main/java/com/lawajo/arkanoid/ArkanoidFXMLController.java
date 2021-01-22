@@ -118,7 +118,6 @@ public class ArkanoidFXMLController {
             view.removeBall(model.getBall());
             model.newBall(280, 250);
             view.addBall(model.getBall());
-            activateBoost();
             ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
         }
 //        if(boost.isMoving()) {
@@ -173,42 +172,7 @@ public class ArkanoidFXMLController {
     }
     
     
-    /**
-     * Activates a random boost.
-     * Generates random number from 1 to 5.
-     */
-    public void activateBoost(){    
-        int Num = ThreadLocalRandom.current().nextInt(1,6);
-        switch(Num){
-            case 1:
-                System.out.println("1");
-                model.setBallDamage(3);
-                update();
-                break;
-            case 2:
-                System.out.println("2");
-                model.setSliderWidth(50);
-                update();
-                break;
-            case 3:
-                System.out.println("3");
-                model.setSliderSpeed(10);
-                update();
-                break;
-            case 4:
-                System.out.println("4");
-                model.setBallSpeed(3);
-                update();
-                break;
-            case 5:
-                System.out.println("5");
-                ArkanoidModel.setLifes(ArkanoidModel.getLifes()+1);
-                update();
-                break;
-            default:
-                break;
-        }
-    }
+   
     
     
     /**

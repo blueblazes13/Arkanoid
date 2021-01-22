@@ -36,7 +36,9 @@ public class ArkanoidModel {
     // Datamembers
     private BlockModel[][] blockField;
     private transient BallModel ball;
+    private double ballSpeed;
     private transient SliderModel slider;
+    private transient ArkanoidLevels levels;
     
     
     /**
@@ -47,7 +49,8 @@ public class ArkanoidModel {
         
         newSlider(255, 270);
         newBall(280, 250);
-        setSliderSpeed(5);
+        
+        
     }
     
     // Getters
@@ -103,15 +106,21 @@ public class ArkanoidModel {
      * @return The level that matches with the selected difficulty.
      */
     private BlockModel[][] getLevel() {
+        this.levels = new ArkanoidLevels(this);
+        
         switch (ArkanoidModel.difficulty) {
             case EASY:
-                return ArkanoidLevels.getEasy1();
+                this.ballSpeed = 1.0;
+                return this.levels.getEasy1();
             case NORMAL:
-                return ArkanoidLevels.getNormal1();
+                this.ballSpeed = 1.1;
+                return this.levels.getNormal1();
             case HARD:
-                return ArkanoidLevels.getHard1();
+                this.ballSpeed = 1.2;
+                return this.levels.getHard1();
             case EXPERT:
-                return ArkanoidLevels.getExpert1();
+                this.ballSpeed = 1.3;
+                return this.levels.getExpert1();
             default:
                 return null;
         }
@@ -268,8 +277,9 @@ public class ArkanoidModel {
      * @param y The y coordinate of the center of the ball.
      */
     public void newBall(int x, int y) {
-        this.ball = new BallModel(x, y);
+        this.ball = new BallModel(x, y, this);
         this.ball.startMoving(this);
+        this.ball.setSpeed(this.ballSpeed);
     }
     
     
@@ -334,7 +344,7 @@ public class ArkanoidModel {
      * 
      * @param speed The speed the ball has to get.
      */
-    public void setBallSpeed(int speed) {
+    public void setBallSpeed(double speed) {
         this.ball.setSpeed(speed);
     }
     

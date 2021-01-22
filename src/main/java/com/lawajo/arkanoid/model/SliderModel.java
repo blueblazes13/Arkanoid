@@ -15,8 +15,8 @@ import java.util.Timer;
 public class SliderModel extends BlockModel {
    
     private int speed;
-    public int WIDTH = 60;
-    public int HEIGHT = 5;
+    public int width = 60;
+    public int height = 5;
     private transient Timer rightTimer;
     private transient Timer leftTimer;
     private Boolean isMovingLeft;
@@ -31,14 +31,14 @@ public class SliderModel extends BlockModel {
      */
     public SliderModel(int x, int y) {
         super(x, y, 60, 5);
-        this.speed = 1;
+        this.speed = 3;
         this.isMovingLeft = false;
         this.isMovingRight = false;
     }
     
     
     public void setWidth(int width) {
-        this.WIDTH = width;
+        this.width = width;
     }
     
     

@@ -15,7 +15,7 @@ public class BallModel {
     
     private transient final Random random = new Random();
     private transient Timer t;
-    private int speed;
+    private double speed;
     private Boolean moves;
     
     private double x;
@@ -28,6 +28,7 @@ public class BallModel {
     private double  dy;  
     
     private int  damage;
+    protected transient ArkanoidModel arkanoidModel;
     
     
     
@@ -37,7 +38,7 @@ public class BallModel {
      * @param x The x coordinate of the ball.
      * @param y The y coordinate of the ball.
      */
-    public BallModel(int x, int y) {
+    public BallModel(int x, int y, ArkanoidModel arkanoidModel) {
         this.moves = false;
         this.speed = 1;
         this.x = x;
@@ -51,6 +52,8 @@ public class BallModel {
         
         this.damage = 1;
         this.RADIUS = 10;
+        
+        this.arkanoidModel = arkanoidModel;
     }
     
     
@@ -60,7 +63,7 @@ public class BallModel {
      * @param x The x coordinate of the ball.
      * @param y The y coordinate of the ball.
      */
-    public BallModel(int x, int y, int radius) {
+    public BallModel(int x, int y, ArkanoidModel arkanoidModel, int radius) {
         this.moves = false;
         this.speed = 1;
         this.x = x;
@@ -74,13 +77,15 @@ public class BallModel {
         
         this.damage = 1;
         this.RADIUS = radius;
+        
+        this.arkanoidModel = arkanoidModel;
     }
     
     
     
     // Setters
     
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
     
@@ -100,7 +105,7 @@ public class BallModel {
      */
     private void addY() {
         this.prevY = this.y;
-        this.y += this.dy;
+        this.y += this.dy * this.speed;
     }
     
     
@@ -109,7 +114,7 @@ public class BallModel {
      */
     private void addX() {
         this.prevX = this.x;
-        this.x += this.dx;
+        this.x += this.dx * this.speed;
     }
     
     
@@ -145,7 +150,9 @@ public class BallModel {
     private void hitHorizontal(BlockModel block) {
         if (block instanceof SliderModel) {
             if (this instanceof BoostModel) {
+                BoostModel boost = (BoostModel) this;
                 stopMoving();
+                boost.activateBoost();
                 return;
             }
             
@@ -175,11 +182,11 @@ public class BallModel {
      */
     public void setAngle(double angle, Boolean up) {
         if (up) {
-            this.dx = Math.signum(this.dx) * Math.cos(angle) * this.speed;
-            this.dy = Math.sin(angle) * this.speed;
+            this.dx = Math.signum(this.dx) * Math.cos(angle);
+            this.dy = Math.sin(angle);
         } else {
-            this.dx = Math.signum(this.dx) * Math.cos(angle) * this.speed;
-            this.dy = -Math.sin(angle) * this.speed;
+            this.dx = Math.signum(this.dx) * Math.cos(angle);
+            this.dy = -Math.sin(angle);
         }
     }
     
@@ -272,7 +279,7 @@ public class BallModel {
     public void startMoving(ArkanoidModel arkanoidModel){
         BallTask balltask = new BallTask(this, arkanoidModel);
         this.t = new Timer(true);
-        this.t.scheduleAtFixedRate(balltask, 0, 15);
+        this.t.scheduleAtFixedRate(balltask, 0, 10);
         this.moves = true;
     }
     

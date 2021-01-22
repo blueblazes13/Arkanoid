@@ -1,6 +1,7 @@
 
 package com.lawajo.arkanoid;
 
+import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BlockModel;
 import com.lawajo.arkanoid.model.BoostModel;
 
@@ -11,11 +12,14 @@ import com.lawajo.arkanoid.model.BoostModel;
  */
 public class ArkanoidLevels {
     
+    private ArkanoidModel model;
+    
     /**
      * Initializes a arkanoid level. 
      * This can be easy, normal, hard or expert.
      */
-    public ArkanoidLevels() {
+    public ArkanoidLevels(ArkanoidModel model) {
+        this.model = model;
     }
     
     
@@ -24,7 +28,7 @@ public class ArkanoidLevels {
      * 
      * @return setup of the level in BlockModels 
      */
-    public static BlockModel[][] getEasy1() {
+    public BlockModel[][] getEasy1() {
         BlockModel[][] playField = new BlockModel[11][11];
         
         
@@ -36,7 +40,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
                 if(i == 8 && j == 0 || i == 5 && j == 1){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -51,7 +55,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(3);
                 if(i == 7 && j == 2 || i == 2 && j == 3){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -66,7 +70,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(1);
                 if(i == 3 && j == 4){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -81,7 +85,7 @@ public class ArkanoidLevels {
      * 
      * @return setup of the level in BlockModels
      */
-    public static BlockModel[][] getNormal1() {
+    public BlockModel[][] getNormal1() {
         BlockModel[][] playField = new BlockModel[11][11];
         
         
@@ -105,7 +109,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
                 if(i == 9 && j == 6){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -120,7 +124,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(3);
                 if(i == 3 && j == 5){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -135,7 +139,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(7);
                 if(i == 7){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -161,7 +165,7 @@ public class ArkanoidLevels {
      * 
      * @return setup of the level in BlockModels
      */
-    public static BlockModel[][] getHard1() {
+    public BlockModel[][] getHard1() {
         BlockModel[][] playField = new BlockModel[11][11];
         
         
@@ -197,7 +201,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(6);
                 if(i==5){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -212,7 +216,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(8);
                 if(i==7){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -239,7 +243,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(12);
                 if(i==5){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -278,7 +282,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(6);
                 if(i==4){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -305,7 +309,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(2);   
                 if(i==8){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -319,7 +323,7 @@ public class ArkanoidLevels {
      * 
      * @return setup of the level in BlockModels
      */
-    public static BlockModel[][] getExpert1() {
+    public BlockModel[][] getExpert1() {
         BlockModel[][] playField = new BlockModel[11][11];
         
         
@@ -343,7 +347,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(10);
                 if(i == 7){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -382,7 +386,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(10);
                 if(i == 2){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -397,7 +401,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
                 if(i == 6){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -412,7 +416,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(5);
                 if(i == 10 && j == 3){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
@@ -439,7 +443,7 @@ public class ArkanoidLevels {
                 block.setY(30 + block.HEIGHT*j + 1*j);
                 block.setlifes(15);
                 if(i == 4 && j == 5){
-                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2));
+                    block.setBoost(new BoostModel(30 + block.WIDTH*i + 1*i +block.WIDTH/2, 30 + block.HEIGHT*j + 1*j + block.HEIGHT/2, this.model));
                 }
                 playField[i][j] = block;    
             }    
