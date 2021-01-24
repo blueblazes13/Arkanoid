@@ -1,3 +1,12 @@
+/**
+ * Taakverdeling programma
+ * 
+ * Lander Ketelbuters: 30%
+ * Joey Koster: 45%
+ * Ward Vanmuysen: 25%
+ * 
+ */
+
 package com.lawajo.arkanoid;
 
 import javafx.application.Application;
