@@ -2,6 +2,7 @@
 package com.lawajo.arkanoid.model;
 
 import com.lawajo.arkanoid.BallTask;
+import com.lawajo.arkanoid.Deletable;
 import java.util.Random;
 import java.util.Timer;
 
@@ -9,27 +10,26 @@ import java.util.Timer;
  *
  * @author Lander
  */
-public class BallModel {
- 
-    public final int RADIUS;
+public class BallModel implements Deletable {
     
+    // Datamember
     private transient final Random random = new Random();
+    protected transient ArkanoidModel arkanoidModel;
     private transient Timer t;
+    
+    public final int RADIUS;
     private double speed;
-    private Boolean moves;
     
     private double x;
     private double y;
+    private double  dx;
+    private double  dy;  
     
     private double  prevX;
     private double  prevY;
     
-    private double  dx;
-    private double  dy;  
-    
+    private boolean isDeleted;
     private int  damage;
-    protected transient ArkanoidModel arkanoidModel;
-    
     
     
     /**
@@ -37,23 +37,23 @@ public class BallModel {
      * 
      * @param x The x coordinate of the ball.
      * @param y The y coordinate of the ball.
+     * @param arkanoidModel The model of the game.
      */
     public BallModel(int x, int y, ArkanoidModel arkanoidModel) {
-        this.moves = false;
+        this.arkanoidModel = arkanoidModel;
+        
         this.speed = 1;
+        
         this.x = x;
         this.y = y;
-        
+        this.dx = 0.01;
+        this.dy = -1;
         this.prevX = x;
         this.prevY = y;
         
-        this.dx = 0.01;
-        this.dy = -1;
-        
+        this.isDeleted = false;
         this.damage = 1;
         this.RADIUS = 10;
-        
-        this.arkanoidModel = arkanoidModel;
     }
     
     
@@ -62,36 +62,42 @@ public class BallModel {
      * 
      * @param x The x coordinate of the ball.
      * @param y The y coordinate of the ball.
+     * @param arkanoidModel The model of the game.
+     * @param radius The radius pf the ball.
      */
     public BallModel(int x, int y, ArkanoidModel arkanoidModel, int radius) {
-        this.moves = false;
+        this.arkanoidModel = arkanoidModel;
+        
         this.speed = 1;
+        
         this.x = x;
         this.y = y;
-        
+        this.dx = 0.01;
+        this.dy = -1;
         this.prevX = x;
         this.prevY = y;
         
-        this.dx = 0.01;
-        this.dy = -1;
-        
+        this.isDeleted = false;
         this.damage = 1;
         this.RADIUS = radius;
-        
-        this.arkanoidModel = arkanoidModel;
     }
     
     
     
     // Setters
     
+    /**
+     * Sets the speed of the game ball.
+     * 
+     * @param speed The speed of the ball.
+     */
     public void setSpeed(double speed) {
         this.speed = speed;
     }
     
     
     /**
-     * sets the total damage the ball can deal.
+     * Sets the total damage the ball can deal.
      * 
      * @param damage The damage the ball can deal.
      */    
@@ -143,6 +149,7 @@ public class BallModel {
         addX();
     }
     
+    
     /**
      * Hits a horizontal object. The ball moves and bounces back.
      * This is automaticly done by the move function.
@@ -151,7 +158,8 @@ public class BallModel {
         if (block instanceof SliderModel) {
             if (this instanceof BoostModel) {
                 BoostModel boost = (BoostModel) this;
-                stopMoving();
+                boost.stopMoving();
+                boost.setDeleted();
                 boost.activateBoost();
                 return;
             }
@@ -189,6 +197,7 @@ public class BallModel {
             this.dy = -Math.sin(angle);
         }
     }
+    
     
     /**
      * Sets the position of the ball.
@@ -263,13 +272,6 @@ public class BallModel {
         move(null);
     }
     
-    public boolean checkDeath(){
-        if(this.y + this.RADIUS >= 352){
-            stopMoving();
-            return true;
-        }
-        return false;
-    }
     
     /**
      * Starts moving the ball.
@@ -280,26 +282,44 @@ public class BallModel {
         BallTask balltask = new BallTask(this, arkanoidModel);
         this.t = new Timer(true);
         this.t.scheduleAtFixedRate(balltask, 0, 10);
-        this.moves = true;
     }
     
     
     /**
-     * the balls stops with moving
+     * Stops the ball from moving.
      */
     public void stopMoving(){
         this.t.cancel();
-        this.moves = false;
+    }
         
-        
-//        // activeerboost if this.boost != 
-//        this.t.schedule(() -> {
-//            // stopboost
-//        }, tijdOmTeStoppen);
+    
+    /**
+     * Allows the ball to be ignored or deleted.
+     */
+    @Override
+    public void setDeleted(){
+        this.isDeleted = true;
     }
     
     
+    
     // Getters
+    
+    /**
+     * Checks if the ball is dead.
+     * If dead, it stops the ball and makes it deletable.
+     * 
+     * @return True if dead, else false.
+     */
+    public boolean checkDeath(){
+        if(this.y + this.RADIUS >= 352){
+            stopMoving();
+            setDeleted();
+            return true;
+        }
+        return false;
+    }
+    
     
     /**
      * Gets the x coordinate of the center of the ball.
@@ -330,11 +350,13 @@ public class BallModel {
         return this.damage;
     }
     
+    
     /**
      * Is the ball moving.
      * @return moving Boolean moving
      */
-    public Boolean isMoving() {
-        return this.moves;
+    @Override
+    public boolean isDeleted() {
+        return this.isDeleted;
     }
 }

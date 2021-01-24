@@ -37,9 +37,11 @@ public class ArkanoidFXMLController {
     @FXML
     private ProgressBar pbLifes;
     
-    //data members
+    
+    //Datamembers
     private ArkanoidModel model;
     private ArkanoidView view;
+    
     
     /**
      * Initializes the ArkanoidFXML controller class.
@@ -47,34 +49,37 @@ public class ArkanoidFXMLController {
     @FXML
     void initialize() {
         
-        if (ArkanoidModel.controllingModel == null){
+        if (ArkanoidModel.controllingModel == null) {
             this.model = new ArkanoidModel();
             ArkanoidModel.addScore(-ArkanoidModel.getScore());
             ArkanoidModel.setLifes(3);
-        }
-        else {
+        } else {
             this.model = ArkanoidModel.controllingModel;
-            ArkanoidModel.controllingModel = null;
         }
-        this.model.newGameTick(this);
-        view = new ArkanoidView(model);
         
+        this.model.newGameTick(this);
+        
+        view = new ArkanoidView(model);
         view.addSlider(model.getSlider());
         view.addBall(model.getBall());
-        
         view.setFocusTraversable(true);
+        
         apPlayField.getChildren().add(view);
-        btnMenu.setOnAction(this::toMenu);  
-        btnReset.setOnAction(this::reset);
         apPlayField.setOnKeyReleased(this::stopMoving);
         apPlayField.setOnKeyPressed(this::keyPressed);
-        setLifeBar();
+        
+        btnMenu.setOnAction(this::toMenu);
+        btnReset.setOnAction(this::reset);
+        
         lblBestScore.setText(Integer.toString(ArkanoidModel.getMaxScore()));
+        setLifeBar();
     }
+    
     
     
     /**
      * Stops the slider from moving upon key release.
+     * 
      * @param e KeyEvent e
      */
     private void stopMoving(KeyEvent e){
@@ -93,6 +98,7 @@ public class ArkanoidFXMLController {
     
     /**
      * Checks for input of the Left and Right arrow keys.
+     * 
      * @param k KeyEvent k
      */
     private void keyPressed(KeyEvent k) {
@@ -119,6 +125,7 @@ public class ArkanoidFXMLController {
         view.update();
     }
     
+    
     /**
      * Go back to the Game menu.
      * @param t ActionEvent t
@@ -128,7 +135,8 @@ public class ArkanoidFXMLController {
             try {
                 ArkanoidModel.save(model);
             } catch (IOException ex){
-                ex.printStackTrace();
+                // Om warning weg te krijgen: https://stackoverflow.com/questions/7100961/using-e-printstacktrace-in-java
+                ex.printStackTrace(System.out);
             }
         }
         if (ArkanoidModel.getMaxScore()<=ArkanoidModel.getScore()){
@@ -143,10 +151,12 @@ public class ArkanoidFXMLController {
      */
     public void switchMenu(){
         model.stopBall();
+        
         try {
+            ArkanoidModel.controllingModel = null;
             App.setRoot("GameMenuFXML");
         } catch (IOException ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
         }   
     }
     

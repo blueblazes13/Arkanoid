@@ -7,14 +7,13 @@ import javafx.scene.shape.Circle;
 
 
 /**
- *
  * @author Joey Koster
  */
 public class BallView extends ViewObject {
     
     //Datamembers
-    private Circle circle;
-    private BallModel model;
+    private final Circle circle;
+    private final BallModel model;
     
     
     /**
@@ -29,12 +28,8 @@ public class BallView extends ViewObject {
         this.circle.setFill(Color.GRAY);
         
         this.getChildren().add(this.circle);
-        update();
     }
     
-    
-    
-    // Setters
     
     /**
      * Updates the current ball object with the newest parameters.

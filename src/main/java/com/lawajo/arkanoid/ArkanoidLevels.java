@@ -15,8 +15,10 @@ public class ArkanoidLevels {
     private ArkanoidModel model;
     
     /**
-     * Initializes a arkanoid level. 
+     * Initializes a arkanoid level.
      * This can be easy, normal, hard or expert.
+     * 
+     * @param model The model that uses the levels.
      */
     public ArkanoidLevels(ArkanoidModel model) {
         this.model = model;
@@ -318,7 +320,8 @@ public class ArkanoidLevels {
         return playField;
     }
     
-   /**
+    
+    /**
      * First Expert level
      * 
      * @return setup of the level in BlockModels

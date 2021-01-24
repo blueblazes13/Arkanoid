@@ -50,58 +50,74 @@ public class GameMenuFXMLController {
     @FXML
     private Button btnLoad;
 
-    //data Members
+    //Datamembers
     private Difficulty diff = EASY;
     private  int bestScore;
 
+    
     /**
      * Initializes the Game Menu controller class.
      */
     @FXML
     void initialize() {
         setWinMessage();
+        
         miEasy.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Easy");
             diff = EASY;
             ArkanoidModel.setDifficulty(diff);
         });
+        
         miNormal.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Normal");
             diff = NORMAL;
             ArkanoidModel.setDifficulty(diff);
         });
+        
         miHard.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Hard");
             diff = HARD;
             ArkanoidModel.setDifficulty(diff);
         });
+        
         miExpert.setOnAction((m) -> {
             lblCurrentDifficulty.setText("EXPERT");
             diff = EXPERT;
             ArkanoidModel.setDifficulty(diff);
         });
+        
         btnStartGame.setOnAction(this::start);
         btnLoad.setOnAction(this::load);
-        //lblWinMessage.setText("");
         setScores();
     }
 
     
+    /**
+     * Starts the game by going to the game screen.
+     * 
+     * @param s ActionEvent of the button.
+     */
     public void start(ActionEvent s) {
         try{
             App.setRoot("ArkanoidFXML");
         }
         catch (IOException ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
         }
     }
     
+    
+    /**
+     * Loads the game from data file.
+     * 
+     * @param l ActionEvent from the button.
+     */
     public void load(ActionEvent l) {
         try {
             ArkanoidModel.controllingModel = ArkanoidModel.load();
             App.setRoot("ArkanoidFXML");
         } catch (IOException ex){
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
         }    
     }   
     

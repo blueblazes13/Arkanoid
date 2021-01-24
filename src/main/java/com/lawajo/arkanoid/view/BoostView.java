@@ -7,14 +7,13 @@ import javafx.scene.shape.Circle;
 
 
 /**
- *
- * @author Lander Lander Ketelbuters, Joey Koster, Ward Vanmuysen
+ * @author Lander Ketelbuters, Joey Koster, Ward Vanmuysen
  */
 public class BoostView extends ViewObject {
     
-    //datamenbers
-    private Circle circle;
-    private BoostModel model;
+    //Datamenbers
+    private final Circle circle;
+    private final BoostModel model;
     
     /**
      * Initializes a new boost.
@@ -30,13 +29,12 @@ public class BoostView extends ViewObject {
         this.circle.setStrokeWidth(0.4);
         
         this.getChildren().add(this.circle);
-        update();
     }
     
     
     
     /**
-     * Updates the current boost object with the newest parameters.
+     * Updates the current boost object with the newest parameters from the model.
      */
     @Override
     public void update() {
@@ -45,6 +43,7 @@ public class BoostView extends ViewObject {
         this.circle.setRadius(model.RADIUS);
         this.circle.setFill(Color.RED);
     }
+    
     
     /**
      * Gets the model of the boost.

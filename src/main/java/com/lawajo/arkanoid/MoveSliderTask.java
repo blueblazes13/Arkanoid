@@ -15,8 +15,8 @@ import java.util.TimerTask;
  */
 public class MoveSliderTask extends TimerTask {
 
-    private SliderModel slider;
-    private Direction dir;
+    private final SliderModel slider;
+    private final Direction dir;
     
     
     public MoveSliderTask(Direction dir, SliderModel slider) {

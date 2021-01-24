@@ -14,7 +14,7 @@ import javafx.application.Platform;
  */
 public class gameTickTask extends TimerTask {
 
-    ArkanoidFXMLController controller;
+    private final ArkanoidFXMLController controller;
     
     public gameTickTask(ArkanoidFXMLController controller) {
         this.controller = controller;

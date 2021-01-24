@@ -1,29 +1,30 @@
 
 package com.lawajo.arkanoid.model;
 
+import com.lawajo.arkanoid.Deletable;
 import javafx.scene.paint.Color;
 
 /**
  *
  * @author Lander
  */
-public class BlockModel {
+public class BlockModel implements Deletable {
     
+    // Datamembers
     public final int WIDTH;
     public final int HEIGHT;
     
-    
+    private BoostModel boost;
     
     private int maxLifes;
-    private Boolean isDeleted;
     private int lifes;
     private int score;
     private int bonusScore;
-    private BoostModel boost;
-    private Boolean usedBoost;
     
     private int x;
     private int y;
+    
+    private boolean isDeleted;
     
     
     /**
@@ -33,19 +34,20 @@ public class BlockModel {
      * @param y The y coordinate.
      */
     public BlockModel(int x, int y) {
-        this.x = x;
-        this.y = y;
-        
         this.WIDTH = 45;
         this.HEIGHT = 15;
         
-        this.isDeleted = false;
+        this.x = x;
+        this.y = y;
+        
+        this.boost = null;
+        
         this.lifes = 2;
         this.maxLifes = this.lifes;
         this.score = 5;
         this.bonusScore = 15;
-        this.boost = null;
-        this.usedBoost = false;
+        
+        this.isDeleted = false;
     }
     
     
@@ -58,18 +60,20 @@ public class BlockModel {
      * @param height The heigth of the block.
      */
     public BlockModel(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        
         this.WIDTH = width;
         this.HEIGHT = height;
         
-        this.isDeleted = false;
+        this.x = x;
+        this.y = y;
+        
+        this.boost = null;
+        
         this.lifes = 2;
         this.maxLifes = this.lifes;
         this.score = 5;
         this.bonusScore = 15;
-        this.boost = null;
+        
+        this.isDeleted = false;
     }
     
     
@@ -81,62 +85,62 @@ public class BlockModel {
      * @param y The y coordinate.
      */
     public BlockModel(int lifes, int x, int y) {
-        this.x = x;
-        this.y = y;
-        
         this.WIDTH = 45;
         this.HEIGHT = 15;
         
+        this.x = x;
+        this.y = y;
+        
+        this.boost = null;
+        
         this.lifes = lifes;
-        this.isDeleted = false;
         this.maxLifes = this.lifes;
         this.score = 5;
         this.bonusScore = 15;
-        this.boost = null;
+        
+        this.isDeleted = false;
     }
+    
+    
     
     // Setters
     
-    
     /**
-     * calculates the color based on the number of lives
-     * @return a new color  
+     * Calculates the color based on the number of lifes.
+     * @return The calculated color.
      */
     public Color calcColor() {
-        Double lifes;
-        Double maxLifes;
+        Double blockLifes;
+        Double maxBlockLifes;
+        
+        blockLifes = 0.0 + this.lifes;
+        maxBlockLifes = 0.0 + this.maxLifes;
         
         Color startColor = Color.WHITE;
         Color endColor = new Color(255.0/255, 81.0/255, 20.0/255, 1);
         
-//        Color red = new Color(255.0/255, 81.0/255, 20.0/255, 1);
-//        Color green = new Color(18.0/255, 255.0/255, 151.0/255, 1);
+        if(maxBlockLifes == 1.0)startColor = Color.LIGHTGREEN;
+        if(maxBlockLifes == 3.0)startColor =  Color.GREENYELLOW;
+        if(maxBlockLifes == 5.0)startColor =  Color.GREEN;
+        if(maxBlockLifes == 7.0)startColor =  Color.DARKGREEN;
+        if(maxBlockLifes >= 15.0)startColor =  Color.RED;
         
-        lifes = 0.0 + this.lifes;
-        maxLifes = 0.0 + this.maxLifes;
-
+        if(maxBlockLifes == 2.0)startColor =  Color.LIGHTSKYBLUE;
+        if(maxBlockLifes == 4.0)startColor =  Color.LIGHTBLUE;
+        if(maxBlockLifes == 6.0)startColor =  Color.LIGHTSTEELBLUE;
+        if(maxBlockLifes == 8.0)startColor =  Color.STEELBLUE;
+        if(maxBlockLifes >= 10.0 && maxBlockLifes < 12.0) startColor = Color.BLUE;
+        if(maxBlockLifes == 12.0 && maxBlockLifes < 15.0)startColor =  Color.DARKBLUE;
         
-        if(maxLifes == 1.0)startColor = Color.LIGHTGREEN;
-        if(maxLifes == 3.0)startColor =  Color.GREENYELLOW;
-        if(maxLifes == 5.0)startColor =  Color.GREEN;
-        if(maxLifes == 7.0)startColor =  Color.DARKGREEN;
-        if(maxLifes == 15.0)startColor =  Color.RED;
-        
-        if(maxLifes == 2.0)startColor =  Color.LIGHTSKYBLUE;
-        if(maxLifes == 4.0)startColor =  Color.LIGHTBLUE;
-        if(maxLifes == 6.0)startColor =  Color.LIGHTSTEELBLUE;
-        if(maxLifes == 8.0)startColor =  Color.STEELBLUE;
-        if(maxLifes == 10.0)startColor =  Color.BLUE;
-        if(maxLifes == 12.0)startColor =  Color.DARKBLUE;
-        
-        double newRed = endColor.getRed() + ((lifes/maxLifes) * (startColor.getRed() - endColor.getRed()));
-        double newGreen = endColor.getGreen() + ((lifes/maxLifes) * (startColor.getGreen() - endColor.getGreen()));
-        double newBlue = endColor.getBlue() + ((lifes/maxLifes) * (startColor.getBlue() - endColor.getBlue()));
+        double newRed = endColor.getRed() + ((blockLifes/maxBlockLifes) * (startColor.getRed() - endColor.getRed()));
+        double newGreen = endColor.getGreen() + ((blockLifes/maxBlockLifes) * (startColor.getGreen() - endColor.getGreen()));
+        double newBlue = endColor.getBlue() + ((blockLifes/maxBlockLifes) * (startColor.getBlue() - endColor.getBlue()));
         
         Color newColor = new Color(newRed, newGreen, newBlue, 1);
         
         return newColor;
     }
+    
     
     /**
      * Puts a boost in the block.
@@ -150,10 +154,10 @@ public class BlockModel {
     
     /**
      * sets the value of the block
-     * @param value is true when the blocks is deleted
      */
-    public void setDeleted(Boolean value) {
-        this.isDeleted = value;
+    @Override
+    public void setDeleted() {
+        this.isDeleted = true;
     }
     
     
@@ -239,6 +243,7 @@ public class BlockModel {
     }
     
     
+    
     // Getters
     
     /**
@@ -275,7 +280,8 @@ public class BlockModel {
      * Gets the value of the block this can be true or false
      * @return true when the blocks is deleted
      */
-    public Boolean isDeleted() {
+    @Override
+    public boolean isDeleted() {
         return this.isDeleted;
     }
     

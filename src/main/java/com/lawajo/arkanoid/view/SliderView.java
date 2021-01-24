@@ -7,14 +7,13 @@ import javafx.scene.shape.Rectangle;
 
 
 /**
- *
  * @author Lander Ketelbuters, Joey Koster, Ward Vanmuysen
  */
 public class SliderView extends ViewObject {
     
-    //datamembers
-    private SliderModel model;
-    private Rectangle rect;
+    //Datamembers
+    private final SliderModel model;
+    private final Rectangle rect;
     
     
     /**
@@ -31,13 +30,11 @@ public class SliderView extends ViewObject {
         this.rect.setStrokeWidth(0.4);
         
         this.getChildren().add(this.rect);
-        update();
     }
     
     
-    
     /**
-     * Updates the current slider object with the newest parameters.
+     * Updates the current slider object with the newest parameters from the model.
      */
     @Override
     public void update() {
@@ -45,6 +42,7 @@ public class SliderView extends ViewObject {
         this.rect.setLayoutY(this.model.getY());
         this.rect.setFill(Color.CHOCOLATE);
     }
+    
     
     /**
      * Gets the model of the boost.

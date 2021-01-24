@@ -1,6 +1,7 @@
 
 package com.lawajo.arkanoid.view;
 
+import com.lawajo.arkanoid.Deletable;
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
 import com.lawajo.arkanoid.model.BlockModel;
@@ -16,8 +17,8 @@ import javafx.scene.Node;
  */
 public class ArkanoidView extends ViewObject {
     
-    //datamembers
-    private ArkanoidModel model;
+    //Datamembers
+    private final ArkanoidModel model;
     
     
     /**
@@ -41,9 +42,8 @@ public class ArkanoidView extends ViewObject {
     }
     
     
-    
     /**
-     * Updates all the ViewObjects with their newest parameters.
+     * Updates all the ViewObjects with their newest parameters from the model.
      */
     @Override
     public void update() {
@@ -53,14 +53,9 @@ public class ArkanoidView extends ViewObject {
             ViewObject vObject = (ViewObject) obj;
             vObject.update();
             
-            if (vObject instanceof BlockView) {
-                BlockModel block = (BlockModel) vObject.getModel();
-                if (block.isDeleted()) {
-                    toRemove.add(vObject);
-                }
-            } else if (vObject instanceof BoostView) {
-                BoostModel boostModel = (BoostModel) vObject.getModel();
-                if (!boostModel.isMoving()) {
+            if (vObject.getModel() instanceof Deletable) {
+                Deletable deletable = (Deletable) vObject.getModel();
+                if (deletable.isDeleted()) {
                     toRemove.add(vObject);
                 }
             }
@@ -75,12 +70,10 @@ public class ArkanoidView extends ViewObject {
      *
      * @param obj is an blockview or boostview.
      */
-    public void removeViewObjects(ViewObject obj) {
+    private void removeViewObjects(ViewObject obj) {
         if (obj instanceof BlockView) {
             removeBlock((BlockView) obj);
         } else {
-            BoostModel boost = (BoostModel) obj.getModel();
-            boost = null;
             this.getChildren().remove(obj);
         }
     }
@@ -88,17 +81,16 @@ public class ArkanoidView extends ViewObject {
     
     /**
      * Removes a block from the playfield.
+     * 
+     * @param block The block that has to be removed.
      */
-    public void removeBlock(BlockView block) {
+    private void removeBlock(BlockView block) {
         BlockModel blockModel = block.getModel();
         this.getChildren().remove(block);
         
         if (blockModel.hasBoost()) {
-            System.out.println("Spawned new one!");
             addBoost(blockModel.getBoost());
         }
-
-        
     }
     
     
@@ -119,12 +111,17 @@ public class ArkanoidView extends ViewObject {
      * @param ball BallModel ball.
      */
     public void removeBall(BallModel ball) {
+        ViewObject ballObject = null;
+        
         for (Node obj: this.getChildren()) {
             ViewObject viewObj = (ViewObject) obj;
             if (viewObj.getModel() == ball) {
-                this.getChildren().remove(obj);
+                ballObject = viewObj;
+                break;
             }
         }
+        
+        this.getChildren().remove(ballObject);
     }
     
     

@@ -16,8 +16,9 @@ import javafx.application.Platform;
  */
 public class BoostModel extends BallModel {
 
-    private transient ArkanoidModel arkanoidModel;
+    private ArkanoidModel arkanoidModel;
     private Boolean activatedBoost;
+    
     
 /**
      * Initializes a new boost
@@ -27,8 +28,8 @@ public class BoostModel extends BallModel {
      */
     public BoostModel(int x, int y, ArkanoidModel arkanoidModel) {
         super(x, y, arkanoidModel, 5);
-        super.setAngle(Math.PI/2,true);
         this.arkanoidModel = arkanoidModel;
+        super.setAngle(Math.PI/2,true);
         this.activatedBoost = false;
     }
     
@@ -39,6 +40,7 @@ public class BoostModel extends BallModel {
      */
     public void activateBoost(){
         if (this.activatedBoost) return;
+        if (super.arkanoidModel == null) super.arkanoidModel = ArkanoidModel.controllingModel;
         
         int Num = ThreadLocalRandom.current().nextInt(1,6);
         
@@ -67,11 +69,16 @@ public class BoostModel extends BallModel {
     }
     
     
+    /**
+     * Stops the effect from the boost after 20 seconds.
+     */
     public void stopBoost() {
         Timer timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                if (arkanoidModel == null) arkanoidModel = ArkanoidModel.controllingModel;
+                
                 arkanoidModel.setBallDamage(1);
                 Platform.runLater(() -> { arkanoidModel.setSliderWidth(60); });
                 arkanoidModel.setSliderSpeed(5);

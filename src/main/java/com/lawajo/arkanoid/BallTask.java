@@ -7,17 +7,14 @@ package com.lawajo.arkanoid;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
 import com.lawajo.arkanoid.model.BallModel;
-import com.lawajo.arkanoid.model.SliderModel;
 import java.util.TimerTask;
-import javafx.application.Platform;
 
 /**
- *
- * @author lande
+ * @author Lander Ketelbuters
  */
 public class BallTask extends TimerTask {
-    private BallModel ballModel;
-    private ArkanoidModel arkanoidModel;
+    private final BallModel ballModel;
+    private final ArkanoidModel arkanoidModel;
     
     
     public BallTask(BallModel ballModel, ArkanoidModel arkanoidModel) {

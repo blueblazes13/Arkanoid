@@ -13,14 +13,16 @@ import java.util.Timer;
  * @author lande
  */
 public class SliderModel extends BlockModel {
-   
-    private int speed;
     public int width = 60;
     public int height = 5;
-    private transient Timer rightTimer;
-    private transient Timer leftTimer;
+    
+    private int speed;
+    
     private Boolean isMovingLeft;
     private Boolean isMovingRight;
+    
+    private transient Timer rightTimer;
+    private transient Timer leftTimer;
     
     
     /**
@@ -37,6 +39,11 @@ public class SliderModel extends BlockModel {
     }
     
     
+    /**
+     * Sets the width of the slider.
+     * 
+     * @param width The width of the slider.
+     */
     public void setWidth(int width) {
         this.width = width;
     }
@@ -75,7 +82,7 @@ public class SliderModel extends BlockModel {
     
     
     /**
-     * Moves the slider to the left.
+     * Starts moving the slider to the left.
      */
     public void toLeft() {
         if(super.getX() <= 0 || this.isMovingLeft) return;
@@ -88,7 +95,7 @@ public class SliderModel extends BlockModel {
     
     
     /**
-     * Moves the slider to the right.
+     * Starts moving the slider to the right.
      */
     public void toRight() {
         if(super.getX() >= 560 - WIDTH || this.isMovingRight) return;
@@ -101,7 +108,7 @@ public class SliderModel extends BlockModel {
     
     
     /**
-     * Stops the slider.
+     * Stops moving the slider to the left.
      */
     public void stopLeft(){
         if (!isMovingLeft) return;
@@ -112,7 +119,7 @@ public class SliderModel extends BlockModel {
     
     
     /**
-     * Stops the slider.
+     * Stops moving the slider to the right.
      */
     public void stopRight(){
         if (!isMovingRight) return;

@@ -183,8 +183,7 @@ public class ArkanoidModel {
                 }
                 if(check(block, ballModel)){
                     if (block.hit(this.ball.getDamage())){
-                        block.setDeleted(true);
-                        //blockField[i][j] = null;
+                        block.setDeleted();
                     } 
                 return block;
                 }     
