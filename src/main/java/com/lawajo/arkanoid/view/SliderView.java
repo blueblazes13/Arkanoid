@@ -19,7 +19,7 @@ public class SliderView extends ViewObject {
     /**
      * Initializes a new slider.
      * 
-     * @param model The model wich controls the slider.
+     * @param model The model which controls the slider.
      */
     public SliderView(SliderModel model) {
         this.model = model;

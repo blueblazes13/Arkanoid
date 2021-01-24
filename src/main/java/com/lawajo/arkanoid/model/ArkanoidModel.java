@@ -439,7 +439,7 @@ public class ArkanoidModel {
     /**
      * Saves the ArkanoidModel with all the data of the game.
      * 
-     * @param model The ArkanoidModel wich controls the game.
+     * @param model The ArkanoidModel which controls the game.
      * 
      * @throws IOException 
      */

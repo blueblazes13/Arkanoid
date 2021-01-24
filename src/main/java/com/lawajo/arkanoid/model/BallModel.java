@@ -276,7 +276,7 @@ public class BallModel implements Deletable {
     /**
      * Starts moving the ball.
      * 
-     * @param arkanoidModel The ArkanoidModel wich controls the game.
+     * @param arkanoidModel The ArkanoidModel which controls the game.
      */
     public void startMoving(ArkanoidModel arkanoidModel){
         BallTask balltask = new BallTask(this, arkanoidModel);
