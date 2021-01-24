@@ -254,7 +254,9 @@ public class ArkanoidFXMLController {
      * Sets the best score the player has achieved so far.
      */
     public void setBestScore(){
-        ArkanoidModel.setMaxScore(ArkanoidModel.getScore());
+        if (ArkanoidModel.getScore() > ArkanoidModel.getMaxScore()) {
+            ArkanoidModel.setMaxScore(ArkanoidModel.getScore());
+        }
         lblBestScore.setText(Integer.toString(ArkanoidModel.getMaxScore()));
     }
 }
