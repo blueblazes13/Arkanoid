@@ -74,6 +74,7 @@ public class BoostModel extends BallModel {
      */
     public void stopBoost() {
         Timer timer = new Timer(true);
+        // Credits voor new TimerTask(){}: https://stackoverflow.com/questions/37970682/passing-lambda-to-a-timer-instead-of-timertask
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
