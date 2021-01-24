@@ -179,9 +179,9 @@ public class ArkanoidFXMLController {
             switchMenu();
         }
         else if(this.model.allBlocksBroken()){
+            setBestScore();
             ArkanoidModel.controllingModel = this.model;
             this.model = new ArkanoidModel();
-            setBestScore();
             switchMenu();
         }
     }
@@ -244,7 +244,7 @@ public class ArkanoidFXMLController {
      */
     public void setScore(){
         lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
-        if (ArkanoidModel.getMaxScore()<ArkanoidModel.getScore()){
+        if (ArkanoidModel.getMaxScore()<=ArkanoidModel.getScore()){
             setBestScore();
         }
     }
@@ -254,7 +254,7 @@ public class ArkanoidFXMLController {
      * Sets the best score the player has achieved so far.
      */
     public void setBestScore(){
-        lblBestScore.setText(lblScore.getText());
-        ArkanoidModel.setMaxScore(Integer.parseInt(lblScore.getText()));
+        ArkanoidModel.setMaxScore(ArkanoidModel.getScore());
+        lblBestScore.setText(Integer.toString(ArkanoidModel.getMaxScore()));
     }
 }

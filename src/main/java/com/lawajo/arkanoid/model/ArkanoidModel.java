@@ -433,8 +433,6 @@ public class ArkanoidModel {
      */
     public static void setLifes(int lifes){
         ArkanoidModel.lifes = lifes;
-        System.out.println(lifes);
-        System.out.println(ArkanoidModel.lifes);
     }
     
     
