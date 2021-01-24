@@ -16,7 +16,7 @@ import javafx.application.Platform;
  */
 public class BoostModel extends BallModel {
 
-    private ArkanoidModel arkanoidModel;
+    private transient ArkanoidModel arkanoidModel;
     private Boolean activatedBoost;
     
     
