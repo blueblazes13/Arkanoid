@@ -1,11 +1,9 @@
 package com.lawajo.arkanoid;
 
 import com.lawajo.arkanoid.model.ArkanoidModel;
-import com.lawajo.arkanoid.model.BoostModel;
 import com.lawajo.arkanoid.model.Direction;
 import com.lawajo.arkanoid.view.ArkanoidView;
 import java.io.IOException;
-import java.util.concurrent.ThreadLocalRandom;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,15 +48,16 @@ public class ArkanoidFXMLController {
     void initialize() {
         
         if (ArkanoidModel.controllingModel == null){
-            model = new ArkanoidModel();
+            this.model = new ArkanoidModel();
+            ArkanoidModel.addScore(-ArkanoidModel.getScore());
+            ArkanoidModel.setLifes(3);
         }
         else {
-            model = ArkanoidModel.controllingModel;
+            this.model = ArkanoidModel.controllingModel;
             ArkanoidModel.controllingModel = null;
         }
-        model.newGameTick(this);
+        this.model.newGameTick(this);
         view = new ArkanoidView(model);
-        ArkanoidModel.setLifes(1);
         
         view.addSlider(model.getSlider());
         view.addBall(model.getBall());
@@ -70,7 +69,7 @@ public class ArkanoidFXMLController {
         apPlayField.setOnKeyReleased(this::stopMoving);
         apPlayField.setOnKeyPressed(this::keyPressed);
         setLifeBar();
-        System.out.println(ArkanoidModel.lifes);
+        lblBestScore.setText(Integer.toString(ArkanoidModel.getMaxScore()));
     }
     
     
@@ -94,7 +93,7 @@ public class ArkanoidFXMLController {
     
     /**
      * Checks for input of the Left and Right arrow keys.
-     * @param k Keyevent k
+     * @param k KeyEvent k
      */
     private void keyPressed(KeyEvent k) {
         switch(k.getCode()){
@@ -114,16 +113,7 @@ public class ArkanoidFXMLController {
      * Updates the view.
      */
     public void update() {
-        if(model.isDeath()&&ArkanoidModel.getLifes()>0) {
-            view.removeBall(model.getBall());
-            model.newBall(280, 250);
-            view.addBall(model.getBall());
-            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
-        }
-//        if(boost.isMoving()) {
-//            view.removeBoost(boost);
-//            activateBoost();
-//        }
+        gameOver();
         setScore();
         setLifeBar();
         view.update();
@@ -131,28 +121,68 @@ public class ArkanoidFXMLController {
     
     /**
      * Go back to the Game menu.
-     * @param t Action Event t
+     * @param t ActionEvent t
      */
     private void toMenu(ActionEvent t) {
-        if(ArkanoidModel.lifes > 0){
+        if(ArkanoidModel.lifes >= 0){
             try {
                 ArkanoidModel.save(model);
             } catch (IOException ex){
                 ex.printStackTrace();
             }
         }
-        model.stopBall();
+        if (ArkanoidModel.getMaxScore()<=ArkanoidModel.getScore()){
+            setBestScore();
+        }
         switchMenu();
     }
     
     
     /**
-     * Resets the current Arkanoid Game.
-     * @param t 
+     * Switch back to the GameMenuFXML.
      */
-    public void reset(ActionEvent t) {
-        //#TODO
+    public void switchMenu(){
         model.stopBall();
+        try {
+            App.setRoot("GameMenuFXML");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }   
+    }
+    
+    
+    /**
+     * Checks if the game is over.
+     */
+    public void gameOver(){
+        if(this.model.isDeath() && ArkanoidModel.getLifes() > 0) {
+            view.removeBall(this.model.getBall());
+            this.model.newBall(280, 250);
+            view.addBall(this.model.getBall());
+            ArkanoidModel.setLifes(ArkanoidModel.getLifes()-1);
+        }
+        else if(this.model.isDeath() && ArkanoidModel.getLifes() == 0) {
+            if(ArkanoidModel.getMaxScore() >= ArkanoidModel.getScore()){
+                setBestScore();
+            }
+            this.model = new ArkanoidModel();
+            switchMenu();
+        }
+        else if(this.model.allBlocksBroken()){
+            ArkanoidModel.controllingModel = this.model;
+            this.model = new ArkanoidModel();
+            setBestScore();
+            switchMenu();
+        }
+    }
+    
+    
+    /**
+     * Sets all the parameters for a new game.
+     */
+    public void newGame(){
+        ArkanoidModel.addScore(-ArkanoidModel.getScore());
+        ArkanoidModel.setLifes(3);
         this.model = new ArkanoidModel();
         this.view = new ArkanoidView(this.model);
         this.apPlayField.getChildren().clear();
@@ -162,17 +192,18 @@ public class ArkanoidFXMLController {
         view.addBall(model.getBall());
         
         view.setFocusTraversable(true);
-        update();
-        
-        /*try {
-            ArkanoidModel.save(model);
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }*/
     }
     
     
-   
+    /**
+     * Resets the current Arkanoid Game.
+     * @param t ActionEvent t
+     */
+    public void reset(ActionEvent t) {
+        this.model.stopBall();
+        newGame();
+        update();
+    }
     
     
     /**
@@ -203,10 +234,8 @@ public class ArkanoidFXMLController {
      */
     public void setScore(){
         lblScore.setText(Integer.toString(ArkanoidModel.getScore()));
-        if(model.isDeath()&&ArkanoidModel.getLifes() == 0){
-            if(ArkanoidModel.getMaxScore() < ArkanoidModel.getScore()){
+        if (ArkanoidModel.getMaxScore()<ArkanoidModel.getScore()){
             setBestScore();
-            }
         }
     }
     
@@ -215,22 +244,7 @@ public class ArkanoidFXMLController {
      * Sets the best score the player has achieved so far.
      */
     public void setBestScore(){
-        String score = lblScore.getText();
-        if(Integer.parseInt(lblScore.getText())>Integer.parseInt(lblBestScore.getText())){
-            lblBestScore.setText(score);
-            ArkanoidModel.setMaxScore(Integer.parseInt(score));
-        }
-        switchMenu();
-    }
-    
-    /**
-     * Switch back to the GameMenuFXML.
-     */
-    public void switchMenu(){
-        try {
-            App.setRoot("GameMenuFXML");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        lblBestScore.setText(lblScore.getText());
+        ArkanoidModel.setMaxScore(Integer.parseInt(lblScore.getText()));
     }
 }

@@ -28,6 +28,9 @@ public class GameMenuFXMLController {
 
     @FXML
     private Label lblLatestScore;
+    
+    @FXML
+    private Label lblWinMessage;
 
     @FXML
     private MenuItem miEasy;
@@ -56,6 +59,7 @@ public class GameMenuFXMLController {
      */
     @FXML
     void initialize() {
+        setWinMessage();
         miEasy.setOnAction((m) -> {
             lblCurrentDifficulty.setText("Easy");
             diff = EASY;
@@ -78,6 +82,7 @@ public class GameMenuFXMLController {
         });
         btnStartGame.setOnAction(this::start);
         btnLoad.setOnAction(this::load);
+        //lblWinMessage.setText("");
         setScores();
     }
 
@@ -99,14 +104,26 @@ public class GameMenuFXMLController {
             ex.printStackTrace();
         }    
     }   
+    
+    
     /**
-     * 
-     * 
+     * Sets the latest and best scores.
      */
-    private void setScores() {
-        System.out.println("dikke boktor");
+    public void setScores() {
         lblLatestScore.setText(Integer.toString(ArkanoidModel.getScore()));
         lblBestScore.setText(Integer.toString(ArkanoidModel.getMaxScore()));
     }
     
+    
+    /**
+     * Sets a win message if you've won last game.
+     */
+    public void setWinMessage() {
+        if (ArkanoidModel.controllingModel != null){
+            lblWinMessage.setText("Je hebt " + ArkanoidModel.getDifficulty() + " uitgespeeld!");
+            ArkanoidModel.controllingModel = null;
+        } else {
+            lblWinMessage.setText("");
+        }
+    }
 }

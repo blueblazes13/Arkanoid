@@ -196,6 +196,24 @@ public class ArkanoidModel {
     
     
     /**
+     * Checks if the player has broken all the blocks.
+     * @return true of false
+     */
+    public boolean allBlocksBroken(){
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                
+                BlockModel block = getBlock(i, j);
+                if(block != null && block.isDeleted() == false) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    
+    /**
      * Gets the current score of the game.
      * 
      * @return The current score.
